@@ -4,6 +4,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.Collections;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import net.sf.latexdraw.LatexdrawExtension;
 import net.sf.latexdraw.data.ConfigureInjection;
 import net.sf.latexdraw.data.InjectionExtension;
 import net.sf.latexdraw.model.ShapeFactory;
@@ -26,14 +27,13 @@ import net.sf.latexdraw.model.api.shape.Text;
 import net.sf.latexdraw.model.api.shape.Triangle;
 import net.sf.latexdraw.service.PreferencesService;
 import net.sf.latexdraw.util.Injector;
-import net.sf.latexdraw.view.latex.DviPsColors;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
 import static org.junit.Assert.assertTrue;
 
+@ExtendWith(LatexdrawExtension.class)
 @ExtendWith(InjectionExtension.class)
 public class TestPSTViewFactory {
 	PSTViewsFactory factory;
@@ -53,11 +53,6 @@ public class TestPSTViewFactory {
 	@BeforeEach
 	void setUp(final PSTViewsFactory factory) {
 		this.factory = factory;
-	}
-
-	@AfterEach
-	void tearDown() {
-		DviPsColors.INSTANCE.clearUserColours();
 	}
 
 	@Test

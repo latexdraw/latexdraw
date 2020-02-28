@@ -1,7 +1,7 @@
 package net.sf.latexdraw.view.svg;
 
 import java.lang.reflect.InvocationTargetException;
-import net.sf.latexdraw.util.BadaboomCollector;
+import net.sf.latexdraw.LatexdrawExtension;
 import net.sf.latexdraw.data.ConfigureInjection;
 import net.sf.latexdraw.data.InjectionExtension;
 import net.sf.latexdraw.model.api.shape.Drawing;
@@ -17,15 +17,12 @@ import net.sf.latexdraw.util.LNamespace;
 import net.sf.latexdraw.view.PolymorphicConversion;
 import net.sf.latexdraw.view.ViewsSynchroniserHandler;
 import net.sf.latexdraw.view.jfx.ViewFactory;
-import net.sf.latexdraw.view.latex.DviPsColors;
 import net.sf.latexdraw.view.latex.LaTeXGenerator;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.ExtendWith;
-import io.github.interacto.command.CommandsRegistry;
-import io.github.interacto.undo.UndoCollector;
 import org.mockito.Mockito;
 
+@ExtendWith(LatexdrawExtension.class)
 @ExtendWith(InjectionExtension.class)
 abstract class TestSVGBase<T extends Shape> implements PolymorphicConversion<T> {
 	SVGDocument doc;
@@ -55,14 +52,6 @@ abstract class TestSVGBase<T extends Shape> implements PolymorphicConversion<T> 
 		root.appendChild(new SVGDefsElement(doc));
 		root.setAttribute(SVGAttributes.SVG_VERSION, "1.1");
 		root.setAttribute(SVGAttributes.SVG_BASE_PROFILE, "full");
-	}
-
-	@AfterEach
-	public void tearDown() {
-		DviPsColors.INSTANCE.clearUserColours();
-		CommandsRegistry.getInstance().clear();
-		BadaboomCollector.INSTANCE.clear();
-		UndoCollector.getInstance().clear();
 	}
 
 	@Override

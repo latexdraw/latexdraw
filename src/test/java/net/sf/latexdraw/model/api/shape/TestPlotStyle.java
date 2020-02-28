@@ -1,11 +1,14 @@
 package net.sf.latexdraw.model.api.shape;
 
+import net.sf.latexdraw.LatexdrawExtension;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EnumSource;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+@ExtendWith(LatexdrawExtension.class)
 public class TestPlotStyle {
 	@Test
 	public void testGetPSTToken() {

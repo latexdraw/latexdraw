@@ -5,7 +5,6 @@ import org.w3c.dom.Node;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-
 public class TestSVGComment extends TestSVGText {
 	@Override
 	@Test

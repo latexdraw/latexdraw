@@ -3,8 +3,11 @@ package net.sf.latexdraw.parser.svg;
 import java.awt.geom.Point2D;
 import java.util.List;
 import java.util.Map;
+import net.sf.latexdraw.LatexdrawExtension;
+import net.sf.latexdraw.NoBadaboomCheck;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
@@ -12,6 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+@ExtendWith(LatexdrawExtension.class)
 class TestSVGParserUtils {
 	@Test
 	void testGetURIOK() {
@@ -104,6 +108,7 @@ class TestSVGParserUtils {
 
 	@ParameterizedTest
 	@ValueSource(strings = {"fdsfsd", "10 10 10", "10,, 10 10 10"})
+	@NoBadaboomCheck
 	void testParseKO(final String data) {
 		final List<Point2D> pts = SVGParserUtils.INSTANCE.parsePoints(data);
 		assertTrue(pts.isEmpty());

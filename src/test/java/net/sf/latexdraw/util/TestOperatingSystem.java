@@ -1,10 +1,13 @@
 package net.sf.latexdraw.util;
 
+import net.sf.latexdraw.LatexdrawExtension;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EnumSource;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+@ExtendWith(LatexdrawExtension.class)
 public class TestOperatingSystem {
 	@ParameterizedTest
 	@EnumSource(OperatingSystem.class)

@@ -1,13 +1,15 @@
 package net.sf.latexdraw.util;
 
+import net.sf.latexdraw.LatexdrawExtension;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-
+@ExtendWith(LatexdrawExtension.class)
 public class TestTriple {
 	Triple<Double, String, Boolean> triple;
 

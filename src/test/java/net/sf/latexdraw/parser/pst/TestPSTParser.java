@@ -3,22 +3,20 @@ package net.sf.latexdraw.parser.pst;
 import java.util.List;
 import java.util.logging.Handler;
 import java.util.logging.LogRecord;
-import net.sf.latexdraw.util.BadaboomCollector;
+import net.sf.latexdraw.LatexdrawExtension;
 import net.sf.latexdraw.model.api.shape.Shape;
-import net.sf.latexdraw.view.latex.DviPsColors;
 import org.antlr.v4.runtime.BaseErrorListener;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.RecognitionException;
 import org.antlr.v4.runtime.Recognizer;
 import org.antlr.v4.runtime.atn.ATNDeserializer;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
-import io.github.interacto.command.CommandsRegistry;
-import io.github.interacto.undo.UndoCollector;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 import static org.junit.jupiter.api.Assertions.fail;
 
+@ExtendWith(LatexdrawExtension.class)
 public abstract class TestPSTParser {
 	PSTLatexdrawListener listener;
 	List<Shape> parsedShapes;
@@ -40,18 +38,8 @@ public abstract class TestPSTParser {
 			public void close() throws SecurityException {
 			}
 		};
-		DviPsColors.INSTANCE.clearUserColours();
-
 		listener = new ErrorPSTLatexdrawListener();
 		listener.log.addHandler(parserLogHandler);
-	}
-
-	@AfterEach
-	void tearDown() {
-		CommandsRegistry.getInstance().clear();
-		BadaboomCollector.INSTANCE.clear();
-		UndoCollector.getInstance().clear();
-		DviPsColors.INSTANCE.clearUserColours();
 	}
 
 	<T extends Shape> T getShapeAt(final int i) {

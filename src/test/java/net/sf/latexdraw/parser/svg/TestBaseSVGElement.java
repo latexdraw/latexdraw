@@ -1,7 +1,9 @@
 package net.sf.latexdraw.parser.svg;
 
+import net.sf.latexdraw.LatexdrawExtension;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.w3c.dom.DOMException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -9,6 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+@ExtendWith(LatexdrawExtension.class)
 public abstract class TestBaseSVGElement {
 	protected SVGElement node;
 	protected SVGDocument doc = new SVGDocument();
@@ -16,7 +19,7 @@ public abstract class TestBaseSVGElement {
 	public abstract String getNameNode();
 
 	@BeforeEach
-	void setUp() {
+	void setUpBase() {
 		doc = new SVGDocument();
 		node = (SVGElement) doc.createElement(getNameNode());
 	}

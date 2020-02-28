@@ -8,7 +8,7 @@ import net.sf.latexdraw.util.Tuple;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestParsingArrow extends TestPSTParser {
 	public static Stream<Tuple<String, String>> cmds() {

@@ -13,7 +13,7 @@ package net.sf.latexdraw.view.pst;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import java.util.ResourceBundle;
-import net.sf.latexdraw.util.BadaboomCollector;
+import net.sf.latexdraw.LatexdrawExtension;
 import net.sf.latexdraw.data.ConfigureInjection;
 import net.sf.latexdraw.data.InjectionExtension;
 import net.sf.latexdraw.model.ShapeFactory;
@@ -23,17 +23,15 @@ import net.sf.latexdraw.parser.pst.TestPSTParser;
 import net.sf.latexdraw.service.PreferencesService;
 import net.sf.latexdraw.util.Injector;
 import net.sf.latexdraw.view.PolymorphicConversion;
-import net.sf.latexdraw.view.latex.DviPsColors;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.atn.ATNDeserializer;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.ExtendWith;
-import io.github.interacto.undo.UndoCollector;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+@ExtendWith(LatexdrawExtension.class)
 @ExtendWith(InjectionExtension.class)
 abstract class TestPSTBase<T extends Shape> implements PolymorphicConversion<T> {
 	PSTViewsFactory factory;
@@ -53,13 +51,6 @@ abstract class TestPSTBase<T extends Shape> implements PolymorphicConversion<T> 
 	@BeforeEach
 	public void setUp(final PSTViewsFactory fact) {
 		factory = fact;
-	}
-
-	@AfterEach
-	public void tearDown() {
-		DviPsColors.INSTANCE.clearUserColours();
-		BadaboomCollector.INSTANCE.clear();
-		UndoCollector.getInstance().clear();
 	}
 
 	@Override

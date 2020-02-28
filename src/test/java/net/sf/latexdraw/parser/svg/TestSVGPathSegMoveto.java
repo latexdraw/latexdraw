@@ -1,14 +1,18 @@
 package net.sf.latexdraw.parser.svg;
 
 import java.util.concurrent.atomic.AtomicBoolean;
+import net.sf.latexdraw.LatexdrawExtension;
+import net.sf.latexdraw.NoBadaboomCheck;
 import net.sf.latexdraw.parser.svg.path.SVGPathSegMoveto;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+@ExtendWith(LatexdrawExtension.class)
 public class TestSVGPathSegMoveto {
 	SVGPathSegMoveto seg;
 
@@ -25,6 +29,7 @@ public class TestSVGPathSegMoveto {
 	}
 
 	@Test
+	@NoBadaboomCheck
 	public void testToString() {
 		final AtomicBoolean done = new AtomicBoolean(false);
 		SVGParserUtils.INSTANCE.parseSVGPath(seg.toString(), pathSeg -> {

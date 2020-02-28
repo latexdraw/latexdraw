@@ -1,11 +1,14 @@
 package net.sf.latexdraw.parser;
 
+import net.sf.latexdraw.LatexdrawExtension;
 import net.sf.latexdraw.view.pst.PSTricksConstants;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+@ExtendWith(LatexdrawExtension.class)
 public class TestPSTricksConstants {
 	@Test
 	void testIsValidArrowStyleNULL() {
@@ -29,5 +32,4 @@ public class TestPSTricksConstants {
 		assertTrue(PSTricksConstants.isValidFillStyle(PSTricksConstants.TOKEN_FILL_VLINES));
 		assertTrue(PSTricksConstants.isValidFillStyle(PSTricksConstants.TOKEN_FILL_VLINES_F));
 	}
-
 }

@@ -1,10 +1,13 @@
 package net.sf.latexdraw.parser.svg;
 
+import net.sf.latexdraw.LatexdrawExtension;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+@ExtendWith(LatexdrawExtension.class)
 class TestSVGMatrix {
 	@Test
 	void testCreateRotate() {

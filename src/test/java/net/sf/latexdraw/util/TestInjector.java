@@ -3,6 +3,7 @@ package net.sf.latexdraw.util;
 import java.lang.reflect.InvocationTargetException;
 import java.util.logging.Handler;
 import net.sf.latexdraw.HelperTest;
+import net.sf.latexdraw.LatexdrawExtension;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -18,6 +19,7 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @ExtendWith(MockitoExtension.class)
+@ExtendWith(LatexdrawExtension.class)
 public class TestInjector implements HelperTest {
 	Injector injector;
 	@Mock Handler handler;

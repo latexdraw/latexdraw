@@ -2,13 +2,15 @@ package net.sf.latexdraw.util;
 
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import net.sf.latexdraw.LatexdrawExtension;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.junit.Assert.assertTrue;
 
+@ExtendWith(LatexdrawExtension.class)
 public class TestResources {
-
 	@ParameterizedTest
 	@ValueSource(strings = {
 		"/res/LaTeXDrawIcon.png",

@@ -1,7 +1,9 @@
 package net.sf.latexdraw.parser.svg;
 
+import net.sf.latexdraw.LatexdrawExtension;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.w3c.dom.DOMException;
@@ -12,6 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+@ExtendWith(LatexdrawExtension.class)
 public class TestSVGNamedNodeMap {
 	SVGNamedNodeMap map;
 	SVGDocument doc;

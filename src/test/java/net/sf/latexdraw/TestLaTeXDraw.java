@@ -1,5 +1,6 @@
 package net.sf.latexdraw;
 
+import io.github.interacto.command.CommandsRegistry;
 import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -14,7 +15,6 @@ import javafx.scene.input.MouseButton;
 import net.sf.latexdraw.command.SaveDrawing;
 import net.sf.latexdraw.instrument.ExceptionsManager;
 import net.sf.latexdraw.service.PreferencesService;
-import net.sf.latexdraw.util.BadaboomCollector;
 import net.sf.latexdraw.util.Page;
 import net.sf.latexdraw.view.jfx.Canvas;
 import org.junit.jupiter.api.AfterAll;
@@ -24,7 +24,6 @@ import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.api.io.TempDir;
-import io.github.interacto.command.CommandsRegistry;
 import org.testfx.api.FxRobot;
 import org.testfx.api.FxToolkit;
 import org.testfx.framework.junit5.ApplicationExtension;
@@ -35,6 +34,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+@ExtendWith(LatexdrawExtension.class)
 @ExtendWith(ApplicationExtension.class)
 public class TestLaTeXDraw {
 	static LaTeXDraw app;
@@ -58,21 +58,12 @@ public class TestLaTeXDraw {
 	@AfterAll
 	static void afterAll() throws TimeoutException {
 		FxToolkit.cleanupApplication(app);
-		BadaboomCollector.INSTANCE.clear();
-		CommandsRegistry.getInstance().clear();
 		app = null;
 	}
 
 	@BeforeEach
 	public void setUp() {
-		CommandsRegistry.getInstance().clear();
-		BadaboomCollector.INSTANCE.clear();
 		app.getInjector().getInstance(PreferencesService.class).setPage(Page.HORIZONTAL);
-	}
-
-	@Test
-	public void testNoException() {
-		assertTrue(BadaboomCollector.INSTANCE.errorsProperty().isEmpty());
 	}
 
 	@Test
@@ -102,7 +93,6 @@ public class TestLaTeXDraw {
 		Platform.runLater(() -> app.reinit());
 		WaitForAsyncUtils.waitForFxEvents();
 		assertFalse(app.isModified());
-		assertTrue(BadaboomCollector.INSTANCE.errorsProperty().isEmpty());
 	}
 
 	@Test
@@ -136,7 +126,6 @@ public class TestLaTeXDraw {
 		robot.clickOn("#fileMenu").clickOn("#saveMenu").sleep(1000L);
 		WaitForAsyncUtils.waitForFxEvents();
 		assertTrue(CommandsRegistry.getInstance().getCommands().get(CommandsRegistry.getInstance().getCommands().size() - 1) instanceof SaveDrawing);
-		assertTrue(BadaboomCollector.INSTANCE.errorsProperty().isEmpty());
 		assertFalse(app.getInjector().getInstance(ExceptionsManager.class).isActivated());
 	}
 }

@@ -42,8 +42,8 @@ public class TestLineArcProp implements HelperTest {
 	}
 
 	@Theory
-	public void testIsSetRoundKO(@LineArcData final LineArcProp shape, @DoubleData(vals = {0d}) final double value) {
-		shape.setLineArc(value);
+	public void testIsSetRoundKO(@LineArcData final LineArcProp shape) {
+		shape.setLineArc(0d);
 		assertFalse(shape.isRoundCorner());
 	}
 }

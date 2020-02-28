@@ -13,7 +13,6 @@ public class TestSVGDefsElement extends TestBaseSVGElement {
 
 	@BeforeEach
 	void setUpDefs() {
-		super.setUp();
 		defs = new SVGDefsElement(node, null);
 	}
 

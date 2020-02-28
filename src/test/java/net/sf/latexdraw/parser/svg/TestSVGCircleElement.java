@@ -9,9 +9,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TestSVGCircleElement extends TestBaseSVGElement {
-	@Override
 	@BeforeEach
-	void setUp() {
+	void setUpCircle() {
 		doc = new SVGDocument();
 		node = (SVGElement) doc.createElement(SVGElements.SVG_CIRCLE);
 	}

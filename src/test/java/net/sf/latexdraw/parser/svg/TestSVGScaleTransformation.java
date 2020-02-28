@@ -1,12 +1,15 @@
 package net.sf.latexdraw.parser.svg;
 
+import net.sf.latexdraw.LatexdrawExtension;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+@ExtendWith(LatexdrawExtension.class)
 public class TestSVGScaleTransformation {
 	@Test
 	void testConstructorNULL() {

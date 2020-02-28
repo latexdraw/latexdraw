@@ -1,13 +1,16 @@
 package net.sf.latexdraw.parser.svg;
 
+import net.sf.latexdraw.LatexdrawExtension;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.w3c.dom.Node;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+@ExtendWith(LatexdrawExtension.class)
 public class TestSVGText {
 	SVGDocument doc;
 	SVGText txt;

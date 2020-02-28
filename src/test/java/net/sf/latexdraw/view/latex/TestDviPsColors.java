@@ -1,10 +1,11 @@
 package net.sf.latexdraw.view.latex;
 
 import java.util.Optional;
+import net.sf.latexdraw.LatexdrawExtension;
 import net.sf.latexdraw.model.ShapeFactory;
 import net.sf.latexdraw.model.api.shape.Color;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
@@ -13,12 +14,8 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+@ExtendWith(LatexdrawExtension.class)
 public class TestDviPsColors {
-	@AfterEach
-	void tearDown() {
-		DviPsColors.INSTANCE.clearUserColours();
-	}
-
 	@Test
 	void testConvertHTML2rgbsuccess() {
 		assertEquals(ShapeFactory.INST.createColor(1d, 0, 100d / 255d, 1d), DviPsColors.INSTANCE.convertHTML2rgb("#FF0064"));

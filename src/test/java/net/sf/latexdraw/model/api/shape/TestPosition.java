@@ -1,10 +1,13 @@
 package net.sf.latexdraw.model.api.shape;
 
+import net.sf.latexdraw.LatexdrawExtension;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+@ExtendWith(LatexdrawExtension.class)
 public class TestPosition {
 	@Test
 	public void testIsSouth() {

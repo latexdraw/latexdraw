@@ -10,7 +10,7 @@ import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.PathElement;
 import net.sf.latexdraw.HelperTest;
-import net.sf.latexdraw.util.BadaboomCollector;
+import net.sf.latexdraw.LatexdrawExtension;
 import net.sf.latexdraw.data.ConfigureInjection;
 import net.sf.latexdraw.data.InjectionExtension;
 import net.sf.latexdraw.model.api.shape.Drawing;
@@ -18,18 +18,16 @@ import net.sf.latexdraw.model.api.shape.SingleShape;
 import net.sf.latexdraw.service.LaTeXDataService;
 import net.sf.latexdraw.service.PreferencesService;
 import net.sf.latexdraw.util.Injector;
-import net.sf.latexdraw.view.latex.DviPsColors;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.ExtendWith;
-import io.github.interacto.command.CommandsRegistry;
-import io.github.interacto.undo.UndoCollector;
 import org.testfx.framework.junit5.ApplicationExtension;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+@ExtendWith(LatexdrawExtension.class)
 @ExtendWith(ApplicationExtension.class)
 @ExtendWith(InjectionExtension.class)
 abstract class TestViewShape<T extends ViewShape<S>, S extends SingleShape> implements HelperTest, ITestViewShape<T, S> {
@@ -69,20 +67,15 @@ abstract class TestViewShape<T extends ViewShape<S>, S extends SingleShape> impl
 	}
 
 	@BeforeEach
-	void setUp(final ViewFactory factory) {
-		BadaboomCollector.INSTANCE.clear();
+	void setUpViewShape(final ViewFactory factory) {
 		this.factory = factory;
 		view = createView();
 		model = view.getModel();
 	}
 
 	@AfterEach
-	void tearDown() {
+	void tearDownViewShape() {
 		view.flush();
-		CommandsRegistry.getInstance().clear();
-		BadaboomCollector.INSTANCE.clear();
-		UndoCollector.getInstance().clear();
-		DviPsColors.INSTANCE.clearUserColours();
 	}
 
 	@Override

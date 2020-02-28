@@ -2,6 +2,7 @@ package net.sf.latexdraw.parser.svg;
 
 import java.awt.geom.Point2D;
 import java.util.List;
+import net.sf.latexdraw.NoBadaboomCheck;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -45,6 +46,7 @@ public class TestSVGPolylineElement extends TestBaseSVGElement {
 	}
 
 	@Test
+	@NoBadaboomCheck
 	void testSetPointsFail() {
 		node.setAttribute(SVGAttributes.SVG_POINTS, "10,10 20,20");
 		pl = new SVGPolyLineElement(node, null);
@@ -71,17 +73,20 @@ public class TestSVGPolylineElement extends TestBaseSVGElement {
 	}
 
 	@Test
+	@NoBadaboomCheck
 	void testContructorFail2() {
 		assertThrows(IllegalArgumentException.class, () -> new SVGPolyLineElement(node, null));
 	}
 
 	@Test
+	@NoBadaboomCheck
 	void testContructorFail3() {
 		node.setAttribute(SVGAttributes.SVG_POINTS, "");
 		assertThrows(IllegalArgumentException.class, () -> new SVGPolyLineElement(node, null));
 	}
 
 	@Test
+	@NoBadaboomCheck
 	void testContructorFail4() {
 		node.setAttribute(SVGAttributes.SVG_POINTS, "dsqdgfd");
 		assertThrows(IllegalArgumentException.class, () -> new SVGPolyLineElement(node, null));
@@ -94,6 +99,7 @@ public class TestSVGPolylineElement extends TestBaseSVGElement {
 	}
 
 	@Test
+	@NoBadaboomCheck
 	void testContructorOK2() {
 		node.setAttribute(SVGAttributes.SVG_POINTS, ",");
 		assertThrows(IllegalArgumentException.class, () -> new SVGPolyLineElement(node, null));

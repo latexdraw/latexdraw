@@ -1,15 +1,18 @@
 package net.sf.latexdraw.parser.svg;
 
 import java.util.concurrent.atomic.AtomicBoolean;
+import net.sf.latexdraw.LatexdrawExtension;
 import net.sf.latexdraw.parser.svg.path.SVGPathSegLinetoVertical;
 import net.sf.latexdraw.parser.svg.path.SVGPathSegMoveto;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+@ExtendWith(LatexdrawExtension.class)
 public class TestSVGPathSegLinetoVertical {
 	SVGPathSegLinetoVertical seg;
 

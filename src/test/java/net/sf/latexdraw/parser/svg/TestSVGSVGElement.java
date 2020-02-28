@@ -3,8 +3,10 @@ package net.sf.latexdraw.parser.svg;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import net.sf.latexdraw.LatexdrawExtension;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -15,6 +17,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+@ExtendWith(LatexdrawExtension.class)
 public class TestSVGSVGElement extends TestBaseSVGElement {
 	SVGSVGElement e;
 

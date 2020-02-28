@@ -1,13 +1,9 @@
 package net.sf.latexdraw.view.jfx;
 
 import java.util.Arrays;
-import net.sf.latexdraw.data.InjectionExtension;
 import net.sf.latexdraw.model.ShapeFactory;
 import net.sf.latexdraw.model.api.shape.Polygon;
-import org.junit.jupiter.api.extension.ExtendWith;
 
-// To remove with vintage will not be used anymore. Otherwise, junit thinks this class is junit4
-@ExtendWith(InjectionExtension.class)
 public class TestViewPolygon extends TestViewPolyPoint<ViewPolygon, Polygon> {
 	@Override
 	protected Polygon createModel() {

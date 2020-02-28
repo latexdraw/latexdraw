@@ -18,7 +18,6 @@ import org.testfx.util.WaitForAsyncUtils;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
-
 public class TestViewGrid extends TestViewStdGrid<ViewGrid, Grid> {
 	List<PathElement> mainGridBefore;
 	List<PathElement> subGridBefore;

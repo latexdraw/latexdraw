@@ -1,13 +1,16 @@
 package net.sf.latexdraw.parser;
 
+import net.sf.latexdraw.LatexdrawExtension;
 import net.sf.latexdraw.model.ShapeFactory;
 import net.sf.latexdraw.parser.svg.CSSColors;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
+@ExtendWith(LatexdrawExtension.class)
 public class TestCssColor {
 	@Test
 	void testGetColour() {

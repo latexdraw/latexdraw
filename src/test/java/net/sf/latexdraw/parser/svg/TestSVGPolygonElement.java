@@ -3,6 +3,7 @@ package net.sf.latexdraw.parser.svg;
 import java.awt.geom.Point2D;
 import java.text.ParseException;
 import java.util.List;
+import net.sf.latexdraw.NoBadaboomCheck;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -38,6 +39,7 @@ public class TestSVGPolygonElement extends TestBaseSVGElement {
 	}
 
 	@Test
+	@NoBadaboomCheck
 	void testSetPointsFail() {
 		node.setAttribute(SVGAttributes.SVG_POINTS, "10,10 20,20");
 		final SVGPolygonElement pl = new SVGPolygonElement(node, null);
@@ -71,17 +73,20 @@ public class TestSVGPolygonElement extends TestBaseSVGElement {
 	}
 
 	@Test
+	@NoBadaboomCheck
 	void testContructorFail2() {
 		assertThrows(IllegalArgumentException.class, () -> new SVGPolygonElement(node, null));
 	}
 
 	@Test
+	@NoBadaboomCheck
 	void testContructorOK1() {
 		node.setAttribute(SVGAttributes.SVG_POINTS, "");
 		assertThrows(IllegalArgumentException.class, () -> new SVGPolygonElement(node, null));
 	}
 
 	@Test
+	@NoBadaboomCheck
 	void testContructorFail5() {
 		node.setAttribute(SVGAttributes.SVG_POINTS, "dsqdgfd");
 		assertThrows(IllegalArgumentException.class, () -> new SVGPolygonElement(node, null));
@@ -94,6 +99,7 @@ public class TestSVGPolygonElement extends TestBaseSVGElement {
 	}
 
 	@Test
+	@NoBadaboomCheck
 	void testContructorFail7() {
 		node.setAttribute(SVGAttributes.SVG_POINTS, ",");
 		assertThrows(IllegalArgumentException.class, () -> new SVGPolygonElement(node, null));

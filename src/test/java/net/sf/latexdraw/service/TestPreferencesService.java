@@ -3,6 +3,8 @@ package net.sf.latexdraw.service;
 import java.io.File;
 import java.nio.file.Path;
 import java.util.Locale;
+import net.sf.latexdraw.LatexdrawExtension;
+import net.sf.latexdraw.NoBadaboomCheck;
 import net.sf.latexdraw.util.Page;
 import net.sf.latexdraw.util.Unit;
 import net.sf.latexdraw.view.GridStyle;
@@ -10,12 +12,14 @@ import org.assertj.core.util.Files;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.api.io.TempDir;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+@ExtendWith(LatexdrawExtension.class)
 class TestPreferencesService {
 	PreferencesService prefs;
 
@@ -234,6 +238,7 @@ class TestPreferencesService {
 		}
 
 		@Test
+		@NoBadaboomCheck
 		void testWriteNoCrash() {
 			prefs.pathOpenProperty().set("pathopen");
 			prefs.pathExportProperty().set("exportpath");
