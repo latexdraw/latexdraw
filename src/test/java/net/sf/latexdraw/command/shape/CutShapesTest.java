@@ -58,7 +58,7 @@ class CutShapesTest extends UndoableCmdTest<CutShapes> {
 	protected Stream<Runnable> doCheckers() {
 		return Stream.of(() -> {
 			assertThat(drawing.size()).isEqualTo(1);
-			assertThat(drawing.getShapeAt(0).orElseThrow()).isEqualTo(copiedShapes.get(1));
+			assertThat(drawing.getShapeAt(0).orElseThrow()).isSameAs(copiedShapes.get(1));
 		});
 	}
 

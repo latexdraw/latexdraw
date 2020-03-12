@@ -53,7 +53,7 @@ class DeleteShapesTest extends UndoableCmdTest<DeleteShapes> {
 	protected Stream<Runnable> doCheckers() {
 		return Stream.of(() -> {
 			assertThat(drawing.size()).isEqualTo(1);
-			assertThat(drawing.getShapeAt(0).orElseThrow()).isEqualTo(shapes.get(1));
+			assertThat(drawing.getShapeAt(0).orElseThrow()).isSameAs(shapes.get(1));
 			assertThat(drawing.isModified()).isTrue();
 		});
 	}
