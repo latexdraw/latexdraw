@@ -1,5 +1,9 @@
 package net.sf.latexdraw.instrument;
 
+import io.github.interacto.command.CommandsRegistry;
+import io.github.interacto.instrument.Instrument;
+import io.github.interacto.jfx.ui.JfxUI;
+import io.github.interacto.undo.UndoCollector;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ResourceBundle;
 import java.util.concurrent.TimeoutException;
@@ -27,10 +31,6 @@ import net.sf.latexdraw.view.pst.PSTViewsFactory;
 import net.sf.latexdraw.view.svg.SVGShapesFactory;
 import org.junit.After;
 import org.junit.Test;
-import io.github.interacto.command.CommandsRegistry;
-import io.github.interacto.instrument.Instrument;
-import io.github.interacto.jfx.ui.JfxUI;
-import io.github.interacto.undo.UndoCollector;
 import org.mockito.Mockito;
 import org.testfx.framework.junit.ApplicationTest;
 import org.testfx.util.WaitForAsyncUtils;

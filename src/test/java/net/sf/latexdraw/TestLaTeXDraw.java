@@ -57,6 +57,7 @@ public class TestLaTeXDraw {
 
 	@AfterAll
 	static void afterAll() throws TimeoutException {
+		FxToolkit.cleanupStages();
 		FxToolkit.cleanupApplication(app);
 		app = null;
 	}
