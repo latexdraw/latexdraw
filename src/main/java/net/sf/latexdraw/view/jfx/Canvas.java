@@ -11,6 +11,9 @@
 package net.sf.latexdraw.view.jfx;
 
 import io.github.interacto.command.CommandsRegistry;
+import io.github.interacto.jfx.interaction.library.Click;
+import io.github.interacto.jfx.interaction.library.MouseEntered;
+import io.github.interacto.jfx.interaction.library.MouseExited;
 import io.github.interacto.properties.Modifiable;
 import io.github.interacto.properties.Preferenciable;
 import io.github.interacto.properties.Reinitialisable;
@@ -43,7 +46,6 @@ import javafx.scene.Cursor;
 import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -158,24 +160,32 @@ public class Canvas extends Pane implements Preferenciable, Modifiable, Reinitia
 		selectionBorder.setStroke(Color.GRAY);
 		selectionBorder.setStrokeLineCap(StrokeLineCap.BUTT);
 		selectionBorder.getStrokeDashArray().addAll(7d, 7d);
-		disposables.add(JavaFxObservable.eventsOf(selectionBorder, MouseEvent.MOUSE_ENTERED)
-			.observeOn(JavaFxScheduler.platform())
-			.subscribe(evt -> setCursor(Cursor.HAND), ex -> BadaboomCollector.INSTANCE.add(ex)));
-		disposables.add(JavaFxObservable.eventsOf(selectionBorder, MouseEvent.MOUSE_EXITED)
-			.observeOn(JavaFxScheduler.platform())
-			.subscribe(evt -> setCursor(Cursor.DEFAULT), ex -> BadaboomCollector.INSTANCE.add(ex)));
+
+		io.github.interacto.jfx.binding.Bindings
+			.anonCmdBinder(() -> setCursor(Cursor.HAND))
+			.usingInteraction(MouseEntered::new)
+			.on(selectionBorder)
+			.bind();
+
+		io.github.interacto.jfx.binding.Bindings
+			.anonCmdBinder(() -> setCursor(Cursor.DEFAULT))
+			.usingInteraction(MouseExited::new)
+			.on(selectionBorder)
+			.bind();
+
+		// Bloody key shortcuts. To work the canvas must grab the focus
+		// Must be a MOUSE_CLICKED, not a MOUSE_PRESSED, do not know why...
+		io.github.interacto.jfx.binding.Bindings
+			.anonCmdBinder(() -> requestFocus())
+			.usingInteraction(Click::new)
+			.on(this)
+			.bind();
 
 		// Instead of triggering the update on each change, wait for 20 ms
 		disposables.add(JavaFxObservable.<ObservableList<Shape>>changesOf(drawing.getSelection().getShapes())
 			.throttleLast(20, TimeUnit.MILLISECONDS)
 			.observeOn(JavaFxScheduler.platform())
 			.subscribe(next -> updateSelectionBorders(), ex -> BadaboomCollector.INSTANCE.add(ex)));
-
-		// Bloody key shortcuts. To work the canvas must grab the focus
-		// Must be a MOUSE_CLICKED, not a MOUSE_PRESSED, do not know why...
-		disposables.add(JavaFxObservable.eventsOf(this, MouseEvent.MOUSE_CLICKED)
-			.observeOn(JavaFxScheduler.platform())
-			.subscribe(evt -> requestFocus(), ex -> BadaboomCollector.INSTANCE.add(ex)));
 
 		disposables.add(CommandsRegistry.getInstance().commands()
 			.filter(c -> c instanceof Modifying)
