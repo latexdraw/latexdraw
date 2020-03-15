@@ -10,8 +10,11 @@
  */
 package net.sf.latexdraw.instrument;
 
+import io.github.interacto.jfx.command.ChangeCursor;
 import io.github.interacto.jfx.command.MoveCamera;
 import io.github.interacto.jfx.interaction.library.DnD;
+import io.github.interacto.jfx.interaction.library.MouseEntered;
+import io.github.interacto.jfx.interaction.library.MouseExited;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.Initializable;
@@ -50,6 +53,18 @@ public class CanvasController extends CanvasInstrument implements Initializable 
 			.when(i -> i.getButton() == MouseButton.MIDDLE)
 			.endOrCancel(i -> canvas.setCursor(Cursor.DEFAULT))
 			.continuousExecution()
+			.bind();
+
+		nodeBinder()
+			.toProduce(() -> new ChangeCursor(Cursor.HAND, canvas))
+			.usingInteraction(MouseEntered::new)
+			.on(canvas.getSelectionBorder())
+			.bind();
+
+		nodeBinder()
+			.toProduce(() -> new ChangeCursor(Cursor.DEFAULT, canvas))
+			.usingInteraction(MouseExited::new)
+			.on(canvas.getSelectionBorder())
 			.bind();
 	}
 

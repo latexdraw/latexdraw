@@ -12,8 +12,6 @@ package net.sf.latexdraw.view.jfx;
 
 import io.github.interacto.command.CommandsRegistry;
 import io.github.interacto.jfx.interaction.library.Click;
-import io.github.interacto.jfx.interaction.library.MouseEntered;
-import io.github.interacto.jfx.interaction.library.MouseExited;
 import io.github.interacto.properties.Modifiable;
 import io.github.interacto.properties.Preferenciable;
 import io.github.interacto.properties.Reinitialisable;
@@ -42,7 +40,6 @@ import javafx.beans.property.SimpleDoubleProperty;
 import javafx.collections.ListChangeListener.Change;
 import javafx.collections.ObservableList;
 import javafx.geometry.Bounds;
-import javafx.scene.Cursor;
 import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.control.ScrollPane;
@@ -160,18 +157,6 @@ public class Canvas extends Pane implements Preferenciable, Modifiable, Reinitia
 		selectionBorder.setStroke(Color.GRAY);
 		selectionBorder.setStrokeLineCap(StrokeLineCap.BUTT);
 		selectionBorder.getStrokeDashArray().addAll(7d, 7d);
-
-		io.github.interacto.jfx.binding.Bindings
-			.anonCmdBinder(() -> setCursor(Cursor.HAND))
-			.usingInteraction(MouseEntered::new)
-			.on(selectionBorder)
-			.bind();
-
-		io.github.interacto.jfx.binding.Bindings
-			.anonCmdBinder(() -> setCursor(Cursor.DEFAULT))
-			.usingInteraction(MouseExited::new)
-			.on(selectionBorder)
-			.bind();
 
 		// Bloody key shortcuts. To work the canvas must grab the focus
 		// Must be a MOUSE_CLICKED, not a MOUSE_PRESSED, do not know why...

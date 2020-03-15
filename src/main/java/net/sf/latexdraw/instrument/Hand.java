@@ -12,6 +12,7 @@ package net.sf.latexdraw.instrument;
 
 import io.github.interacto.jfx.binding.Bindings;
 import io.github.interacto.jfx.binding.JfxWidgetBinding;
+import io.github.interacto.jfx.command.ChangeCursor;
 import io.github.interacto.jfx.interaction.library.DnD;
 import io.github.interacto.jfx.interaction.library.DoubleClick;
 import io.github.interacto.jfx.interaction.library.MouseEntered;
@@ -84,15 +85,15 @@ public class Hand extends CanvasInstrument implements Flushable {
 	private void setUpCursorOnShapeView(final ListChange<Node> evt) {
 		switch(evt.getFlag()) {
 			case ADDED:
-				final var binding1 = Bindings.anonCmdBinder(() -> canvas.setCursor(Cursor.HAND))
+				final var binding1 = Bindings.nodeBinder(this)
+					.toProduce(() -> new ChangeCursor(Cursor.HAND, canvas))
 					.usingInteraction(MouseEntered::new)
 					.on(evt.getValue())
-					.when(() -> isActivated())
 					.bind();
-				final var binding2 = Bindings.anonCmdBinder(() -> canvas.setCursor(Cursor.DEFAULT))
+				final var binding2 = Bindings.nodeBinder(this)
+					.toProduce(() -> new ChangeCursor(Cursor.DEFAULT, canvas))
 					.usingInteraction(MouseExited::new)
 					.on(evt.getValue())
-					.when(() -> isActivated())
 					.bind();
 
 				cursorsEvents.put(evt.getValue(), new Tuple<>(binding1, binding2));
