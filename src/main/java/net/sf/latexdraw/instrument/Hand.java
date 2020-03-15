@@ -18,17 +18,16 @@ import io.github.interacto.jfx.interaction.library.DoubleClick;
 import io.github.interacto.jfx.interaction.library.MouseEntered;
 import io.github.interacto.jfx.interaction.library.MouseExited;
 import io.github.interacto.jfx.interaction.library.Press;
-import io.github.interacto.jfx.interaction.library.SrcTgtPointsData;
 import io.reactivex.rxjavafx.observables.JavaFxObservable;
 import io.reactivex.rxjavafx.schedulers.JavaFxScheduler;
 import io.reactivex.rxjavafx.sources.ListChange;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import javafx.geometry.BoundingBox;
 import javafx.geometry.Bounds;
 import javafx.scene.Cursor;
@@ -116,11 +115,9 @@ public class Hand extends CanvasInstrument implements Flushable {
 			.observeOn(JavaFxScheduler.platform())
 			.subscribe(next -> setUpCursorOnShapeView(next), ex -> BadaboomCollector.INSTANCE.add(ex)));
 
-		addBinding(new DnD2Select());
-
+		bindDnD2Select();
 		bindPressureToSelectShape();
 		bindDnDTranslate();
-
 		dbleClickToInitTextSetter();
 
 		shortcutBinder()
@@ -228,6 +225,82 @@ public class Hand extends CanvasInstrument implements Flushable {
 			.bind();
 	}
 
+	private void bindDnD2Select() {
+		final List<Shape> selectedShapes = new ArrayList<>();
+		final List<ViewShape<?>> selectedViews = new ArrayList<>();
+
+		nodeBinder()
+			.usingInteraction(DnD::new)
+			.toProduce(() -> new SelectShapes(canvas.getDrawing()))
+			.on(canvas)
+			.continuousExecution()
+			.first(c -> {
+				selectedShapes.addAll(canvas.getDrawing().getSelection().getShapes());
+				selectedViews.addAll(canvas.getSelectedViews());
+				canvas.requestFocus();
+			})
+			.then((i, c) -> {
+				/* The is rectangle is used as interim feedback to show the rectangle made by the user to select some shapes. */
+				final Bounds selectionBorder;
+				final Point start = getAdaptedOriginPoint(i.getSrcLocalPoint());
+				final Point end = getAdaptedOriginPoint(i.getTgtLocalPoint());
+				final double minX = Math.min(start.getX(), end.getX());
+				final double maxX = Math.max(start.getX(), end.getX());
+				final double minY = Math.min(start.getY(), end.getY());
+				final double maxY = Math.max(start.getY(), end.getY());
+
+				// Updating the rectangle used for the interim feedback and for the selection of shapes.
+				selectionBorder = new BoundingBox(minX, minY, Math.max(maxX - minX, 1d), Math.max(maxY - minY, 1d));
+				// Cleaning the selected shapes in the command.
+				c.setShape(null);
+
+				if(i.isShiftPressed()) {
+					selectedViews.stream().filter(view -> !view.intersects(selectionBorder)).forEach(view -> c.addShape(view.getModel()));
+					return;
+				}
+				if(i.isCtrlPressed()) {
+					selectedShapes.forEach(sh -> c.addShape(sh));
+				}
+				if(!selectionBorder.isEmpty()) {
+					updateSelection(selectionBorder).forEach(s -> c.addShape(s));
+				}
+				canvas.setOngoingSelectionBorder(selectionBorder);
+			})
+			.endOrCancel(i -> {
+				selectedShapes.clear();
+				selectedViews.clear();
+				canvas.setOngoingSelectionBorder(null);
+				canvas.setCursor(Cursor.DEFAULT);
+			})
+			.when(i -> i.getButton() == MouseButton.PRIMARY && i.getSrcObject().orElse(null) == canvas)
+			.bind();
+	}
+
+	private List<Shape> updateSelection(final Bounds selectionBorder) {
+		final Rectangle selectionRec = new Rectangle(selectionBorder.getMinX() + Canvas.ORIGIN.getX(),
+			selectionBorder.getMinY() + Canvas.ORIGIN.getY(), selectionBorder.getWidth(), selectionBorder.getHeight());
+		// Transforming the selection rectangle to match the transformation of the canvas.
+		selectionRec.getTransforms().setAll(canvas.getLocalToSceneTransform());
+
+		return canvas.getViews().getChildren().stream().filter(view -> {
+			Bounds bounds;
+			final Transform transform = view.getLocalToParentTransform();
+			if(transform.isIdentity()) {
+				bounds = selectionBorder;
+			}else {
+				try {
+					bounds = transform.createInverse().transform(selectionBorder);
+				}catch(final NonInvertibleTransformException ex) {
+					bounds = selectionBorder;
+				}
+			}
+			return view.intersects(bounds) &&
+				((ViewShape<?>) view).getActivatedShapes().stream().anyMatch(sh -> !javafx.scene.shape.Shape.intersect(sh, selectionRec).getLayoutBounds().isEmpty());
+		})
+			.map(view -> (Shape) view.getUserData())
+			.collect(Collectors.toList());
+	}
+
 	@Override
 	public void setActivated(final boolean activ) {
 		if(activated != activ) {
@@ -289,86 +362,5 @@ public class Hand extends CanvasInstrument implements Flushable {
 			tuple.a.uninstallBinding();
 			tuple.b.uninstallBinding();
 		});
-	}
-
-
-	private class DnD2Select extends JfxWidgetBinding<SelectShapes, DnD, SrcTgtPointsData> {
-		private List<Shape> selectedShapes;
-		private List<ViewShape<?>> selectedViews;
-
-		DnD2Select() {
-			super(true, new DnD(), i -> new SelectShapes(canvas.getDrawing()), Collections.singletonList(canvas), false, null);
-		}
-
-		@Override
-		public void first() {
-			selectedShapes = new ArrayList<>(canvas.getDrawing().getSelection().getShapes());
-			selectedViews = canvas.getSelectedViews();
-			canvas.requestFocus();
-		}
-
-		@Override
-		public void then() {
-			/* The is rectangle is used as interim feedback to show the rectangle made by the user to select some shapes. */
-			final Bounds selectionBorder;
-			final Point start = getAdaptedOriginPoint(interaction.getSrcLocalPoint());
-			final Point end = getAdaptedOriginPoint(interaction.getTgtLocalPoint());
-			final double minX = Math.min(start.getX(), end.getX());
-			final double maxX = Math.max(start.getX(), end.getX());
-			final double minY = Math.min(start.getY(), end.getY());
-			final double maxY = Math.max(start.getY(), end.getY());
-
-			// Updating the rectangle used for the interim feedback and for the selection of shapes.
-			selectionBorder = new BoundingBox(minX, minY, Math.max(maxX - minX, 1d), Math.max(maxY - minY, 1d));
-			// Cleaning the selected shapes in the command.
-			cmd.setShape(null);
-
-			if(interaction.isShiftPressed()) {
-				selectedViews.stream().filter(view -> !view.intersects(selectionBorder)).forEach(view -> cmd.addShape(view.getModel()));
-				return;
-			}
-			if(interaction.isCtrlPressed()) {
-				selectedShapes.forEach(sh -> cmd.addShape(sh));
-			}
-			if(!selectionBorder.isEmpty()) {
-				updateSelection(selectionBorder);
-			}
-
-			canvas.setOngoingSelectionBorder(selectionBorder);
-		}
-
-		private void updateSelection(final Bounds selectionBorder) {
-			final Rectangle selectionRec = new Rectangle(selectionBorder.getMinX() + Canvas.ORIGIN.getX(),
-				selectionBorder.getMinY() + Canvas.ORIGIN.getY(), selectionBorder.getWidth(), selectionBorder.getHeight());
-			// Transforming the selection rectangle to match the transformation of the canvas.
-			selectionRec.getTransforms().setAll(canvas.getLocalToSceneTransform());
-
-			canvas.getViews().getChildren().stream().filter(view -> {
-				Bounds bounds;
-				final Transform transform = view.getLocalToParentTransform();
-				if(transform.isIdentity()) {
-					bounds = selectionBorder;
-				}else {
-					try {
-						bounds = transform.createInverse().transform(selectionBorder);
-					}catch(final NonInvertibleTransformException ex) {
-						bounds = selectionBorder;
-					}
-				}
-				return view.intersects(bounds) &&
-					((ViewShape<?>) view).getActivatedShapes().stream().anyMatch(sh -> !javafx.scene.shape.Shape.intersect(sh, selectionRec).getLayoutBounds().isEmpty());
-			}).forEach(view -> cmd.addShape((Shape) view.getUserData()));
-		}
-
-		@Override
-		public boolean when() {
-			return interaction.getButton() == MouseButton.PRIMARY && interaction.getSrcObject().orElse(null) == canvas;
-		}
-
-		@Override
-		public void endOrCancel() {
-			canvas.setOngoingSelectionBorder(null);
-			canvas.setCursor(Cursor.DEFAULT);
-		}
 	}
 }
