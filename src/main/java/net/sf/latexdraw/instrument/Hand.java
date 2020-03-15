@@ -10,12 +10,14 @@
  */
 package net.sf.latexdraw.instrument;
 
+import io.github.interacto.jfx.binding.Bindings;
 import io.github.interacto.jfx.binding.JfxWidgetBinding;
 import io.github.interacto.jfx.interaction.library.DnD;
 import io.github.interacto.jfx.interaction.library.DoubleClick;
+import io.github.interacto.jfx.interaction.library.MouseEntered;
+import io.github.interacto.jfx.interaction.library.MouseExited;
 import io.github.interacto.jfx.interaction.library.Press;
 import io.github.interacto.jfx.interaction.library.SrcTgtPointsData;
-import io.reactivex.disposables.Disposable;
 import io.reactivex.rxjavafx.observables.JavaFxObservable;
 import io.reactivex.rxjavafx.schedulers.JavaFxScheduler;
 import io.reactivex.rxjavafx.sources.ListChange;
@@ -32,7 +34,6 @@ import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.transform.NonInvertibleTransformException;
 import javafx.scene.transform.Transform;
@@ -66,7 +67,7 @@ import org.jetbrains.annotations.NotNull;
 public class Hand extends CanvasInstrument implements Flushable {
 	private final @NotNull TextSetter textSetter;
 	private final @NotNull PreferencesService prefs;
-	private final @NotNull Map<Node, Tuple<Disposable, Disposable>> cursorsEvents;
+	private final @NotNull Map<Node, Tuple<JfxWidgetBinding<?, ?, ?>, JfxWidgetBinding<?, ?, ?>>> cursorsEvents;
 
 	@Inject
 	public Hand(final Canvas canvas, final MagneticGrid grid, final TextSetter textSetter, final PreferencesService prefs) {
@@ -83,21 +84,24 @@ public class Hand extends CanvasInstrument implements Flushable {
 	private void setUpCursorOnShapeView(final ListChange<Node> evt) {
 		switch(evt.getFlag()) {
 			case ADDED:
-				final Disposable disposable1 = JavaFxObservable.eventsOf(evt.getValue(), MouseEvent.MOUSE_ENTERED)
-					.filter(mouseEnter -> isActivated())
-					.observeOn(JavaFxScheduler.platform())
-					.subscribe(mouseEnter -> canvas.setCursor(Cursor.HAND));
-				final Disposable disposable2 = JavaFxObservable.eventsOf(evt.getValue(), MouseEvent.MOUSE_EXITED)
-					.filter(mouseEnter -> isActivated())
-					.observeOn(JavaFxScheduler.platform())
-					.subscribe(mouseEnter -> canvas.setCursor(Cursor.DEFAULT));
-				cursorsEvents.put(evt.getValue(), new Tuple<>(disposable1, disposable2));
+				final var binding1 = Bindings.anonCmdBinder(() -> canvas.setCursor(Cursor.HAND))
+					.usingInteraction(MouseEntered::new)
+					.on(evt.getValue())
+					.when(() -> isActivated())
+					.bind();
+				final var binding2 = Bindings.anonCmdBinder(() -> canvas.setCursor(Cursor.DEFAULT))
+					.usingInteraction(MouseExited::new)
+					.on(evt.getValue())
+					.when(() -> isActivated())
+					.bind();
+
+				cursorsEvents.put(evt.getValue(), new Tuple<>(binding1, binding2));
 				break;
 			case REMOVED:
 				Optional.ofNullable(cursorsEvents.get(evt.getValue()))
 					.ifPresent(tuple -> {
-						tuple.a.dispose();
-						tuple.b.dispose();
+						tuple.a.uninstallBinding();
+						tuple.b.uninstallBinding();
 					});
 				break;
 			case UPDATED:
@@ -281,8 +285,8 @@ public class Hand extends CanvasInstrument implements Flushable {
 	@Override
 	public void flush() {
 		cursorsEvents.values().forEach(tuple -> {
-			tuple.a.dispose();
-			tuple.b.dispose();
+			tuple.a.uninstallBinding();
+			tuple.b.uninstallBinding();
 		});
 	}
 
