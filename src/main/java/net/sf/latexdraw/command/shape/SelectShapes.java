@@ -57,10 +57,10 @@ public class SelectShapes extends DrawingCmdImpl implements Modifying {
 	 * @param shape The shape to handle. Can be null.
 	 */
 	public void setShape(final @Nullable Shape shape) {
-		getShapes().clear();
+		shapes.clear();
 
 		if(shape != null) {
-			getShapes().add(shape);
+			shapes.add(shape);
 		}
 	}
 
@@ -70,7 +70,7 @@ public class SelectShapes extends DrawingCmdImpl implements Modifying {
 	 */
 	public void addShape(final @Nullable Shape shape) {
 		if(shape != null) {
-			getShapes().add(shape);
+			shapes.add(shape);
 		}
 	}
 }

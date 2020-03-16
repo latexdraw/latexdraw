@@ -1,5 +1,6 @@
 package net.sf.latexdraw.instrument;
 
+import java.awt.GraphicsEnvironment;
 import java.lang.reflect.InvocationTargetException;
 import javafx.application.Platform;
 import javafx.geometry.Bounds;
@@ -18,7 +19,6 @@ import net.sf.latexdraw.view.jfx.ViewPlot;
 import net.sf.latexdraw.view.jfx.ViewPolyline;
 import net.sf.latexdraw.view.jfx.ViewText;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.Mockito;
 
@@ -26,6 +26,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assume.assumeFalse;
 import static org.mockito.Mockito.when;
 
 public class TestCanvasSelection extends BaseTestCanvas {
@@ -89,33 +90,37 @@ public class TestCanvasSelection extends BaseTestCanvas {
 		assertEquals(1, canvas.getDrawing().getSelection().size());
 	}
 
-	@Ignore("Monocle does not capture key modifiers https://github.com/TestFX/Monocle/pull/48")
+//	@Ignore("Monocle does not capture key modifiers https://github.com/TestFX/Monocle/pull/48")
 	@Test
 	public void testShiftClickOnShapeDeselectsIt() {
+		assumeFalse(GraphicsEnvironment.isHeadless());
 		Cmds.of(addRec, clickOnAddedFirstShape, shiftClickOnAddedRec).execute();
 		assertTrue(canvas.getDrawing().getSelection().isEmpty());
 	}
 
-	@Ignore("Monocle does not capture key modifiers https://github.com/TestFX/Monocle/pull/48")
+//	@Ignore("Monocle does not capture key modifiers https://github.com/TestFX/Monocle/pull/48")
 	@Test
 	public void testCtrlClickOnShapeAddsSelection() {
+		assumeFalse(GraphicsEnvironment.isHeadless());
 		Cmds.of(addRec, addRec2, clickOnAddedFirstShape, ctrlClickOnAddedRec2).execute();
 		assertEquals(2, canvas.getDrawing().getSelection().size());
 		assertNotSame(canvas.getDrawing().getSelection().getShapeAt(0).orElseThrow(), canvas.getDrawing().getSelection().getShapeAt(1).orElseThrow());
 	}
 
-	@Ignore("Monocle does not capture key modifiers https://github.com/TestFX/Monocle/pull/48")
+//	@Ignore("Monocle does not capture key modifiers https://github.com/TestFX/Monocle/pull/48")
 	@Test
 	public void testTwoAddsAndShiftClickSelectsOneShape() {
+		assumeFalse(GraphicsEnvironment.isHeadless());
 		Cmds.of(addRec, addRec2, clickOnAddedFirstShape, ctrlClickOnAddedRec2,
 			shiftClickOnAddedRec).execute();
 		assertEquals(1, canvas.getDrawing().getSelection().size());
 		assertNotSame(addedRec, canvas.getDrawing().getSelection().getShapeAt(0).orElseThrow());
 	}
 
-	@Ignore("Monocle does not capture key modifiers https://github.com/TestFX/Monocle/pull/48")
+//	@Ignore("Monocle does not capture key modifiers https://github.com/TestFX/Monocle/pull/48")
 	@Test
 	public void testCtrlASelectAll() {
+		assumeFalse(GraphicsEnvironment.isHeadless());
 		Cmds.of(addRec, addRec2,
 			() -> clickOn(canvas).press(KeyCode.CONTROL).type(KeyCode.A).release(KeyCode.CONTROL)).execute();
 		assertEquals(2, canvas.getDrawing().getSelection().size());
@@ -250,6 +255,39 @@ public class TestCanvasSelection extends BaseTestCanvas {
 			() -> drag(x + 50, y + 20), () -> drag(x + 60, y + 20)).execute();
 		assertEquals(1, canvas.getDrawing().getSelection().size());
 		assertSame(addedGrid, canvas.getDrawing().getSelection().getShapeAt(0).orElseThrow());
+	}
+
+//	@Ignore("Monocle does not capture key modifiers https://github.com/TestFX/Monocle/pull/48")
+	@Test
+	public void testDnDToSelectGridWithCtrl() {
+		assumeFalse(GraphicsEnvironment.isHeadless());
+		Cmds.of(addRec, addRec2, clickOnAddedFirstShape).execute();
+		final Bounds bounds = getPane().getChildren().get(1).getBoundsInParent();
+		final double x = canvas.getScene().getWindow().getX() + Canvas.ORIGIN.getX() + bounds.getMinX() - 20d;
+		final double y = canvas.getScene().getWindow().getY() + Canvas.ORIGIN.getY() + bounds.getMinY();
+		Cmds.of(() -> press(KeyCode.CONTROL),
+			() -> clickOn(x, y),
+			() -> drag(x + 10, y + 20),
+			() -> drag(x + 50, y + 20),
+			() -> drag(x + 60, y + 20)).execute();
+		assertEquals(2, canvas.getDrawing().getSelection().size());
+	}
+
+//	@Ignore("Monocle does not capture key modifiers https://github.com/TestFX/Monocle/pull/48")
+	@Test
+	public void testDnDToSelectGridWithShift() {
+		assumeFalse(GraphicsEnvironment.isHeadless());
+		Cmds.of(addRec, addRec2, clickOnAddedFirstShape, ctrlClickOnAddedRec2).execute();
+		final Bounds bounds = getPane().getChildren().get(1).getBoundsInParent();
+		final double x = canvas.getScene().getWindow().getX() + Canvas.ORIGIN.getX() + bounds.getMinX() - 20d;
+		final double y = canvas.getScene().getWindow().getY() + Canvas.ORIGIN.getY() + bounds.getMinY();
+		Cmds.of(() -> press(KeyCode.SHIFT),
+			() -> clickOn(x, y),
+			() -> drag(x + 10, y + 20),
+			() -> drag(x + 50, y + 20),
+			() -> drag(x + 60, y + 20)).execute();
+		assertEquals(1, canvas.getDrawing().getSelection().size());
+		assertSame(addedRec, canvas.getDrawing().getSelection().getShapeAt(0).orElseThrow());
 	}
 
 	@Test

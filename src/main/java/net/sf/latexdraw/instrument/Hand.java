@@ -27,16 +27,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import javafx.geometry.BoundingBox;
 import javafx.geometry.Bounds;
 import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.transform.NonInvertibleTransformException;
-import javafx.scene.transform.Transform;
 import net.sf.latexdraw.command.shape.InitTextSetter;
 import net.sf.latexdraw.command.shape.SelectShapes;
 import net.sf.latexdraw.command.shape.TranslateShapes;
@@ -187,7 +184,7 @@ public class Hand extends CanvasInstrument implements Flushable {
 					}
 					c.setShape(targetSh);
 				}))
-			.when(i -> !canvas.getSelectedViews().contains(getViewShape(i.getSrcObject()).orElse(null)))
+//			.when(i -> !canvas.getSelectedViews().contains(getViewShape(i.getSrcObject()).orElse(null)))
 			.bind();
 
 		// A simple pressure on the canvas deselects the shapes
@@ -195,7 +192,7 @@ public class Hand extends CanvasInstrument implements Flushable {
 			.usingInteraction(Press::new)
 			.toProduce(() -> new SelectShapes(canvas.getDrawing()))
 			.on(canvas)
-			.when(i -> i.getSrcObject().orElse(null) instanceof Canvas)
+			.when(i -> i.getSrcObject().orElse(null) instanceof Canvas && !i.isCtrlPressed() && !i.isShiftPressed())
 			.bind();
 	}
 
@@ -226,19 +223,12 @@ public class Hand extends CanvasInstrument implements Flushable {
 	}
 
 	private void bindDnD2Select() {
-		final List<Shape> selectedShapes = new ArrayList<>();
-		final List<ViewShape<?>> selectedViews = new ArrayList<>();
-
 		nodeBinder()
 			.usingInteraction(DnD::new)
 			.toProduce(() -> new SelectShapes(canvas.getDrawing()))
 			.on(canvas)
 			.continuousExecution()
-			.first(c -> {
-				selectedShapes.addAll(canvas.getDrawing().getSelection().getShapes());
-				selectedViews.addAll(canvas.getSelectedViews());
-				canvas.requestFocus();
-			})
+			.first(c -> canvas.requestFocus())
 			.then((i, c) -> {
 				/* The is rectangle is used as interim feedback to show the rectangle made by the user to select some shapes. */
 				final Bounds selectionBorder;
@@ -254,51 +244,29 @@ public class Hand extends CanvasInstrument implements Flushable {
 				// Cleaning the selected shapes in the command.
 				c.setShape(null);
 
-				if(i.isShiftPressed()) {
-					selectedViews.stream().filter(view -> !view.intersects(selectionBorder)).forEach(view -> c.addShape(view.getModel()));
+				canvas.setOngoingSelectionBorder(selectionBorder);
+
+				final List<Shape> selected = canvas.getIntersectedShapes(selectionBorder);
+				if(i.isCtrlPressed()) {
+					Stream.concat(canvas.getDrawing().getSelection().getShapes().stream(), selected.stream())
+						.distinct()
+						.forEach(s -> c.addShape(s));
 					return;
 				}
-				if(i.isCtrlPressed()) {
-					selectedShapes.forEach(sh -> c.addShape(sh));
+				if(i.isShiftPressed()) {
+					final ArrayList<Shape> currSelection = new ArrayList<>(canvas.getDrawing().getSelection().getShapes());
+					currSelection.removeAll(selected);
+					currSelection.forEach(s -> c.addShape(s));
+					return;
 				}
-				if(!selectionBorder.isEmpty()) {
-					updateSelection(selectionBorder).forEach(s -> c.addShape(s));
-				}
-				canvas.setOngoingSelectionBorder(selectionBorder);
+				selected.forEach(s -> c.addShape(s));
 			})
 			.endOrCancel(i -> {
-				selectedShapes.clear();
-				selectedViews.clear();
 				canvas.setOngoingSelectionBorder(null);
 				canvas.setCursor(Cursor.DEFAULT);
 			})
 			.when(i -> i.getButton() == MouseButton.PRIMARY && i.getSrcObject().orElse(null) == canvas)
 			.bind();
-	}
-
-	private List<Shape> updateSelection(final Bounds selectionBorder) {
-		final Rectangle selectionRec = new Rectangle(selectionBorder.getMinX() + Canvas.ORIGIN.getX(),
-			selectionBorder.getMinY() + Canvas.ORIGIN.getY(), selectionBorder.getWidth(), selectionBorder.getHeight());
-		// Transforming the selection rectangle to match the transformation of the canvas.
-		selectionRec.getTransforms().setAll(canvas.getLocalToSceneTransform());
-
-		return canvas.getViews().getChildren().stream().filter(view -> {
-			Bounds bounds;
-			final Transform transform = view.getLocalToParentTransform();
-			if(transform.isIdentity()) {
-				bounds = selectionBorder;
-			}else {
-				try {
-					bounds = transform.createInverse().transform(selectionBorder);
-				}catch(final NonInvertibleTransformException ex) {
-					bounds = selectionBorder;
-				}
-			}
-			return view.intersects(bounds) &&
-				((ViewShape<?>) view).getActivatedShapes().stream().anyMatch(sh -> !javafx.scene.shape.Shape.intersect(sh, selectionRec).getLayoutBounds().isEmpty());
-		})
-			.map(view -> (Shape) view.getUserData())
-			.collect(Collectors.toList());
 	}
 
 	@Override

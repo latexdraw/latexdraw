@@ -47,6 +47,8 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.StrokeLineCap;
+import javafx.scene.transform.NonInvertibleTransformException;
+import javafx.scene.transform.Transform;
 import javafx.util.Duration;
 import net.sf.latexdraw.command.Modifying;
 import net.sf.latexdraw.model.MathUtils;
@@ -180,6 +182,32 @@ public class Canvas extends Pane implements Preferenciable, Modifiable, Reinitia
 
 		prefWidthProperty().bind(Bindings.createDoubleBinding(() -> margins * 2d + prefs.getPage().getWidth() * Shape.PPC, prefs.pageProperty()));
 		prefHeightProperty().bind(Bindings.createDoubleBinding(() -> margins * 2d + prefs.getPage().getHeight() * Shape.PPC, prefs.pageProperty()));
+	}
+
+
+	public List<Shape> getIntersectedShapes(final Bounds selectionBorder) {
+		final Rectangle selectionRec = new Rectangle(selectionBorder.getMinX() + Canvas.ORIGIN.getX(),
+			selectionBorder.getMinY() + Canvas.ORIGIN.getY(), selectionBorder.getWidth(), selectionBorder.getHeight());
+		// Transforming the selection rectangle to match the transformation of the canvas.
+		selectionRec.getTransforms().setAll(getLocalToSceneTransform());
+
+		return getViews().getChildren().stream().filter(view -> {
+			Bounds bounds;
+			final Transform transform = view.getLocalToParentTransform();
+			if(transform.isIdentity()) {
+				bounds = selectionBorder;
+			}else {
+				try {
+					bounds = transform.createInverse().transform(selectionBorder);
+				}catch(final NonInvertibleTransformException ex) {
+					bounds = selectionBorder;
+				}
+			}
+			return view.intersects(bounds) &&
+				((ViewShape<?>) view).getActivatedShapes().stream().anyMatch(sh -> !javafx.scene.shape.Shape.intersect(sh, selectionRec).getLayoutBounds().isEmpty());
+		})
+			.map(view -> (Shape) view.getUserData())
+			.collect(Collectors.toList());
 	}
 
 
