@@ -184,7 +184,10 @@ public class Hand extends CanvasInstrument implements Flushable {
 					}
 					c.setShape(targetSh);
 				}))
-//			.when(i -> !canvas.getSelectedViews().contains(getViewShape(i.getSrcObject()).orElse(null)))
+			// May be in conflict with dnd for translating:
+			// a pressure is required to then translate a shape, but without this condition
+			// this binding first selects the pressed shape only (so cannot translate all the selected shapes).
+			.when(i -> i.isShiftPressed() || !canvas.getSelectedViews().contains(getViewShape(i.getSrcObject()).orElse(null)))
 			.bind();
 
 		// A simple pressure on the canvas deselects the shapes
