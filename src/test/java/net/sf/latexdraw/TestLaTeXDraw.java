@@ -20,7 +20,6 @@ import net.sf.latexdraw.view.jfx.Canvas;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.api.io.TempDir;
@@ -115,7 +114,6 @@ public class TestLaTeXDraw {
 		assertThat(vvalue).isGreaterThan(pane.getVvalue());
 	}
 
-	@Disabled("does not work on CI, do not know why for the moment")
 	@Test
 	void testIntegrationSaveNoCrash(final FxRobot robot, @TempDir final Path dir) {
 		final File file = Paths.get(dir.toString(), "foo.svg").toFile();
