@@ -153,7 +153,7 @@ public class PSTLatexdrawListener extends PSTCtxListener {
 			picture.translate(-picture.getImage().getWidth() / 2d, -picture.getImage().getHeight() / 2d);
 			shapes.getLast().addShape(picture);
 		}catch(final IllegalArgumentException ex) {
-			log.log(Level.SEVERE, "Cannot load the picture with the path: " + ctx.path.getText());
+			log.log(Level.SEVERE, String.format("Cannot load the picture with the path: %s", ctx.path.getText()));
 		}
 	}
 

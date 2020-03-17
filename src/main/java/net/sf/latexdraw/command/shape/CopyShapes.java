@@ -57,10 +57,6 @@ public class CopyShapes extends CommandImpl {
 		return !selection.getShapes().isEmpty();
 	}
 
-//	public @NotNull Optional<SelectShapes> getSelection() {
-//		return selection;
-//	}
-
 	@Override
 	public void flush() {
 		super.flush();
