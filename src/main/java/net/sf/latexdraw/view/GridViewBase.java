@@ -82,19 +82,22 @@ public abstract class GridViewBase extends Pane {
 	protected abstract double getLengthSub();
 
 	public void update() {
-		final double width = getUpdateWidth();
-		final double height = getUpdateHeight();
-		final double step = getMainStep() * canvas.getPPCDrawing();
-		final double substep = getSubStep() * canvas.getPPCDrawing();
-		final int incr = (int) (step / substep);
-		final double lengthMain = getLengthMain();
-		final double lengthSub = getLengthSub();
 		getChildren().clear();
 
-		produceXMainLines(width, step, lengthMain);
-		produceXSubLines(width, step, substep, incr, lengthSub);
-		produceYMainLines(height, step, lengthMain);
-		produceYSubLines(height, step, substep, incr, lengthSub);
+		if(prefs.getGridStyle() != GridStyle.NONE) {
+			final double width = getUpdateWidth();
+			final double height = getUpdateHeight();
+			final double step = getMainStep() * canvas.getPPCDrawing();
+			final double substep = getSubStep() * canvas.getPPCDrawing();
+			final int incr = (int) (step / substep);
+			final double lengthMain = getLengthMain();
+			final double lengthSub = getLengthSub();
+
+			produceXMainLines(width, step, lengthMain);
+			produceXSubLines(width, step, substep, incr, lengthSub);
+			produceYMainLines(height, step, lengthMain);
+			produceYSubLines(height, step, substep, incr, lengthSub);
+		}
 	}
 
 	private Line createLine(final double x1, final double y1, final double x2, final double y2) {
