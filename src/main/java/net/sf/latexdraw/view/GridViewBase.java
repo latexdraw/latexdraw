@@ -63,23 +63,7 @@ public abstract class GridViewBase extends Pane {
 		return zoomedPPC;
 	}
 
-	protected double getMainStep() {
-		final double zoomedPPC = getZoomedPPC();
-		double step = 1d;
-
-		while(zoomedPPC * step < canvas.getPPCDrawing() * 4) {
-			step *= 2d;
-		}
-		return step;
-	}
-
-	protected double getSubStep() {
-		return getMainStep() / 10d;
-	}
-
 	protected abstract double getLengthMain();
-
-	protected abstract double getLengthSub();
 
 	public void update() {
 		getChildren().clear();
@@ -87,16 +71,10 @@ public abstract class GridViewBase extends Pane {
 		if(prefs.getGridStyle() != GridStyle.NONE) {
 			final double width = getUpdateWidth();
 			final double height = getUpdateHeight();
-			final double step = getMainStep() * canvas.getPPCDrawing();
-			final double substep = getSubStep() * canvas.getPPCDrawing();
-			final int incr = (int) (step / substep);
+			final double step = getZoomedPPC();
 			final double lengthMain = getLengthMain();
-			final double lengthSub = getLengthSub();
-
 			produceXMainLines(width, step, lengthMain);
-			produceXSubLines(width, step, substep, incr, lengthSub);
 			produceYMainLines(height, step, lengthMain);
-			produceYSubLines(height, step, substep, incr, lengthSub);
 		}
 	}
 
@@ -115,33 +93,11 @@ public abstract class GridViewBase extends Pane {
 			.collect(Collectors.toList()));
 	}
 
-	protected void produceXSubLines(final double width, final double step, final double substep, final int incr, final double length) {
-		getChildren().addAll(IntStream
-			.rangeClosed(-1, (int) (width / step))
-			.parallel()
-			.mapToObj(j -> IntStream.range(1, incr)
-				.parallel()
-				.mapToObj(i -> createLine(j * step + i * substep, 0d, j * step + i * substep, length)))
-			.flatMap(s -> s)
-			.collect(Collectors.toList()));
-	}
-
 	protected void produceYMainLines(final double height, final double step, final double length) {
 		getChildren().addAll(IntStream
 			.rangeClosed(-1, (int) (height / step))
 			.parallel()
 			.mapToObj(i -> createLine(0d, i * step, length, i * step))
-			.collect(Collectors.toList()));
-	}
-
-	protected void produceYSubLines(final double height, final double step, final double substep, final int incr, final double length) {
-		getChildren().addAll(IntStream
-			.rangeClosed(-1, (int) (height / step))
-			.parallel()
-			.mapToObj(j -> IntStream.range(1, incr)
-				.parallel()
-				.mapToObj(i -> createLine(0d, j * step + i * substep, length, j * step + i * substep)))
-			.flatMap(s -> s)
 			.collect(Collectors.toList()));
 	}
 }

@@ -51,11 +51,6 @@ public class MagneticGrid extends GridViewBase {
 	}
 
 	@Override
-	protected double getLengthSub() {
-		return getLengthMain();
-	}
-
-	@Override
 	protected double getLengthMain() {
 		return Math.max(canvas.getPrefHeight(), canvas.getPrefWidth());
 	}

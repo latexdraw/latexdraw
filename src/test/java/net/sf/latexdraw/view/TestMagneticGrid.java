@@ -9,6 +9,8 @@ import net.sf.latexdraw.view.jfx.Canvas;
 import net.sf.latexdraw.view.jfx.MagneticGrid;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.mockito.Mockito;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -35,8 +37,6 @@ public class TestMagneticGrid {
 		Mockito.when(canvas.zoomProperty()).thenReturn(zoom);
 		Mockito.when(canvas.getZoom()).thenAnswer(inv -> zoom.get());
 		prefs = new PreferencesService();
-		prefs.unitProperty().setValue(Unit.CM);
-		prefs.gridGapProperty().set(20);
 		grid = new MagneticGrid(canvas, prefs);
 		prefs.gridStyleProperty().set(GridStyle.STANDARD);
 	}
@@ -62,12 +62,13 @@ public class TestMagneticGrid {
 		assertThat(x).isNotEqualTo(((Line) grid.getChildren().get(2)).getStartX());
 	}
 
-	@Test
-	void testUpdateGridSize() {
+	@ParameterizedTest
+	@ValueSource(ints = {15, 100})
+	void testUpdateGridSize(final double gap) {
 		prefs.gridStyleProperty().set(GridStyle.CUSTOMISED);
-		final double x = ((Line) grid.getChildren().get(2)).getStartX();
-		prefs.gridGapProperty().setValue(100);
-		assertThat(x).isNotEqualTo(((Line) grid.getChildren().get(2)).getStartX());
+		final double x = ((Line) grid.getChildren().get(0)).getStartX();
+		prefs.gridGapProperty().setValue(gap);
+		assertThat(x).isNotEqualTo(((Line) grid.getChildren().get(0)).getStartX());
 	}
 
 	@Test
