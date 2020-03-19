@@ -46,6 +46,7 @@ public class TestMetaShapeCustomiser {
 				bindToInstance(ShapeFreeHandCustomiser.class, Mockito.mock(ShapeFreeHandCustomiser.class));
 				bindToInstance(ShapeGridCustomiser.class, Mockito.mock(ShapeGridCustomiser.class));
 				bindToInstance(ShapeGrouper.class, Mockito.mock(ShapeGrouper.class));
+				bindToInstance(ShapeGridTransformer.class, Mockito.mock(ShapeGridTransformer.class));
 				bindToInstance(ShapePlotCustomiser.class, Mockito.mock(ShapePlotCustomiser.class));
 				bindToInstance(ShapePositioner.class, Mockito.mock(ShapePositioner.class));
 				bindToInstance(ShapeRotationCustomiser.class, Mockito.mock(ShapeRotationCustomiser.class));

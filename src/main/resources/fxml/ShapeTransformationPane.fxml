@@ -10,5 +10,6 @@
         <fx:include source="Transformation.fxml" />
         <fx:include source="PositionZ.fxml" />
         <fx:include source="Group.fxml" />
+        <fx:include source="GridTransformer.fxml" />
     </VBox>
 </TitledPane>

@@ -46,6 +46,7 @@ import net.sf.latexdraw.instrument.ShapeDoubleBorderCustomiser;
 import net.sf.latexdraw.instrument.ShapeFillingCustomiser;
 import net.sf.latexdraw.instrument.ShapeFreeHandCustomiser;
 import net.sf.latexdraw.instrument.ShapeGridCustomiser;
+import net.sf.latexdraw.instrument.ShapeGridTransformer;
 import net.sf.latexdraw.instrument.ShapeGrouper;
 import net.sf.latexdraw.instrument.ShapePlotCustomiser;
 import net.sf.latexdraw.instrument.ShapePositioner;
@@ -143,6 +144,7 @@ public class LatexdrawInjector extends Injector {
 		bindAsEagerSingleton(ShapeFreeHandCustomiser.class);
 		bindAsEagerSingleton(ShapeGridCustomiser.class);
 		bindAsEagerSingleton(ShapeGrouper.class);
+		bindAsEagerSingleton(ShapeGridTransformer.class);
 		bindAsEagerSingleton(ShapePlotCustomiser.class);
 		bindAsEagerSingleton(ShapePositioner.class);
 		bindAsEagerSingleton(ShapeRotationCustomiser.class);
