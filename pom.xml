@@ -486,6 +486,54 @@
                     </dependency>
                 </dependencies>
             </plugin>
+
+            <plugin>
+                <groupId>org.pitest</groupId>
+                <artifactId>pitest-maven</artifactId>
+                <version>1.5.0</version>
+                <configuration>
+                    <mutationEngine>descartes</mutationEngine>
+                    <excludedClasses>
+                        <param>net.sf.latexdraw.LaTeXDraw</param>
+                        <param>net.sf.latexdraw.LatexdrawBuilderFactory</param>
+                        <param>net.sf.latexdraw.LatexdrawInjector</param>
+                        <param>net.sf.latexdraw.handler.*</param>
+                        <param>net.sf.latexdraw.command.*</param>
+                        <param>net.sf.latexdraw.model.*</param>
+                        <param>net.sf.latexdraw.parser.*</param>
+                        <param>net.sf.latexdraw.ui.*</param>
+                        <param>net.sf.latexdraw.util.*</param>
+                        <param>net.sf.latexdraw.view.*</param>
+                    </excludedClasses>
+                    <excludedTestClasses>
+                        <param>net.sf.latexdraw.TestLaTeXDraw</param>
+                        <param>net.sf.latexdraw.handler.*</param>
+                        <param>net.sf.latexdraw.command.SaveDrawingTest</param>
+                        <param>net.sf.latexdraw.command.UpdateTemplatesTest</param>
+                        <param>net.sf.latexdraw.command.shape.ModifyShapePropertyTest</param>
+                        <param>net.sf.latexdraw.command.shape.MoveCtrlPointTest</param>
+                        <param>net.sf.latexdraw.command.shape.MovePointShapeTest</param>
+                        <param>net.sf.latexdraw.command.*</param>
+                        <param>net.sf.latexdraw.model.*</param>
+                        <param>net.sf.latexdraw.parser.*</param>
+                        <param>net.sf.latexdraw.ui.*</param>
+                        <param>net.sf.latexdraw.util.*</param>
+                        <param>net.sf.latexdraw.view.*</param>
+                    </excludedTestClasses>
+                </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>eu.stamp-project</groupId>
+                        <artifactId>descartes</artifactId>
+                        <version>1.2.7-SNAPSHOT</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.pitest</groupId>
+                        <artifactId>pitest-junit5-plugin</artifactId>
+                        <version>0.12</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
         </plugins>
     </build>
 
