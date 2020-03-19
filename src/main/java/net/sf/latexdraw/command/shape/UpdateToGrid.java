@@ -21,6 +21,7 @@ import net.sf.latexdraw.command.ShapeCmdImpl;
 import net.sf.latexdraw.model.ShapeFactory;
 import net.sf.latexdraw.model.api.shape.Group;
 import net.sf.latexdraw.model.api.shape.Point;
+import net.sf.latexdraw.view.jfx.Canvas;
 import net.sf.latexdraw.view.jfx.MagneticGrid;
 import org.jetbrains.annotations.NotNull;
 
@@ -58,7 +59,13 @@ public class UpdateToGrid extends ShapeCmdImpl<Group> implements Undoable, Modif
 	protected void doCmdBody() {
 		shape.getShapes()
 			.forEach(sh -> sh.getPoints()
-				.forEach(pt -> pt.setPoint(grid.getTransformedPointToGrid(pt.toPoint3D()))));
+				.forEach(pt -> {
+					var ptCopy = ShapeFactory.INST.createPoint(pt);
+					ptCopy.translate(Canvas.getMargins(), Canvas.getMargins());
+					ptCopy = grid.getTransformedPointToGrid(ptCopy.toPoint3D());
+					ptCopy.translate(-Canvas.getMargins(), -Canvas.getMargins());
+					pt.setPoint(ptCopy);
+				}));
 		shape.setModified(true);
 	}
 
@@ -66,7 +73,6 @@ public class UpdateToGrid extends ShapeCmdImpl<Group> implements Undoable, Modif
 	public void undo() {
 		final AtomicInteger i = new AtomicInteger();
 		final AtomicInteger j = new AtomicInteger();
-
 		shape.getShapes().forEach(sh -> {
 			j.set(0);
 			sh.getPoints().forEach(pt -> {

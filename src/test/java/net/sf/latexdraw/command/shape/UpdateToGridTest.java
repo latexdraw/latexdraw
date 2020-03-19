@@ -8,7 +8,10 @@ import net.sf.latexdraw.model.ShapeFactory;
 import net.sf.latexdraw.model.api.shape.Group;
 import net.sf.latexdraw.model.api.shape.Shape;
 import net.sf.latexdraw.service.PreferencesService;
+import net.sf.latexdraw.view.jfx.Canvas;
 import net.sf.latexdraw.view.jfx.MagneticGrid;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -22,6 +25,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @Tag("command")
 @ExtendWith(LatexdrawExtension.class)
 class UpdateToGridTest extends UndoableCmdTest<UpdateToGrid> {
+	static int margins;
 	MagneticGrid grid;
 	Group shape;
 	Shape s0;
@@ -30,6 +34,17 @@ class UpdateToGridTest extends UndoableCmdTest<UpdateToGrid> {
 	@BeforeEach
 	void setUp() {
 		bundle = new PreferencesService().getBundle();
+	}
+
+	@BeforeAll
+	static void beforeAll() {
+		margins = Canvas.getMargins();
+		Canvas.setMargins(0);
+	}
+
+	@AfterAll
+	static void tearDown() {
+		Canvas.setMargins(margins);
 	}
 
 	@Override
