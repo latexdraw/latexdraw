@@ -71,12 +71,12 @@ public class Border extends CanvasInstrument implements Initializable {
 	/** The handler that rotates shapes. */
 	RotationHandler rotHandler;
 
-	private final @NotNull MetaShapeCustomiser metaCustomiser;
+	private final @NotNull ShapeCoordDimCustomiser coordDimCustomiser;
 
 	@Inject
-	public Border(final Canvas canvas, final MagneticGrid grid, final MetaShapeCustomiser metaCustomiser) {
+	public Border(final Canvas canvas, final MagneticGrid grid, final ShapeCoordDimCustomiser coordDimCustomiser) {
 		super(canvas, grid);
-		this.metaCustomiser = Objects.requireNonNull(metaCustomiser);
+		this.coordDimCustomiser = Objects.requireNonNull(coordDimCustomiser);
 		mvPtHandlers = FXCollections.observableArrayList();
 		ctrlPt1Handlers = FXCollections.observableArrayList();
 		ctrlPt2Handlers = FXCollections.observableArrayList();
@@ -202,7 +202,7 @@ public class Border extends CanvasInstrument implements Initializable {
 			.continuousExecution()
 			.when(i -> i.getSrcLocalPoint() != null && i.getTgtLocalPoint() != null && i.getSrcObject().orElse(null) instanceof MovePtHandler &&
 				canvas.getDrawing().getSelection().size() == 1 && canvas.getDrawing().getSelection().getShapeAt(0).filter(s -> s instanceof ModifiablePointsShape).isPresent())
-			.end(() -> metaCustomiser.dimPosCustomiser.update())
+			.end(() -> coordDimCustomiser.update())
 			.bind();
 	}
 
@@ -228,7 +228,7 @@ public class Border extends CanvasInstrument implements Initializable {
 			})
 			.when(() -> canvas.getDrawing().getSelection().size() == 1 && canvas.getDrawing().getSelection().getShapeAt(0).filter(s -> s instanceof ControlPointShape).isPresent())
 			.continuousExecution()
-			.end(() -> metaCustomiser.dimPosCustomiser.update())
+			.end(() -> coordDimCustomiser.update())
 			.bind();
 
 		nodeBinder()
@@ -354,7 +354,7 @@ public class Border extends CanvasInstrument implements Initializable {
 			})
 			.when(i -> i.getSrcObject().isPresent() && i.getSrcLocalPoint() != null && i.getTgtLocalPoint() != null)
 			.endOrCancel(i -> canvas.setCursor(Cursor.DEFAULT))
-			.end(() -> metaCustomiser.dimPosCustomiser.update())
+			.end(() -> coordDimCustomiser.update())
 			.bind();
 	}
 }

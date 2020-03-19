@@ -34,7 +34,7 @@ public class TestCopierCutterPaster extends BaseTestCanvas {
 			protected void configure() throws IllegalAccessException, InstantiationException, NoSuchMethodException, InvocationTargetException {
 				super.configure();
 				bindToSupplier(Stage.class, () -> stage);
-				bindToInstance(MetaShapeCustomiser.class, Mockito.mock(MetaShapeCustomiser.class));
+				bindToInstance(ShapeCoordDimCustomiser.class, Mockito.mock(ShapeCoordDimCustomiser.class));
 				bindAsEagerSingleton(Border.class);
 				bindAsEagerSingleton(CopierCutterPaster.class);
 				bindToInstance(CanvasController.class, Mockito.mock(CanvasController.class));

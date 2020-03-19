@@ -55,7 +55,7 @@ public class TestExporter extends BaseTestCanvas {
 				bindToInstance(StatusBarController.class, Mockito.mock(StatusBarController.class));
 				bindAsEagerSingleton(PSTCodeGenerator.class);
 				bindToInstance(TextSetter.class, Mockito.mock(TextSetter.class));
-				bindToInstance(MetaShapeCustomiser.class, Mockito.mock(MetaShapeCustomiser.class));
+				bindToInstance(ShapeCoordDimCustomiser.class, Mockito.mock(ShapeCoordDimCustomiser.class));
 				bindAsEagerSingleton(Border.class);
 				bindAsEagerSingleton(FacadeCanvasController.class);
 				bindToInstance(TemplateManager.class, Mockito.mock(TemplateManager.class));
