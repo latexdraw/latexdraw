@@ -336,18 +336,18 @@ public class Border extends CanvasInstrument implements Initializable {
 				final Position refPosition = c.getRefPosition();
 
 				if(refPosition.isSouth()) {
-					c.setNewY(pt.getY() + ygap.get());
+					c.setNewY(grid.getTransformedPointToGrid(new Point3D(0, pt.getY() + ygap.get(), 0)).getY());
 				}else {
 					if(refPosition.isNorth()) {
-						c.setNewY(pt.getY() - ygap.get());
+						c.setNewY(grid.getTransformedPointToGrid(new Point3D(0, pt.getY() - ygap.get(), 0)).getY());
 					}
 				}
 
 				if(refPosition.isWest()) {
-					c.setNewX(pt.getX() - xgap.get());
+					c.setNewX(grid.getTransformedPointToGrid(new Point3D(pt.getX() - xgap.get(), 0, 0)).getX());
 				}else {
 					if(refPosition.isEast()) {
-						c.setNewX(pt.getX() + xgap.get());
+						c.setNewX(grid.getTransformedPointToGrid(new Point3D(pt.getX() + xgap.get(), 0, 0)).getX());
 					}
 				}
 				canvas.update();
