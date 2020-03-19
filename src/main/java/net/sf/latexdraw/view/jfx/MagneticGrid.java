@@ -73,7 +73,7 @@ public class MagneticGrid extends GridViewBase {
 	/**
 	 * @return The gap between the lines of the magnetic grid.
 	 */
-	public double getMagneticGridGap() {
+	private double getMagneticGridGap() {
 		if(prefs.gridStyleProperty().get() == GridStyle.CUSTOMISED) {
 			return prefs.gridGapProperty().get();
 		}
