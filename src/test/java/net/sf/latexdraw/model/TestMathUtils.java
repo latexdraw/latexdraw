@@ -20,7 +20,15 @@ import static org.junit.jupiter.api.DynamicTest.dynamicTest;
 
 public class TestMathUtils {
 	@ParameterizedTest
-	@CsvSource(value = {"11, 10, 10", "26, 10, 30", "154, 50, 150", "200, 200, 200"})
+	@CsvSource(value = {"11, 10, 10",
+		"26, 10, 30",
+		"154, 50, 150",
+		"200, 200, 200",
+		"-11, 10, -10",
+		"-19, 10, -20",
+		"-8, 13, -13",
+		"8, 13, 13",
+		"-6, 5, -5"})
 	void testGetClosestModuloValue(final double value, final double mod, final double res) {
 		assertEquals(res, MathUtils.INST.getClosestModuloValue(value, mod), 0.0001);
 	}

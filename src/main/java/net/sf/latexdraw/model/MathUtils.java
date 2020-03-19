@@ -138,7 +138,8 @@ public final class MathUtils {
 	 */
 	public double getClosestModuloValue(final double value, final double modulo) {
 		final int quotient = (int) (value / modulo);
-		return (value % modulo) < (modulo / 2d) ? quotient * modulo : quotient * modulo + modulo;
+		return Math.abs(value % modulo) < Math.abs(modulo / 2d) ? quotient * modulo :
+			value < 0 ? quotient * modulo - modulo : quotient * modulo + modulo;
 	}
 
 
