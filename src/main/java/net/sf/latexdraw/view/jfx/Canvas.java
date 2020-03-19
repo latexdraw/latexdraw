@@ -11,6 +11,8 @@
 package net.sf.latexdraw.view.jfx;
 
 import io.github.interacto.command.CommandsRegistry;
+import io.github.interacto.command.library.Redo;
+import io.github.interacto.command.library.Undo;
 import io.github.interacto.jfx.interaction.library.Click;
 import io.github.interacto.properties.Modifiable;
 import io.github.interacto.properties.Preferenciable;
@@ -175,7 +177,7 @@ public class Canvas extends Pane implements Preferenciable, Modifiable, Reinitia
 			.subscribe(next -> updateSelectionBorders(), ex -> BadaboomCollector.INSTANCE.add(ex)));
 
 		disposables.add(CommandsRegistry.getInstance().commands()
-			.filter(c -> c instanceof Modifying)
+			.filter(c -> c instanceof Modifying || c instanceof Undo || c instanceof Redo)
 			.subscribe(c -> update()));
 
 		shapesPane.setFocusTraversable(false);
