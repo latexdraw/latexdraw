@@ -20,7 +20,6 @@ import java.util.Objects;
 import java.util.Optional;
 import net.sf.latexdraw.command.ExportFormat;
 import net.sf.latexdraw.model.api.shape.Drawing;
-import net.sf.latexdraw.model.api.shape.Point;
 import net.sf.latexdraw.service.LaTeXDataService;
 import net.sf.latexdraw.util.BadaboomCollector;
 import net.sf.latexdraw.util.OperatingSystem;
@@ -155,10 +154,6 @@ public abstract class LaTeXGenerator {
 		final File texFile = optFile.get();
 		String log;
 		File finalPS;
-		final Point tr = handler.getTopRightDrawingPoint();
-		final Point bl = handler.getBottomLeftDrawingPoint();
-		final int ppc = handler.getPPCDrawing();
-		final float dec = 0.2f;
 		final OperatingSystem os = SystemUtils.getInstance().getSystem().orElse(OperatingSystem.LINUX);
 
 		if(!texFile.exists()) {
@@ -169,9 +164,7 @@ public abstract class LaTeXGenerator {
 			SystemUtils.getInstance().normalizeForLaTeX(texFile.getAbsolutePath())}; //NON-NLS
 		log = SystemUtils.getInstance().execute(paramsLatex, tmpDir2).b;
 
-		final String[] paramsDvi = {os.getDvipsBinPath(), "-Pdownload35", "-T", //NON-NLS
-			(tr.getX() - bl.getX()) / ppc * latexdata.getScale() + dec + "cm," + ((bl.getY() - tr.getY()) / ppc * latexdata.getScale() + dec) + "cm", //NON-NLS
-			name, "-o", pathExportPs}; //NON-NLS
+		final String[] paramsDvi = {os.getDvipsBinPath(), "-Pdownload35", name, "-o", pathExportPs}; //NON-NLS
 		log += SystemUtils.getInstance().execute(paramsDvi, tmpDir2);
 
 		finalPS = new File(pathExportPs);

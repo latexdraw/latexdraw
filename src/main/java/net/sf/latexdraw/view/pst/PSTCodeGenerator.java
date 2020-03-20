@@ -63,12 +63,13 @@ public class PSTCodeGenerator extends LaTeXGenerator {
 
 		doc.append("\\documentclass{article}").append(SystemUtils.getInstance().eol).append("\\pagestyle{empty}"). //NON-NLS
 			append(SystemUtils.getInstance().eol).append(latexdata.getPackages()). //NON-NLS
-			append(SystemUtils.getInstance().eol).append("\\usepackage[left=0cm,top=0.1cm,right=0cm,bottom=0cm,nohead,nofoot,paperwidth="). //NON-NLS
-			append(tr.getX() / ppc * latexdata.getScale()).append("cm,paperheight=").append(bl.getY() / ppc * latexdata.getScale() + 0.2).append("cm]{geometry}").append(SystemUtils.getInstance().eol). //NON-NLS
+			append(SystemUtils.getInstance().eol).append("\\usepackage[left=0cm,top=0cm,right=0cm,bottom=0cm,nohead,nofoot,paperwidth="). //NON-NLS
+			append((tr.getX() - bl.getX()) / ppc * latexdata.getScale() + 0.2).
+			append("cm,paperheight=").append((bl.getY() - tr.getY()) / ppc * latexdata.getScale() + 0.2).  //NON-NLS
+			append("cm]{geometry}").append(SystemUtils.getInstance().eol). //NON-NLS
 			append("\\usepackage[usenames,dvipsnames]{pstricks}").append(SystemUtils.getInstance().eol).append("\\usepackage{epsfig}").append(SystemUtils.getInstance().eol). //NON-NLS
 			append("\\usepackage{pst-grad}").append(SystemUtils.getInstance().eol).append("\\usepackage{pst-plot}").append(SystemUtils.getInstance().eol). //NON-NLS
 			append(packageForSpacePicture).append("\\begin{document}").append(SystemUtils.getInstance().eol). //NON-NLS
-			append("\\addtolength{\\oddsidemargin}{-0.2in}").append(SystemUtils.getInstance().eol).append("\\addtolength{\\evensidemargin}{-0.2in}"). //NON-NLS
 			append(SystemUtils.getInstance().eol).append(getDrawingCode()).append(SystemUtils.getInstance().eol).append("\\end{document}"); //NON-NLS
 
 		return doc.toString();
