@@ -18,9 +18,6 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.TimeUnit;
-import javafx.application.Platform;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.geometry.Bounds;
 import javafx.scene.Group;
@@ -214,23 +211,11 @@ public class Export extends CommandImpl {
 		final double scale = 3d;
 		final WritableImage img = new WritableImage((int) (bounds.getWidth() * scale), (int) (bounds.getHeight() * scale));
 		final SnapshotParameters snapshotParameters = new SnapshotParameters();
-		final CountDownLatch latch = new CountDownLatch(1);
 
 		snapshotParameters.setFill(Color.WHITE);
 		snapshotParameters.setTransform(new Scale(scale, scale));
 
-		Platform.runLater(() -> {
-			views.snapshot(snapshotParameters, img);
-			latch.countDown();
-		});
-
-		try {
-			exported = latch.await(10, TimeUnit.SECONDS);
-		}catch(final InterruptedException ex) {
-			BadaboomCollector.INSTANCE.add(ex);
-			Thread.currentThread().interrupt();
-		}
-
+		views.snapshot(snapshotParameters, img);
 		return SwingFXUtils.fromFXImage(img, null);
 	}
 }
