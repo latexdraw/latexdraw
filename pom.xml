@@ -21,6 +21,7 @@
         <annotations.version>16.0.1</annotations.version>
         <rxjavafx.version>2.11.0-RC33</rxjavafx.version>
         <jmods.path>${java.home}</jmods.path>
+        <jpkg.args>--linux-rpm-license-type "GPLv3+" --linux-menu-group "Office;" --linux-shortcut</jpkg.args>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     </properties>
@@ -78,14 +79,16 @@
             <id>win</id>
             <properties>
                 <javafx.platform>win</javafx.platform>
-                <jmods.path>/opt/jdk-11-win</jmods.path>
+<!--                <jmods.path>/opt/jdk-14-win</jmods.path>-->
+                <jpkg.args>--win-menu </jpkg.args>
             </properties>
         </profile>
         <profile>
             <id>mac</id>
             <properties>
                 <javafx.platform>mac</javafx.platform>
-                <jmods.path>/opt/jdk-11-mac/Contents/Home</jmods.path>
+<!--                <jmods.path>/opt/jdk-14-mac/Contents/Home</jmods.path>-->
+                <jpkg.args>--mac-package-identifier latexdraw --mac-package-name LaTeXDraw</jpkg.args>
             </properties>
         </profile>
     </profiles>
@@ -101,29 +104,29 @@
                     <source>${java.version}</source>
                     <target>${java.version}</target>
                     <release>${java.version}</release>
-                    <compilerArgs combine.children="append">
-                        <arg>-XDcompilePolicy=simple</arg>
-                        <arg>-Xplugin:ErrorProne
-                            -Xep:HidingField:ERROR
-                            -Xep:InvalidParam:ERROR
-                            -Xep:InvalidThrows:ERROR
-                            -Xep:TypeParameterNaming:ERROR
-                            -Xep:ClassNamedLikeTypeParameter:ERROR
-                            -Xep:EqualsBrokenForNull:ERROR
-                            -Xep:RedundantThrows:ERROR
-                            -Xep:WildcardImport:ERROR
-                            -Xep:LambdaFunctionalInterface:ERROR
-                            -Xep:StringSplitter:OFF
-                            -Xep:DefaultCharset:OFF
-                            -XepExcludedPaths:.*/(generated-sources|test)/.*</arg>
-                    </compilerArgs>
-                    <annotationProcessorPaths>
-                        <path>
-                            <groupId>com.google.errorprone</groupId>
-                            <artifactId>error_prone_core</artifactId>
-                            <version>2.3.4</version>
-                        </path>
-                    </annotationProcessorPaths>
+<!--                    <compilerArgs combine.children="append">-->
+<!--                        <arg>-XDcompilePolicy=simple</arg>-->
+<!--                        <arg>-Xplugin:ErrorProne-->
+<!--                            -Xep:HidingField:ERROR-->
+<!--                            -Xep:InvalidParam:ERROR-->
+<!--                            -Xep:InvalidThrows:ERROR-->
+<!--                            -Xep:TypeParameterNaming:ERROR-->
+<!--                            -Xep:ClassNamedLikeTypeParameter:ERROR-->
+<!--                            -Xep:EqualsBrokenForNull:ERROR-->
+<!--                            -Xep:RedundantThrows:ERROR-->
+<!--                            -Xep:WildcardImport:ERROR-->
+<!--                            -Xep:LambdaFunctionalInterface:ERROR-->
+<!--                            -Xep:StringSplitter:OFF-->
+<!--                            -Xep:DefaultCharset:OFF-->
+<!--                            -XepExcludedPaths:.*/(generated-sources|test)/.*</arg>-->
+<!--                    </compilerArgs>-->
+<!--                    <annotationProcessorPaths>-->
+<!--                        <path>-->
+<!--                            <groupId>com.google.errorprone</groupId>-->
+<!--                            <artifactId>error_prone_core</artifactId>-->
+<!--                            <version>2.3.4</version>-->
+<!--                        </path>-->
+<!--                    </annotationProcessorPaths>-->
                 </configuration>
             </plugin>
 
@@ -180,6 +183,7 @@
                             <goal>add-module-info</goal>
                         </goals>
                         <configuration>
+                            <overwriteExistingFiles>true</overwriteExistingFiles>
                             <outputDirectory>${project.build.directory}/modules</outputDirectory>
                             <modules>
                                 <module>
@@ -255,6 +259,7 @@
                             <goal>copy-dependencies</goal>
                         </goals>
                         <configuration>
+                            <overWriteIfNewer>true</overWriteIfNewer>
                             <classifier>${javafx.platform}</classifier>
                             <outputDirectory>
                                 ${project.build.directory}/modules
@@ -305,6 +310,21 @@
                                 <argument>--no-man-pages</argument>
                                 <argument>--no-header-files</argument>
                             </arguments>
+                        </configuration>
+                    </execution>
+
+                    <execution>
+                        <id>jpackage</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <workingDirectory>${project.build.directory}</workingDirectory>
+                            <executable>${java.home}/bin/jpackage</executable>
+                            <commandlineArgs>--name LaTeXDraw --module-path ${project.build.directory}/modules -m latexdraw --app-version 4.0
+                                --license-file ${project.basedir}/LICENSE --description "A vector drawing editor for LaTeX" --vendor LaTeXDraw
+                                --icon ${project.basedir}/src/main/resources/res/LaTeXDrawIcon.png ${jpkg.args}</commandlineArgs>
                         </configuration>
                     </execution>
                 </executions>
@@ -418,29 +438,6 @@
                         <groupId>com.puppycrawl.tools</groupId>
                         <artifactId>checkstyle</artifactId>
                         <version>8.29</version>
-                    </dependency>
-                </dependencies>
-            </plugin>
-
-            <plugin>
-                <groupId>org.pitest</groupId>
-                <artifactId>pitest-maven</artifactId>
-                <version>1.4.11</version>
-                <configuration>
-                    <mutationEngine>descartes</mutationEngine>
-                    <excludedTestClasses>
-                        <param>net.sf.latexdraw.parser*</param>
-                        <param>net.sf.latexdraw.TestLaTeXDraw</param>
-                        <param>net.sf.latexdraw.instrument*</param>
-                        <param>net.sf.latexdraw.view*</param>
-                    </excludedTestClasses>
-                    <threads>1</threads>
-                </configuration>
-                <dependencies>
-                    <dependency>
-                        <groupId>eu.stamp-project</groupId>
-                        <artifactId>descartes</artifactId>
-                        <version>1.2.6</version>
                     </dependency>
                 </dependencies>
             </plugin>
