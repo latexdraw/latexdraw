@@ -19,9 +19,10 @@ http://sourceforge.net/projects/latexdraw/
 **Development version**
 
 You can test the next 4.0 development verion using the following binaries.
-- for Linux (the tgz file): https://ci.inria.fr/malai/job/latexdraw4/net.sf.latexdraw$latexdraw/
-- for Windows (the zip file): https://ci.inria.fr/malai/job/latexdraw4%20win/net.sf.latexdraw$latexdraw/
-- MacOsX (the zip file): https://ci.inria.fr/malai/job/latexdraw4%20mac/net.sf.latexdraw$latexdraw/
+- for Linux (Fedora): https://ci.inria.fr/malai/job/latexdraw4/lastSuccessfulBuild/artifact/target/
+- for Linux (Debian/Ubuntu): https://ci.inria.fr/malai/job/latexdraw4deb/lastSuccessfulBuild/artifact/target/
+- for Windows: https://ci.inria.fr/malai/job/latexdraw4win/lastSuccessfulBuild/artifact/target/
+- MacOsX: https://ci.inria.fr/malai/job/latexdraw4mac/lastSuccessfulBuild/artifact/target/
 
 *These binaries do not require any Java installation anymore.*
 They embed a sliced JVM directly.
@@ -99,3 +100,32 @@ This profile contains the preferences of the user and its templates.
 If you want to install LaTeXDraw without using the installer you must place `LaTeXDraw.jar`,
 `release_notes.txt`, `licence.txt`, `help/` and `lib/` in the same directory.
 You can then double-click on `LaTeXDraw.jar` to run the application.
+
+
+**Build LaTeXDraw**
+
+To compile you need JDK14 and Maven:
+https://adoptopenjdk.net
+
+The default Maven profile is for Linux and does not work for Windows and MacOSX
+If you want to compile the project on MacOSX use the `mac` profile.
+On Windows, use the `win` profile.
+To do so, you have to add the option `-P mac` or `-P win` in the following Maven commands.
+
+If you just want to compile the app:
+`mvn clean compile`
+
+If you want to build the app (and produce platform-specific installer files):
+`mvn clean package`
+
+If you want to skip the tests
+`mvn -DskipTests=true clean package`
+
+The packaging step is specific for each OS (Fedora, Debian, Windows, MacOSX, etc.):
+it uses tools these OS provide to build installation files.
+These tools are:
+- On Fedora, you need `rpmbuild`:
+ `dnf install rpm-build`
+- On Debian/Ubuntu, you need `fakeroot`: `apt install fakeroot`
+- On MacOSX, it seems to work without any supplementary installation
+ 
