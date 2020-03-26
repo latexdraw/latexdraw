@@ -301,7 +301,7 @@
                         <configuration>
                             <executable>${java.home}/bin/jlink</executable>
                             <arguments>
-                                <argument>--module-path=${project.build.directory}/modules:${jmods.path}/jmods</argument>
+                                <argument>--module-path=${project.build.directory}/modules${path.separator}${jmods.path}/jmods</argument>
                                 <argument>--add-modules=latexdraw</argument>
                                 <argument>--launcher=latexdraw-run=latexdraw/net.sf.latexdraw.LaTeXDraw</argument>
                                 <argument>--output=${project.build.directory}/LaTeXDraw-${project.version}</argument>
