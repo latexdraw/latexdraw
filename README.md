@@ -127,5 +127,7 @@ These tools are:
 - On Fedora, you need `rpmbuild`:
  `dnf install rpm-build`
 - On Debian/Ubuntu, you need `fakeroot`: `apt install fakeroot`
+- On Windows, you need `WIX toolset` (https://wixtoolset.org)
 - On MacOSX, it seems to work without any supplementary installation
- 
+
+If you run the tests, you need LaTeX to be installed (and PSTricks packages). 
