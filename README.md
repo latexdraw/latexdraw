@@ -118,7 +118,8 @@ If you just want to compile the app:
 If you want to build the app (and produce platform-specific installer files):
 `mvn clean package`
 
-If you want to skip the tests
+If you run the tests, you need LaTeX to be installed (and PSTricks packages). 
+If you want to skip the tests:
 `mvn -DskipTests=true clean package`
 
 If you want to skip the tests and the linters:
@@ -133,4 +134,6 @@ These tools are:
 - On Windows, you need `WIX toolset` (https://wixtoolset.org)
 - On MacOSX, it seems to work without any supplementary installation
 
-If you run the tests, you need LaTeX to be installed (and PSTricks packages). 
+If you do not want to go through this step, you can ask Maven to ignore these steps:
+`mvn clean package -Dexec.skip -Dassembly.skipAssembly`
+
