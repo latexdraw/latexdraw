@@ -121,6 +121,9 @@ If you want to build the app (and produce platform-specific installer files):
 If you want to skip the tests
 `mvn -DskipTests=true clean package`
 
+If you want to skip the tests and the linters:
+`mvn clean package -DskipTests -Dcheckstyle.skip -Dspotbugs.skip`
+
 The packaging step is specific for each OS (Fedora, Debian, Windows, MacOSX, etc.):
 it uses tools these OS provide to build installation files.
 These tools are:
