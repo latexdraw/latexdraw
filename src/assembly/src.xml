@@ -1,20 +1,19 @@
 <assembly xmlns="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.0"
           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
           xsi:schemaLocation="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.0 http://maven.apache.org/xsd/assembly-1.1.0.xsd">
-    <id>mac-binaries</id>
+    <id>src</id>
     <formats>
-        <format>zip</format>
+        <format>txz</format>
     </formats>
     <fileSets>
         <fileSet>
-            <directory>${project.build.directory}/LaTeXDraw-${project.version}</directory>
+            <directory>${project.basedir}</directory>
             <outputDirectory>.</outputDirectory>
-        </fileSet>
-        <fileSet>
-            <includes>
-                <include>${project.basedir}/LICENSE</include>
-                <include>${project.basedir}/README.md</include>
-            </includes>
+            <excludes>
+                <exclude>.idea/</exclude>
+                <exclude>target/</exclude>
+                <exclude>*.iml</exclude>
+            </excludes>
         </fileSet>
     </fileSets>
 </assembly>

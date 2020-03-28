@@ -10,23 +10,22 @@ latexdraw
 
 A vector drawing editor for LaTeX.
 
-Documentation:
+Documentation and installation requirements (in particular regarding LaTeX):
 https://github.com/arnobl/latexdraw/wiki/Manual
 
-Binaries to download on Sourceforge:
+Binaries and installation files to download on Sourceforge:
 http://sourceforge.net/projects/latexdraw/
 
-**Development version**
+**How to run**
 
-You can test the next 4.0 development verion using the following binaries.
-- for Linux (Fedora): https://ci.inria.fr/malai/job/latexdraw4/lastSuccessfulBuild/artifact/target/
-- for Linux (Debian/Ubuntu): https://ci.inria.fr/malai/job/latexdraw4deb/lastSuccessfulBuild/artifact/target/
-- for Windows: https://ci.inria.fr/malai/job/latexdraw4win/lastSuccessfulBuild/artifact/target/
-- MacOsX: https://ci.inria.fr/malai/job/latexdraw4mac/lastSuccessfulBuild/artifact/target/
+You downloaded the binaries of a 4.x version and you want to run the app.
+Go in the `bin` folder and launch the `latexdraw-run` file (or `latexdraw-run.bat` on Windows).
+On Windows, the system may tell you `Windows has protected your computer`.
+To overcome this issue, right-click on this file, click on the `properties` menu, and activate the `unlock` checkbox.
 
-*These binaries do not require any Java installation anymore.*
-They embed a sliced JVM directly.
-Run the app by launching the latexdraw-run file located in the bin folder.
+
+You do not need Java for running the app.
+For rendering LaTeX instructions, you need an up-to-date LaTeX installation.
 
 
 **Support**
@@ -35,71 +34,45 @@ You can support this software by making a donation:
 http://sourceforge.net/donate/index.php?group_id=156523
 
 
+**How to report a bug**
+
+Before reporting a bug, please check the following elements:
+- Make sure you use the **latest LaTeXDraw version**.
+
+- Make sure your LaTeX installation is up to date (in particular for export / compilation issues). In particular with MikTeX, [run the update utilities](https://miktex.org/howto/update-miktex) to check that. We already faced errors solved by updating MikTeX.
+
+- **Did it work with the previous release?** Please download the previous version and check whether the problem was already here.
+
+- **Do you have LaTeX and some required packages installed?** The required packages are: `pstricks`, `pstricks-add`, `pst-grad`, `pst-plot`, `geometry`, `pst-tools`.
+
+- **With MikTeX, check that the auto-install of missing packages is enable.** MikTeX can install on-demand (during the compilation of a document) the missing packages. Go in the MikTeX preferences to check that this feature is enable (either 'yes' or 'ask me first'), as depicted by the following screenshot:
+
+![miktext config](http://latexdraw.sourceforge.net/images2/miktex.png)
+
+- **Did you look at "the current issues"** section and the reported issues (https://github.com/latexdraw/latexdraw/issues)?
+
+- **Does the problem still occur using the latest development version?** (See the links in the next section).
+
+**If you still have a problem**, please do the following steps while reporting the bug:
+- **Copy/paste in a bug report or on the forum** the information provided in the "system" tab you can find here: "Help" menu -> "About LateXDraw" menu item -> "system" tab.
+
+- **Provide either a scenario** that I can execute to reproduce the problem, or an SVG document plus some instructions regarding the problem.
+- **Be nice**. You did not pay for the software and I develop it on my free time since more than one decade.
+- **Report your bug** on Github (https://github.com/latexdraw/latexdraw/issues).
+
+
+**Latest development version**
+
+You can test the next 4.x development version using the following binaries and installation files:
+- for Linux (Fedora): https://ci.inria.fr/malai/job/latexdraw4/lastSuccessfulBuild/artifact/target/
+- for Linux (Debian/Ubuntu): https://ci.inria.fr/malai/job/latexdraw4deb/lastSuccessfulBuild/artifact/target/
+- for Windows: https://ci.inria.fr/malai/job/latexdraw4win/lastSuccessfulBuild/artifact/target/
+- MacOsX: https://ci.inria.fr/malai/job/latexdraw4mac/lastSuccessfulBuild/artifact/target/
+
+
 **Linux packaging** 
 
 [![Packaging status](https://repology.org/badge/vertical-allrepos/latexdraw.svg)](https://repology.org/metapackage/latexdraw)
-
-
-**Documentation**
-
-Look at the online manual to see the installation requirements (in particular regarding LaTeX):
-https://github.com/arnobl/latexdraw/wiki/Manual
-
-
-This installer will install LaTeXDraw in the selected directory and create a directory for shared templates.
-This last action can require administrator privileges.
-
-**Mac**
-
-A Mac app bundle is now available so that you should not use this installer.
-See: https://sourceforge.net/projects/latexdraw/files/latexdraw/
-
-
-**Windows**
-
-On Windows you must use the install_windows.vbs to install LaTeXDraw.
-This script activates the "run as administrator" feature to install
-files in dedicated directories such as "Program Files". It may ask you your password.
-
-
-**Debian/Ubuntu/Fedora/Opensuse**
-
-The scripts `install_debian_ubuntu`, `install_fedora` or `install_opensuse` will ask
-administrator privileges before launching the installer.
-
-Warning: on Fedora 25 with Wayland, the installation will fail since Wayland forbids graphical applications
-to run in sudo/su mode. See: https://bugzilla.redhat.com/show_bug.cgi?id=1274451
-The workaround consists of installing LaTeXDraw using a X11 sessions, or manually (see below). We will fix that in a next release.
-
-
-**Running the installer**
-
-If you want to manually launch the installer (i.e. without through a script as explained above)
-in a console, the command is `java -jar installer.jar` (but you must have admin rights).
-
-The shared templates are located in the following folder:
- - for Unix, `/usr/share/latexdraw`
- - for Mac OS X, `/Users/Shared/latexdraw`
- - for Vista, `ProgramData\latexdraw`
- - for other Windows, `All Users\Application Data\latexdraw`
-
-For Linux, the installer will create a script in `/usr/bin` to launch LaTeXDraw (if the installer is launched as root).
-On Windows the installer creates a shortcut.
-
-The first execution of LaTeXDraw will create the profile of the current user in the following location:
- - for Unix, `~/.latexdraw`
- - for Max OS X, `<user>/Library/Preferences/latexdraw`
- - for Vista, `<user>\AppData\Local\latexdraw`
- - for other Windows, `<user>\Application Data\latexdraw`
-
-This profile contains the preferences of the user and its templates.
-
-
-**HOW TO INSTALL LATEXDRAW MANUALLY**
-
-If you want to install LaTeXDraw without using the installer you must place `LaTeXDraw.jar`,
-`release_notes.txt`, `licence.txt`, `help/` and `lib/` in the same directory.
-You can then double-click on `LaTeXDraw.jar` to run the application.
 
 
 **Build LaTeXDraw**
@@ -136,4 +109,12 @@ These tools are:
 
 If you do not want to go through this step, you can ask Maven to ignore these steps:
 `mvn clean package -Dexec.skip -Dassembly.skipAssembly`
+
+
+
+**LaTeXDraw 3.x serie**
+
+We do not maintain the 3.x serie anymore.
+You can find the 3.x help page here:
+https://github.com/latexdraw/latexdraw/wiki/Manual-for-Versions-3.x
 

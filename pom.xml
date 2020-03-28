@@ -245,9 +245,7 @@
                         </goals>
                         <configuration>
                             <excludeClassifiers>linux,win,mac</excludeClassifiers>
-                            <outputDirectory>
-                                ${project.build.directory}/modules
-                            </outputDirectory>
+                            <outputDirectory>${project.build.directory}/modules</outputDirectory>
                             <includeScope>runtime</includeScope>
                         </configuration>
                     </execution>
@@ -261,9 +259,7 @@
                         <configuration>
                             <overWriteIfNewer>true</overWriteIfNewer>
                             <classifier>${javafx.platform}</classifier>
-                            <outputDirectory>
-                                ${project.build.directory}/modules
-                            </outputDirectory>
+                            <outputDirectory>${project.build.directory}/modules</outputDirectory>
                             <includeScope>runtime</includeScope>
                         </configuration>
                     </execution>
@@ -335,7 +331,8 @@
                 <version>3.1.1</version>
                 <configuration>
                     <descriptors>
-                        <descriptor>src/assembly/${javafx.platform}.xml</descriptor>
+                        <descriptor>${project.basedir}/src/assembly/${javafx.platform}.xml</descriptor>
+                        <descriptor>${project.basedir}/src/assembly/src.xml</descriptor>
                     </descriptors>
                 </configuration>
                 <executions>
@@ -411,78 +408,78 @@
                 </executions>
             </plugin>
 
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-checkstyle-plugin</artifactId>
-                <version>3.1.0</version>
-                <configuration>
-                    <sourceDirectories>
-                        <sourceDirectory>src/main/java</sourceDirectory>
-                        <sourceDirectory>src/test/java</sourceDirectory>
-                    </sourceDirectories>
-                    <failsOnError>true</failsOnError>
-                    <configLocation>checkstyle.xml</configLocation>
-                    <consoleOutput>true</consoleOutput>
-                    <linkXRef>false</linkXRef>
-                </configuration>
-                <executions>
-                    <execution>
-                        <phase>compile</phase>
-                        <goals>
-                            <goal>checkstyle</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <dependencies>
-                    <dependency>
-                        <groupId>com.puppycrawl.tools</groupId>
-                        <artifactId>checkstyle</artifactId>
-                        <version>8.29</version>
-                    </dependency>
-                </dependencies>
-            </plugin>
+<!--            <plugin>-->
+<!--                <groupId>org.apache.maven.plugins</groupId>-->
+<!--                <artifactId>maven-checkstyle-plugin</artifactId>-->
+<!--                <version>3.1.0</version>-->
+<!--                <configuration>-->
+<!--                    <sourceDirectories>-->
+<!--                        <sourceDirectory>src/main/java</sourceDirectory>-->
+<!--                        <sourceDirectory>src/test/java</sourceDirectory>-->
+<!--                    </sourceDirectories>-->
+<!--                    <failsOnError>true</failsOnError>-->
+<!--                    <configLocation>checkstyle.xml</configLocation>-->
+<!--                    <consoleOutput>true</consoleOutput>-->
+<!--                    <linkXRef>false</linkXRef>-->
+<!--                </configuration>-->
+<!--                <executions>-->
+<!--                    <execution>-->
+<!--                        <phase>compile</phase>-->
+<!--                        <goals>-->
+<!--                            <goal>checkstyle</goal>-->
+<!--                        </goals>-->
+<!--                    </execution>-->
+<!--                </executions>-->
+<!--                <dependencies>-->
+<!--                    <dependency>-->
+<!--                        <groupId>com.puppycrawl.tools</groupId>-->
+<!--                        <artifactId>checkstyle</artifactId>-->
+<!--                        <version>8.29</version>-->
+<!--                    </dependency>-->
+<!--                </dependencies>-->
+<!--            </plugin>-->
 
-            <plugin>
-                <groupId>com.github.spotbugs</groupId>
-                <artifactId>spotbugs-maven-plugin</artifactId>
-                <version>3.1.12.2</version>
-                <configuration>
-                    <includeTests>false</includeTests>
-                    <effort>Max</effort>
-                    <threshold>Low</threshold>
-                    <excludeFilterFile>spotbugs-exclude.xml</excludeFilterFile>
-                    <plugins>
-                        <plugin>
-                            <groupId>com.mebigfatguy.fb-contrib</groupId>
-                            <artifactId>fb-contrib</artifactId>
-                            <version>7.4.3.sb</version>
-                        </plugin>
-                    </plugins>
-                </configuration>
-                <executions>
-                    <execution>
-                        <phase>compile</phase>
-                        <goals>
-                            <goal>check</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>findbugs-test-compile</id>
-                        <phase>test-compile</phase>
-                        <goals>
-                            <goal>check</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <dependencies>
-                    <dependency>
-                        <groupId>com.github.spotbugs</groupId>
-                        <artifactId>spotbugs</artifactId>
-                        <version>4.0.0</version>
-                        <scope>compile</scope>
-                    </dependency>
-                </dependencies>
-            </plugin>
+<!--            <plugin>-->
+<!--                <groupId>com.github.spotbugs</groupId>-->
+<!--                <artifactId>spotbugs-maven-plugin</artifactId>-->
+<!--                <version>3.1.12.2</version>-->
+<!--                <configuration>-->
+<!--                    <includeTests>false</includeTests>-->
+<!--                    <effort>Max</effort>-->
+<!--                    <threshold>Low</threshold>-->
+<!--                    <excludeFilterFile>spotbugs-exclude.xml</excludeFilterFile>-->
+<!--                    <plugins>-->
+<!--                        <plugin>-->
+<!--                            <groupId>com.mebigfatguy.fb-contrib</groupId>-->
+<!--                            <artifactId>fb-contrib</artifactId>-->
+<!--                            <version>7.4.3.sb</version>-->
+<!--                        </plugin>-->
+<!--                    </plugins>-->
+<!--                </configuration>-->
+<!--                <executions>-->
+<!--                    <execution>-->
+<!--                        <phase>compile</phase>-->
+<!--                        <goals>-->
+<!--                            <goal>check</goal>-->
+<!--                        </goals>-->
+<!--                    </execution>-->
+<!--                    <execution>-->
+<!--                        <id>findbugs-test-compile</id>-->
+<!--                        <phase>test-compile</phase>-->
+<!--                        <goals>-->
+<!--                            <goal>check</goal>-->
+<!--                        </goals>-->
+<!--                    </execution>-->
+<!--                </executions>-->
+<!--                <dependencies>-->
+<!--                    <dependency>-->
+<!--                        <groupId>com.github.spotbugs</groupId>-->
+<!--                        <artifactId>spotbugs</artifactId>-->
+<!--                        <version>4.0.0</version>-->
+<!--                        <scope>compile</scope>-->
+<!--                    </dependency>-->
+<!--                </dependencies>-->
+<!--            </plugin>-->
 
             <plugin>
                 <groupId>org.pitest</groupId>
