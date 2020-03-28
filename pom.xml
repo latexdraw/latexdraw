@@ -6,7 +6,7 @@
     <artifactId>latexdraw</artifactId>
     <name>LaTeXDraw</name>
     <description>A vector drawing editor for LaTeX</description>
-    <version>4.0.0</version>
+    <version>4.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <properties>
