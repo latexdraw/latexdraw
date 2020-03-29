@@ -1,4 +1,26 @@
 ************************************************************
+Version 4.0.0 -- 2020-03-28
+
+- New: The user interface is now developed in JavaFX (instead of Swing):
+    - We completely redesigned the user interface.
+    - Better performances.
+    - To ease the selection, the cursor changes when moving the mouse over a shape with the hand.
+- Can insert eps and pdf pictures ('convert' provided by ImageMagick is required).
+- psrotate supported
+
+- Fixed
+    - Multiple fixes in the SVG save/load
+    - Multiple fixes in the PSTricks save/load
+
+Improvements:
+- can scroll on a spinner to change its value.
+- A better zoom animation.
+
+Change:
+- Some SVG arrow parameters, produced using a 3.x or older version, may not be loaded as expected
+
+
+************************************************************
 Version 3.3.7 -- 2017-11-19
 
 fixed: crash at start-up using Java 9
@@ -143,7 +165,7 @@ New features:
 - psplot is now supported (and can be imported from PSTricks code).
   The parameters plotstyle, polarplot, and plotpoints are supported
 - On Windows, a shortcut is now created in the start menu during the installation.
-- Better integration in Linux environments (using the installer) 
+- Better integration in Linux environments (using the installer)
   https://bugs.launchpad.net/latexdraw/+bug/1369488
 - The commands pspicture and endpspicture are now supported when importing PSTricks code.
 - Support of begin{pspicture} without any coordinate when importing PSTricks code.
@@ -154,13 +176,13 @@ Bugs fixed:
 - Can hide grid's labels
   https://bugs.launchpad.net/latexdraw/+bug/1279086
 - Text shapes disappear when typing an invalid LaTeX text
-  https://bugs.launchpad.net/latexdraw/+bug/1382037 
+  https://bugs.launchpad.net/latexdraw/+bug/1382037
 - The error message of the LaTeX compilation was no more displayed on mouse over a text shape that does not compile.
 - Still have problem with the file name while saving a drawing.
-  https://bugs.launchpad.net/latexdraw/+bug/1369490  
+  https://bugs.launchpad.net/latexdraw/+bug/1369490
 - Cannot parse psaxes with arrows
   https://bugs.launchpad.net/latexdraw/+bug/1388145
-- Text thumbnails might be the same for text shapes having the same text with a different colour. 
+- Text thumbnails might be the same for text shapes having the same text with a different colour.
 - The position of thumbnails of coloured text shapes might not be correct.
 - Dots may not be coloured as expected when exported as a PDF document.
 - The size of the generated PDF/PS documents might not be correct (might have several pages or large margins).
@@ -177,12 +199,12 @@ Version 3.2.0 -- 2014-09-14
 - fixed: Wrong bounding box when creating a bezier curve with show points
   https://bugs.launchpad.net/latexdraw/+bug/1284310
 - fixed: Gradient shading feature is not read from SVG file
-  https://bugs.launchpad.net/latexdraw/+bug/1284297 
+  https://bugs.launchpad.net/latexdraw/+bug/1284297
 - fixed: Changing the position using the spinners does not work
   https://bugs.launchpad.net/latexdraw/+bug/1278045
 - fixed: Should use ps2eps in the eps latex export
   https://bugs.launchpad.net/latexdraw/+bug/711936
-- fixed:  copy-paste a Bezier curve always gives a "closed" one. 
+- fixed:  copy-paste a Bezier curve always gives a "closed" one.
   https://bugs.launchpad.net/latexdraw/+bug/1277542
 - fixed: Text cursor moves while writting LaTeX packages
   https://bugs.launchpad.net/latexdraw/+bug/1274875
@@ -233,7 +255,7 @@ Version 3.1.0 -- 2014-01-27
 - fixed: latex thumbnails not created on windows Seven
   https://bugs.launchpad.net/latexdraw/+bug/1252030
 - fixed: LaTeX packages declared in the preferences are not used when loading a file
-  https://bugs.launchpad.net/latexdraw/+bug/1270559 
+  https://bugs.launchpad.net/latexdraw/+bug/1270559
 - fixed: The text field used during the editing of text is not always correctly located
   https://bugs.launchpad.net/latexdraw/+bug/1264869
 - fixed: The text field used during the editing of text is not always correctly sized depending
@@ -253,7 +275,7 @@ Version 3.1.0 -- 2014-01-27
 - fixed: Copying-pasting-deleting removes the wrong shape
   https://bugs.launchpad.net/latexdraw/+bug/1271762
 - fixed: 'Show origin' does not work for axes
-  https://bugs.launchpad.net/latexdraw/+bug/1266287 
+  https://bugs.launchpad.net/latexdraw/+bug/1266287
 
 
 *******************************************************************
@@ -308,7 +330,7 @@ Changes:
 - The basic EPS export is no more supported (the LaTeX EPS export is still supported).
 - No more button 'default' in all the dialogue boxes.
 - Handlers style has changed.
-- There is no more the choice between line and curve to close a Bezier curve. Only curve is supported. That because in a 
+- There is no more the choice between line and curve to close a Bezier curve. Only curve is supported. That because in a
   future release, every segment of a Bezier curve will be either a line or a curve.
 - The PPC (point per centimetre) cannot be changed anymore.
 - The change of unit (cm or inch) can be performed through menu items in the "Drawing" menu.
@@ -376,7 +398,7 @@ Version 2.0.5 -- 2009-10-06
 - fixed #306953: attribute inheritance does not work for text attributes
 - fixed #435265: better management of SVG font-size
 - fixed #195898: a too small triangle/rhombus is not visible
-- fixed #440739: the size of shapes with double borders are badly saved 
+- fixed #440739: the size of shapes with double borders are badly saved
 
 
 *******************************************************************
@@ -400,7 +422,7 @@ Version 2.0.3 -- 2009-07-03
 - fixed #305154: bad parsing of points path for SVG-polygon and SVG-polylines
 - fixed #305413: cannot parse CSS styles with WSP or comments
 - fixed #392168: crash while changing cm to inch in drawing preferences
-- fixed: in some cases, wrong floating-point syntax was generated (e.g. 14E-01) 
+- fixed: in some cases, wrong floating-point syntax was generated (e.g. 14E-01)
 - fixed: on Ubuntu Jaunty the Palatino font is not well managed
 - fixed: the rotation field did not really work for polygons and lines
 - fixed: exported EPS drawings can hide, in some cases, the text of a tex document
@@ -521,7 +543,7 @@ Version 1.9.4 -- 2007-09-01
 - fixed: grid: the dotted sub-grid not well defined;
 - fixed: the pstricks code of a grid can generate number such as 1E-07;
 - fixed: the dot-size field is not updated when resizing a dot;
-- fixed: an error can occurred when using mirrors/position buttons with no selected figure; 
+- fixed: an error can occurred when using mirrors/position buttons with no selected figure;
 - fixed: the printed code is always a unique page;
 
 - change: jlibeps replaces EPSGraphics;
@@ -530,7 +552,7 @@ Version 1.9.4 -- 2007-09-01
 PSTricks parser 0.4.2:
 
 - fixed: parameters beginning with '9' cannot be parsed;
-- fixed #1703716: origin={...} in parameters does not work. 
+- fixed #1703716: origin={...} in parameters does not work.
 
 
 ***************************************************************
@@ -550,7 +572,7 @@ Version 1.9.3 -- 2007-06-20
 
 PSTricks parser 0.4.1:
 
-- fixed #1703713: {} and {>} arrows command should be parsed. 
+- fixed #1703713: {} and {>} arrows command should be parsed.
 
 
 ****************************************************************
@@ -603,8 +625,8 @@ Version 1.9.1 -- 2007-04-04
 - improvement: can change the parameters of several selected figures in the
                same time;
 - improvement: can define the parameters before creating a figure;
-- improvement: all the frames can be easily resized; 
-- improvement: the definition of a dot is almost totally rewritten to improve 
+- improvement: all the frames can be easily resized;
+- improvement: the definition of a dot is almost totally rewritten to improve
                the selection and to fix several bugs;
 
 - fixed #1681687: the parameters toolbar is not updated when importing a tex file;
@@ -614,7 +636,7 @@ Version 1.9.1 -- 2007-04-04
 - fixed: the selection of figures works better now;
 - fixed: a rotated dot doesn't correctly move after loading a project;
 - fixed: problem when exporting a drawing as picture;
-- fixed: the drawing is no more affected when the number of pixels per 
+- fixed: the drawing is no more affected when the number of pixels per
          cm changes (only the generated code);
 - fixed: problem when redoing after having cut several figures;
 - fixed: the size of the ellipse framed box was badly computed;
@@ -632,7 +654,7 @@ Version 1.9 -- 2007-02-08
             - can move scrollbars and figures with left, up, shift,...;
 - added: can update figures to the displayed grid;
 - added: a shortcuts frame;
-- added: when the code panel is closed, a button, copying the all the generated 
+- added: when the code panel is closed, a button, copying the all the generated
          code, is visible in the toolbar;
 - added: a menu item to set visible all the hidden figures;
 - added: can choose the look and feel;
@@ -651,7 +673,7 @@ Version 1.9 -- 2007-02-08
 - improvement: a Bézier curve can be closed with a line or a curve;
 - improvement: can equilibrate the control points of a Bézier curve;
 - improvement: update jiu to 0.14.1;
-- improvement: a right-click doesn't remove the last point anymore (during the 
+- improvement: a right-click doesn't remove the last point anymore (during the
                creation of a polygon/joined-lines/Bézier curve;
 
 - fixed #1621630: figures were not updated to the magnetic grid when rotated;
@@ -800,7 +822,7 @@ Version 1.7 -- 2006-08-23
 - fixed #1512533: undo/redo: bad undo management when creating and cancelling a text/grid;
 - fixed #1512537: undo/redo: toolbar still active when redo a 'delete' action ;
 - fixed #1512538: undo/redo: the redo was never cleared when a command, different than redo, occurred;
-- fixed #1515149: bug in the method Line.getPerpendicularLine(): when the x-coordinate of a 
+- fixed #1515149: bug in the method Line.getPerpendicularLine(): when the x-coordinate of a
                   point of a triangle/rhombus is 0 a problem in the display occurred;
 - fixed #1516288: % not always replaced by \% during the code generation;
 - fixed #1523877: when a file is loaded, the undo/redo manager is not cleared;
@@ -810,7 +832,7 @@ Version 1.7 -- 2006-08-23
                   be dashed too;
 - fixed #       : exception in Polygon.getBorders when three points have the same X-coordinate;
 - fixed: minor bugs.
-         
+
 
 PSTricks parser 0.2:
 - added: shadow management;
@@ -852,7 +874,7 @@ WARNING: YOU MUST REPLACE THE FORMER 'Classic grid.ldp' OF THE TEMPLATES DIRECTO
 - fixed: the packages  \usepackage{color} and \usepackage{pstricks} are replaced by
           \usepackage[usenames,dvipsnames]{pstricks};
 - fixed: "move figure" was badly managed by the undo/redo manager;
-- fixed: a problem when resize several selected figures containing polygons or 
+- fixed: a problem when resize several selected figures containing polygons or
           derived figures;
 - fixed: when loading a file, the delimiters of severals figures were not updated;
 - fixed: when paste, toolbar was still activated;
@@ -885,7 +907,7 @@ WARNING: YOU MUST REPLACE THE FORMER 'Classic grid.ldp' OF THE TEMPLATES DIRECTO
 - fixed: space between two lines of an hatching was badly managed;
 - fixed: problem when copy/paste a rhombus or a triangle;
 - fixed: problem when editing points of rhombus/triangle with their frame of parameters;
-- fixed: scrollbars not updated when cut/delete the unique figure of a drawing; 
+- fixed: scrollbars not updated when cut/delete the unique figure of a drawing;
 - fixed: problem when resize several figures;
 - fixed: option "showpoints" was not save for arcs;
 - fixed: several minor bugs;
@@ -897,7 +919,7 @@ WARNING: YOU MUST REPLACE THE FORMER 'Classic grid.ldp' OF THE TEMPLATES DIRECTO
 - improvement: CPU, memory, speed optimisation;
 - improvement: akin points code generator generates less points;
 - added: export as PNG;
-- added: export as BMP; 
+- added: export as BMP;
 - added: export as PPM;
 - added: can insert pictures;
 - added: new figure, joined lines;
@@ -907,13 +929,13 @@ WARNING: YOU MUST REPLACE THE FORMER 'Classic grid.ldp' OF THE TEMPLATES DIRECTO
 - added: can insert PSTricks code in a draw (use the PSTricks parser).
 
 
-- regression: if, you load a saved project with 1.5.1 or 1.5.1.1 , the language is 
-               French and several figures of the draw have doubles boundaries, then 
-               the position of the doubles boundaries will be always 'inner'; because 
+- regression: if, you load a saved project with 1.5.1 or 1.5.1.1 , the language is
+               French and several figures of the draw have doubles boundaries, then
+               the position of the doubles boundaries will be always 'inner'; because
                of the bug (1);
 - regression: because of the bug (2), LaTeXDraw can not open file from 1.5.1.1 and older
                with grids. By the same way, old templates with grids are not compatible with
-               LaTeXDraw 1.6.       
+               LaTeXDraw 1.6.
 
 
 **************************************************************************************
