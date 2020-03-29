@@ -2,6 +2,7 @@ package net.sf.latexdraw.command;
 
 import io.github.interacto.jfx.test.CommandTest;
 import java.io.File;
+import java.io.IOException;
 import java.util.Optional;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
@@ -82,9 +83,15 @@ class ExportTest extends CommandTest<Export> {
 				cmd = new Export(canvas, pstGen, ExportFormat.PNG, dialogueBox);
 			}),
 			Stream.of(ExportFormat.values()).map(f -> () -> {
-				Mockito.when(dialogueBox.showSaveDialog(Mockito.any())).thenReturn(file);
-				cmd = new Export(canvas, pstGen, f, dialogueBox);
-				assertThat(cmd.hadEffect()).isFalse();
+				try {
+					final File tempFile = File.createTempFile("foo", "");
+					tempFile.deleteOnExit();
+					Mockito.when(dialogueBox.showSaveDialog(Mockito.any())).thenReturn(tempFile);
+					cmd = new Export(canvas, pstGen, f, dialogueBox);
+					assertThat(cmd.hadEffect()).isFalse();
+				}catch(final IOException ex) {
+					fail();
+				}
 			}));
 	}
 
@@ -150,7 +157,7 @@ class ExportTest extends CommandTest<Export> {
 
 		try {
 			latch.await(10, TimeUnit.SECONDS);
-		}catch(InterruptedException e) {
+		}catch(final InterruptedException ignore) {
 			fail();
 		}
 	}
