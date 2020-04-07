@@ -92,7 +92,8 @@ public class PreferencesService {
 		super();
 		this.prefsPath = prefsPath;
 		lang = new SimpleObjectProperty<>(readLang());
-		bundle = loadResourceBundle(lang.get()).orElseThrow(() -> new IllegalArgumentException("Cannot read any resource bundle."));
+		bundle = loadResourceBundle(lang.get()).orElseThrow(
+			() -> new IllegalArgumentException("Cannot read any resource bundle in this lang: " + lang.get()));
 		nbRecentFiles = new SimpleIntegerProperty(5);
 		gridGap = new SimpleIntegerProperty(10);
 		checkVersion = new SimpleBooleanProperty(true);
