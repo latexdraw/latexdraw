@@ -318,7 +318,7 @@
                         <configuration>
                             <workingDirectory>${project.build.directory}</workingDirectory>
                             <executable>${java.home}/bin/jpackage</executable>
-                            <commandlineArgs>--name LaTeXDraw --module-path ${project.build.directory}/modules -m latexdraw --app-version 4.0
+                            <commandlineArgs>--name LaTeXDraw --module-path ${project.build.directory}/modules -m latexdraw --app-version 4.0.1
                                 --license-file ${project.basedir}/LICENSE --description "A vector drawing editor for LaTeX" --vendor LaTeXDraw
                                 --icon ${project.basedir}/src/main/resources/res/LaTeXDrawIcon.png ${jpkg.args} --verbose</commandlineArgs>
                         </configuration>
