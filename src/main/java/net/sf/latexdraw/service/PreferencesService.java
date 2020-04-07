@@ -194,7 +194,16 @@ public class PreferencesService {
 			// No preferences file
 		}
 
-		return res.orElseGet(() -> Locale.getDefault());
+		// Getting the current locale
+		final Locale locale = res.orElseGet(() -> Locale.getDefault());
+
+		// If this locale is supported, it is used
+		if(getSupportedLocales().stream().anyMatch(loc -> loc.getLanguage().equals(locale.getLanguage()))) {
+			return locale;
+		}
+
+		// If not supported by the app, we use the English American one
+		return Locale.forLanguageTag("en-US");
 	}
 
 

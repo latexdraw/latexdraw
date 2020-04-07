@@ -9,12 +9,14 @@ import net.sf.latexdraw.util.Page;
 import net.sf.latexdraw.util.Unit;
 import net.sf.latexdraw.view.GridStyle;
 import org.assertj.core.util.Files;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.api.io.TempDir;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -40,9 +42,17 @@ class TestPreferencesService {
 
 	@Nested
 	class TestEmptyPrefFile {
+		Locale locale;
+
 		@BeforeEach
 		void setUp(@TempDir final Path tempDir) {
 			prefs = new PreferencesService(tempDir.toString() + File.separator + "emptyFile.xml");
+			locale = Locale.getDefault();
+		}
+
+		@AfterEach
+		void tearDown() {
+			Locale.setDefault(locale);
 		}
 
 		@Test
@@ -227,6 +237,14 @@ class TestPreferencesService {
 			final PreferencesService p2 = new PreferencesService(prefs.getPreferencesPath());
 			p2.readPreferences();
 			assertPreferencesEqual(prefs, p2);
+		}
+
+		@Test
+		void testUnknowDefaultLang(@TempDir final Path tempDir) {
+			final Locale mockLocale = new Locale("foobar");
+			Locale.setDefault(mockLocale);
+			prefs = new PreferencesService(tempDir.toString() + File.separator + "emptyFile.xml");
+			assertThat(prefs.getLang().toLanguageTag()).isEqualTo("en-US");
 		}
 	}
 
