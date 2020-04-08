@@ -451,27 +451,12 @@ public final class SystemUtils {
 	 * @return The created folder or null (if the folder cannot be created or the rights cannot be restricted to the current user).
 	 */
 	public @NotNull Optional<File> createTempDir() {
-		final String pathTmp = System.getProperty("java.io.tmpdir"); //NON-NLS
-		final String path = pathTmp + (pathTmp.endsWith(fileSep) ? "" : fileSep) + "latexdraw" + fileSep + "latexdrawTmp" + //NON-NLS
-			System.currentTimeMillis() + ThreadLocalRandom.current().nextInt(100000);
-		final File tmpDir = new File(path);
-
 		try {
-			boolean ok = tmpDir.mkdirs();
-
-			if(ok) {
-				// Rights are removed for everybody.
-				ok = tmpDir.setReadable(false, false);
-				// They are added to the owner only.
-				ok = ok && tmpDir.setReadable(true, true);
-				// same thing here.
-				ok = ok && tmpDir.setWritable(false, false);
-				ok = ok && tmpDir.setWritable(true, true);
-				tmpDir.deleteOnExit();
-			}
-
-			return ok ? Optional.of(tmpDir) : Optional.empty();
-		}catch(final SecurityException ex) {
+			return Optional.of(
+				Files
+					.createTempDirectory("latexdrawTmp" + System.currentTimeMillis() + ThreadLocalRandom.current().nextInt(100000))
+					.toFile());
+		}catch(final IOException | SecurityException ex) {
 			BadaboomCollector.INSTANCE.add(ex);
 			return Optional.empty();
 		}
