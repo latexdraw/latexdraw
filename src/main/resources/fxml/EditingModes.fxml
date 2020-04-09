@@ -164,7 +164,7 @@
     </ToggleButton>
     <ToggleButton fx:id="freeHandB" mnemonicParsing="false" style="-fx-padding: 5 5 5 5" toggleGroup="$groupEditing">
         <tooltip>
-            <Tooltip text="%LaTeXDrawFrame.7"/>
+            <Tooltip text="%LaTeXDrawFrame.7c"/>
         </tooltip>
         <graphic>
             <ImageView>

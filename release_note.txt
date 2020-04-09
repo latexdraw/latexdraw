@@ -3,3 +3,4 @@ Version 4.0.1
 
 - fix: the app does not start with a OS language not supported
 - fix: export using LaTeX does not work on Windows
+- fix: issues in translation files
