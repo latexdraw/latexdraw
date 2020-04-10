@@ -22,10 +22,11 @@ import javafx.beans.value.ChangeListener;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.image.PixelReader;
+import javafx.scene.image.PixelWriter;
+import javafx.scene.image.WritableImage;
 import net.sf.latexdraw.command.ExportFormat;
-import net.sf.latexdraw.model.MathUtils;
 import net.sf.latexdraw.model.api.shape.Color;
-import net.sf.latexdraw.model.api.shape.Shape;
 import net.sf.latexdraw.model.api.shape.Text;
 import net.sf.latexdraw.service.LaTeXDataService;
 import net.sf.latexdraw.util.OperatingSystem;
@@ -42,7 +43,6 @@ import net.sf.latexdraw.view.pst.PSTricksConstants;
 public class ViewText extends ViewPositionShape<Text> {
 	static final Logger LOGGER = Logger.getAnonymousLogger();
 	private static final ExecutorService COMPILATION_POOL = Executors.newFixedThreadPool(5);
-	private static final double SCALE_COMPILE = 2d;
 
 	private final javafx.scene.text.Text text;
 	private final ImageView compiledText;
@@ -66,15 +66,17 @@ public class ViewText extends ViewPositionShape<Text> {
 		compileTooltip = new Tooltip(null);
 		this.latexData = data;
 
-		compiledText.setScaleX(1d / SCALE_COMPILE);
-		compiledText.setScaleY(compiledText.getScaleX());
+		// Scaling at 0.5 as the png produced by latex is zoomed x 2 (for a better rendering)
+		compiledText.setScaleX(0.5);
+		compiledText.setScaleY(0.5);
 		compiledText.setVisible(false);
 		compiledText.setSmooth(true);
 		compiledText.setCache(true);
-		compiledText.imageProperty().addListener((observable, oldValue, newValue) -> {
-			if(newValue != null) {
-				compiledText.setX(-newValue.getWidth() / 4d);
-				compiledText.setY(-newValue.getHeight() * 0.75);
+		compiledText.imageProperty().addListener((observable, oldValue, theImg) -> {
+			if(theImg != null) {
+				// Have to move the picture as it is zoomed
+				compiledText.setX(-theImg.getWidth() / 4d);
+				compiledText.setY(-(3d * theImg.getHeight()) / 4d);
 			}
 		});
 
@@ -145,20 +147,27 @@ public class ViewText extends ViewPositionShape<Text> {
 		final StringBuilder doc = new StringBuilder();
 		final Color textColour = model.getLineColour();
 		boolean coloured = false;
+		final String eol = SystemUtils.getInstance().eol;
 
-		// We must scale the text to fit its latex size: latexdrawDPI/latexDPI is the ratio to scale the created png picture.
-		final double scale = Shape.PPC * PSTricksConstants.INCH_VAL_CM / PSTricksConstants.INCH_VAL_PT * SCALE_COMPILE;
-
-		doc.append("\\documentclass{standalone}\n\\usepackage[usenames,dvipsnames]{pstricks}"); //NON-NLS
-		doc.append(latexData.getPackages()).append('\n');
-		doc.append("\\begin{document}\n\\psscalebox{"); //NON-NLS
-		doc.append((float) MathUtils.INST.getCutNumber(scale)).append(' ');
-		doc.append((float) MathUtils.INST.getCutNumber(scale)).append('}').append('{');
+		// Do not want to use the convert option of standalone to get a png picture as
+		// it requires gs to be installed in Windows (not provided by Miktex)
+		doc.append("\\documentclass[border=0.5pt]{standalone}") //NON-NLS
+			.append(eol)
+			.append("\\usepackage[usenames,dvipsnames]{pstricks}") //NON-NLS
+			.append(latexData.getPackages())
+			.append(eol)
+			.append("\\begin{document}") //NON-NLS
+			.append(eol);
 
 		if(!PSTricksConstants.DEFAULT_LINE_COLOR.equals(textColour)) {
-			final String name = DviPsColors.INSTANCE.getColourName(textColour).orElseGet(() -> DviPsColors.INSTANCE.addUserColour(textColour).orElse(""));
+			final String name = DviPsColors.INSTANCE.getColourName(textColour)
+				.orElseGet(() -> DviPsColors.INSTANCE.addUserColour(textColour).orElse(""));
 			coloured = true;
-			doc.append(DviPsColors.INSTANCE.getUsercolourCode(name)).append(SystemUtils.getInstance().eol).append("\\textcolor{").append(name).append('}').append('{'); //NON-NLS
+			doc.append(DviPsColors.INSTANCE.getUsercolourCode(name))
+				.append(eol)
+				.append("\\textcolor{") //NON-NLS
+				.append(name)
+				.append("}{"); //NON-NLS
 		}
 
 		doc.append(code);
@@ -167,7 +176,7 @@ public class ViewText extends ViewPositionShape<Text> {
 			doc.append('}');
 		}
 
-		doc.append("}\n\\end{document}"); //NON-NLS
+		doc.append("\\end{document}"); //NON-NLS
 		return doc.toString();
 	}
 
@@ -193,9 +202,12 @@ public class ViewText extends ViewPositionShape<Text> {
 		LOGGER.log(Level.INFO, doc);
 
 		// Saving the LaTeX document into a file to be compiled.
-		if(!SystemUtils.getInstance().saveFile(pathTex, doc).isPresent()) {
+		if(SystemUtils.getInstance().saveFile(pathTex, doc).isEmpty()) {
 			return new Triple<>(null, basePathPic, log);
 		}
+
+		// Cannot use the pst-pdf package as it requires the shell-escape options that
+		// cannot be used with our system execution process.
 
 		// Compiling the LaTeX document.
 		Tuple<Boolean, String> res = SystemUtils.getInstance().execute(new String[] {os.getLatexBinPath(), "--halt-on-error", "--interaction=nonstopmode", //NON-NLS
@@ -222,9 +234,10 @@ public class ViewText extends ViewPositionShape<Text> {
 		// Getting the image of the first page of the PDF document.
 		if(ok) {
 			final String pdfpath = basePathPic + ExportFormat.PDF.getFileExtension();
-			final String picPath = basePathPic + ".png"; //NON-NLS
-			SystemUtils.getInstance().execute(new String[] {"convert", pdfpath, picPath}, null); //NON-NLS
-			img = new Image(new File(picPath).toURI().toString());
+			// We defined -r empirically: 127 for a ratio 1:1 with the exported PDF
+			// 255 as we zoom x2 for a better resolution
+			SystemUtils.getInstance().execute(new String[] {"pdftoppm", "-png", "-r", "255", pdfpath, basePathPic}, null); //NON-NLS
+			img = toTransparentPNG(new Image(new File(basePathPic + "-1.png").toURI().toString()));
 		}
 
 		// Deleting the temporary folder and its content.
@@ -233,6 +246,30 @@ public class ViewText extends ViewPositionShape<Text> {
 		LOGGER.log(Level.INFO, log);
 
 		return new Tuple<>(img, log);
+	}
+
+	/**
+	 * Adds transparency to the given image.
+	 * @param img The image to transform.
+	 * @return The same image with white replaced by transparent.
+	 */
+	private WritableImage toTransparentPNG(final Image img) {
+		final PixelReader pixelReader = img.getPixelReader();
+		final WritableImage wImage = new WritableImage((int) img.getWidth(), (int) img.getHeight());
+		final PixelWriter pixelWriter = wImage.getPixelWriter();
+
+		for(int readY = 0; readY < img.getHeight(); readY++) {
+			for(int readX = 0; readX < img.getWidth(); readX++) {
+				final javafx.scene.paint.Color color = pixelReader.getColor(readX, readY);
+				if (color.equals(javafx.scene.paint.Color.WHITE)) {
+					pixelWriter.setColor(readX, readY, new javafx.scene.paint.Color(color.getRed(), color.getGreen(), color.getBlue(), 0)); // new javafx.scene.paint.Color(1, 1, 1, 0));
+				} else {
+					pixelWriter.setColor(readX, readY, color);
+				}
+			}
+		}
+
+		return wImage;
 	}
 
 	@Override

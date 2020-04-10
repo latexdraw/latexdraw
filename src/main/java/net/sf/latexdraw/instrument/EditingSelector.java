@@ -21,7 +21,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
-import net.sf.latexdraw.command.CheckConvertExists;
 import net.sf.latexdraw.command.ModifyEditingMode;
 import net.sf.latexdraw.command.shape.AddShape;
 import net.sf.latexdraw.model.ShapeFactory;
@@ -155,13 +154,6 @@ public class EditingSelector extends JfxInstrument implements Initializable {
 		final var shapeBaseBinder = toggleButtonBinder()
 			.on(getShapeButtons())
 			.end(() -> canvas.requestFocus());
-
-		// Checking that converting pictures can be done.
-		toggleButtonBinder()
-			.toProduce(() -> new CheckConvertExists(status.getLabel(), status.getLink()))
-			.on(picB)
-			.end(() -> canvas.requestFocus())
-			.bind();
 
 		toggleButtonBinder()
 			.toProduce(() -> new AddShape(ShapeFactory.INST.createText(ShapeFactory.INST.createPoint(textSetter.getPosition()),

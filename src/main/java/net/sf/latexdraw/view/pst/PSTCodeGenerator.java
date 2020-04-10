@@ -55,22 +55,40 @@ public class PSTCodeGenerator extends LaTeXGenerator {
 		final Point bl = handler.getBottomLeftDrawingPoint();
 		final Point tr = handler.getTopRightDrawingPoint();
 		final float ppc = handler.getPPCDrawing();
+		final String eol = SystemUtils.getInstance().eol;
 
 		if(tr.getY() < 0d) {
 			bl.setY(bl.getY() - tr.getY());
 			tr.setY(0d);
 		}
 
-		doc.append("\\documentclass{article}").append(SystemUtils.getInstance().eol).append("\\pagestyle{empty}"). //NON-NLS
-			append(SystemUtils.getInstance().eol).append(latexdata.getPackages()). //NON-NLS
-			append(SystemUtils.getInstance().eol).append("\\usepackage[left=0cm,top=0cm,right=0cm,bottom=0cm,nohead,nofoot,paperwidth="). //NON-NLS
-			append((tr.getX() - bl.getX()) / ppc * latexdata.getScale() + 0.2).
-			append("cm,paperheight=").append((bl.getY() - tr.getY()) / ppc * latexdata.getScale() + 0.2).  //NON-NLS
-			append("cm]{geometry}").append(SystemUtils.getInstance().eol). //NON-NLS
-			append("\\usepackage[usenames,dvipsnames]{pstricks}").append(SystemUtils.getInstance().eol).append("\\usepackage{epsfig}").append(SystemUtils.getInstance().eol). //NON-NLS
-			append("\\usepackage{pst-grad}").append(SystemUtils.getInstance().eol).append("\\usepackage{pst-plot}").append(SystemUtils.getInstance().eol). //NON-NLS
-			append(packageForSpacePicture).append("\\begin{document}").append(SystemUtils.getInstance().eol). //NON-NLS
-			append(SystemUtils.getInstance().eol).append(getDrawingCode()).append(SystemUtils.getInstance().eol).append("\\end{document}"); //NON-NLS
+		doc.append("\\documentclass{article}") //NON-NLS
+			.append(eol)
+			.append("\\pagestyle{empty}") //NON-NLS
+			.append(eol)
+			.append(latexdata.getPackages()) //NON-NLS
+			.append(eol)
+			.append("\\usepackage[left=0cm,top=0cm,right=0cm,bottom=0cm,nohead,nofoot,paperwidth=") //NON-NLS
+			.append((tr.getX() - bl.getX()) / ppc * latexdata.getScale() + 0.2)
+			.append("cm,paperheight=") //NON-NLS
+			.append((bl.getY() - tr.getY()) / ppc * latexdata.getScale() + 0.2)  //NON-NLS
+			.append("cm]{geometry}") //NON-NLS
+			.append(eol)
+			.append("\\usepackage[usenames,dvipsnames]{pstricks}") //NON-NLS
+			.append(eol)
+			.append("\\usepackage{epsfig}") //NON-NLS
+			.append(eol)
+			.append("\\usepackage{pst-grad}") //NON-NLS
+			.append(eol)
+			.append("\\usepackage{pst-plot}") //NON-NLS
+			.append(eol)
+			.append(packageForSpacePicture)
+			.append("\\begin{document}") //NON-NLS
+			.append(eol)
+			.append(eol)
+			.append(getDrawingCode())
+			.append(eol)
+			.append("\\end{document}"); //NON-NLS
 
 		return doc.toString();
 	}
@@ -136,35 +154,47 @@ public class PSTCodeGenerator extends LaTeXGenerator {
 		final int ppc = handler.getPPCDrawing();
 		final Set<String> addedColours = new HashSet<>();
 		final StringBuilder shapeCode = new StringBuilder();
+		final String eol = SystemUtils.getInstance().eol;
 
 		commentCode(cache);
 
-		cache.append(packagePstricks).append("% ").append(packageForSpacePicture.replaceAll(SystemUtils.getInstance().eol, SystemUtils.getInstance().eol + "% "));
+		cache
+			.append(packagePstricks)
+			.append("% ")
+			.append(packageForSpacePicture.replaceAll(eol, eol + "% "));
 
 		addPkgs(cache);
 
-		cache.append(SystemUtils.getInstance().eol);
+		cache.append(eol);
 
 		final boolean hasBegan = startlatexParams(cache);
 
 		if(withLatexParams && latexdata.isPositionHoriCentre()) {
-			cache.append("\\begin{center}").append(SystemUtils.getInstance().eol); //NON-NLS
+			cache.append("\\begin{center}").append(eol); //NON-NLS
 		}
 
 		final float scaleF = MathUtils.INST.getCutNumberFloat(latexdata.getScale());
 		cache.append("\\psscalebox{").append(scaleF).append(' ').append(scaleF).append("} % Change this value to rescale the drawing."); //NON-NLS
-		cache.append(SystemUtils.getInstance().eol).append('{').append(SystemUtils.getInstance().eol);
+		cache.append(eol).append('{').append(eol);
 		cache.append("\\begin{pspicture}("); //NON-NLS
 		cache.append(0).append(',').append(MathUtils.INST.getCutNumberFloat((origin.getY() - br.getY()) / ppc)).append(')').append('(');
 		cache.append(MathUtils.INST.getCutNumberFloat((tl.getX() - origin.getX()) / ppc)).append(',').append(MathUtils.INST.getCutNumberFloat((origin.getY() - tl.getY()) / ppc));
-		cache.append(')').append(SystemUtils.getInstance().eol);
+		cache.append(')').append(eol);
 
 		drawing.getShapes().forEach(shape -> viewsFactory.createView(shape).ifPresent(pstView -> {
-			shapeCode.append(pstView.getCode(origin, ppc)).append(SystemUtils.getInstance().eol);
-			cache.append(pstView.generateColourCode(addedColours)).append(SystemUtils.getInstance().eol);
+			shapeCode.append(pstView.getCode(origin, ppc)).append(eol);
+			final String generateColourCode = pstView.generateColourCode(addedColours);
+			if(!generateColourCode.isEmpty()) {
+				cache.append(generateColourCode).append(eol);
+			}
 		}));
 
-		cache.append(shapeCode).append("\\end{pspicture}").append(SystemUtils.getInstance().eol).append('}').append(SystemUtils.getInstance().eol); //NON-NLS
+		cache
+			.append(shapeCode)
+			.append("\\end{pspicture}") //NON-NLS
+			.append(eol)
+			.append('}')
+			.append(eol);
 
 		endlatexParams(cache, hasBegan);
 
