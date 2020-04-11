@@ -2,10 +2,11 @@ Patches:
 Jan-Cornelius MOLNAR: Mac OS X integration
 
 Translations:
-Brazilian Portuguese: Emerson Vinicius, José Humberto Alvarenga Melo, Matheus de Araújo, Eugênio F, Joao Luiz
+Brazilian Portuguese: Emerson Vinicius, José Humberto Alvarenga Melo, Matheus de Araújo, Eugênio F, Joao Luiz, kaio duarte dos santos, Felipe Cabral, Matheus Cavalcante
 Catalan: Marc Coll Carrillo, Manel Velasco, gaviooota
 Chinese (Simplified): duguxy, Wylmer Wang, Dake Feng, Justin Lei GAO, Aron Xu
 Czech: Michal Janoušek
+Dutch: Corona, Tom S
 English-UK: Arnaud Blouin, Malcolm Parsons
 French: Arnaud Blouin, Thibault Liebert, Matthieu Baerts
 German: Lukas Woodtli, Data, maar7, mm, Sebastian Schlatow, Sebastian Lipp, Flosen, xlazarus, ah8982, Dennis Baudys, Julian Gehring
@@ -17,6 +18,7 @@ Russian: Pand5461, Nikita Putko, Aleksey Kabanov
 Serbian: Мирослав Николић
 Sinhalese: Muditha Perera, Dinu Wijayaweera
 Spanish: Ruben Agapito, Juan Pablo García, Manel Velasco, Luis J. Claros, Hector A. Mantellini, Fitoschido, ghas
+Tamil: Rajesh Pandian M
 Turkish: kosti
 Ukranian: Max_ym
 Vietnamese: Nguyen Quang Chien
