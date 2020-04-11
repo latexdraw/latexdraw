@@ -42,9 +42,8 @@ Before reporting a bug, please check the following elements:
 
 - Make sure your LaTeX installation is up to date (in particular for export / compilation issues). In particular with MikTeX, [run the update utilities](https://miktex.org/howto/update-miktex) to check that. We already faced errors solved by updating MikTeX.
 
-- **Did it work with the previous release?** Please download the previous version and check whether the problem was already here.
-
 - **Do you have LaTeX and some required packages installed?** The required packages are: `pstricks`, `pstricks-add`, `pst-grad`, `pst-plot`, `geometry`, `pst-tools`.
+To render text thumbnails the app use either GhostScript (`gs`) or `pdftoppm` (provided by `poppler-utils` and Texlive on Linux ).
 
 - **With MikTeX, check that the auto-install of missing packages is enable.** MikTeX can install on-demand (during the compilation of a document) the missing packages. Go in the MikTeX preferences to check that this feature is enable (either 'yes' or 'ask me first'), as depicted by the following screenshot:
 
