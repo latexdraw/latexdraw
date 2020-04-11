@@ -22,7 +22,7 @@ import javafx.scene.control.ProgressBar;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import net.sf.latexdraw.service.PreferencesService;
-import net.sf.latexdraw.view.jfx.ViewText;
+import net.sf.latexdraw.util.Injector;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -60,19 +60,19 @@ public class SaveDrawing extends Save<Label> {
 	private final @NotNull Optional<File> currentFolder;
 	/** The file chooser that will be used to select the location to save. */
 	private final @NotNull FileChooser fileChooser;
-	private final @NotNull PreferencesService prefService;
+	private final @NotNull Injector injector;
 	private final @NotNull Stage mainstage;
 	private final @NotNull Alert modifiedAlert;
 
 	public SaveDrawing(final boolean saveAs, final boolean saveOnClose, final @NotNull Optional<File> currentFolder, final @NotNull FileChooser fileChooser,
-				final @NotNull PreferencesService prefService, final File file, final @NotNull OpenSaver<Label> openSaveManager, final @NotNull ProgressBar bar,
+				final @NotNull Injector injector, final File file, final @NotNull OpenSaver<Label> openSaveManager, final @NotNull ProgressBar bar,
 		final @NotNull JfxUI ui, final @NotNull Label statusWidget, final @NotNull Stage mainstage, final @NotNull Alert modifiedAlert) {
 		super(file, openSaveManager, bar, statusWidget, ui);
 		this.saveAs = saveAs;
 		this.saveOnClose = saveOnClose;
 		this.currentFolder = currentFolder;
 		this.fileChooser = fileChooser;
-		this.prefService = prefService;
+		this.injector = injector;
 		this.mainstage = mainstage;
 		this.modifiedAlert = modifiedAlert;
 	}
@@ -119,11 +119,8 @@ public class SaveDrawing extends Save<Label> {
 	}
 
 	private void quit() {
-		prefService.writePreferences();
-		try {
-			ViewText.COMPILATION_POOL.shutdownNow();
-		}catch(final SecurityException ignore) {
-		}
+		injector.getInstance(PreferencesService.class).writePreferences();
 		mainstage.close();
+		injector.clear();
 	}
 }

@@ -11,15 +11,23 @@
 package net.sf.latexdraw.service;
 
 import io.github.interacto.properties.Modifiable;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
+import net.sf.latexdraw.util.Flushable;
 import net.sf.latexdraw.util.SystemUtils;
 import net.sf.latexdraw.view.latex.VerticalPosition;
 import org.jetbrains.annotations.NotNull;
 
-public class LaTeXDataService implements Modifiable {
+public class LaTeXDataService implements Modifiable, Flushable {
+	/**
+	 * The LaTeX compilation pool
+	 */
+	private final @NotNull ExecutorService compilationPool;
+
 	/**
 	 * The latex packages used when exporting using latex.
 	 * These packages are defined for the current document but not for all documents.
@@ -49,6 +57,14 @@ public class LaTeXDataService implements Modifiable {
 		positionVertToken = VerticalPosition.NONE;
 		scale = 1d;
 		packages = new SimpleObjectProperty<>("");
+		compilationPool = Executors.newFixedThreadPool(5);
+	}
+
+	/**
+	 * @return The LaTeX compilation pools.
+	 */
+	public @NotNull ExecutorService getCompilationPool() {
+		return compilationPool;
 	}
 
 	/**
@@ -177,5 +193,10 @@ public class LaTeXDataService implements Modifiable {
 			positionHoriCentre = position;
 			setModified(true);
 		}
+	}
+
+	@Override
+	public void flush() {
+		compilationPool.shutdownNow();
 	}
 }

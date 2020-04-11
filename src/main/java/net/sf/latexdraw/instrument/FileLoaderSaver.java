@@ -33,6 +33,7 @@ import net.sf.latexdraw.command.SaveDrawing;
 import net.sf.latexdraw.service.PreferencesService;
 import net.sf.latexdraw.util.Bindings;
 import net.sf.latexdraw.util.Inject;
+import net.sf.latexdraw.util.Injector;
 import net.sf.latexdraw.util.SystemUtils;
 import net.sf.latexdraw.view.svg.SVGDocumentGenerator;
 import org.jetbrains.annotations.NotNull;
@@ -62,16 +63,18 @@ public class FileLoaderSaver extends JfxInstrument implements Initializable {
 	private final @NotNull JfxUI app;
 	private final @NotNull Stage mainstage;
 	private final @NotNull PreferencesService prefService;
+	private final @NotNull Injector injector;
 
 	@Inject
 	public FileLoaderSaver(final StatusBarController statusBar, final SVGDocumentGenerator svgGen, final JfxUI app, final Stage mainstage,
-		final PreferencesService prefService) {
+		final PreferencesService prefService, final Injector injector) {
 		super();
 		this.statusBar = Objects.requireNonNull(statusBar);
 		this.svgGen = Objects.requireNonNull(svgGen);
 		this.app = Objects.requireNonNull(app);
 		this.prefService = Objects.requireNonNull(prefService);
 		this.mainstage = Objects.requireNonNull(mainstage);
+		this.injector = Objects.requireNonNull(injector);
 	}
 
 	@Override
@@ -132,7 +135,7 @@ public class FileLoaderSaver extends JfxInstrument implements Initializable {
 		windowBinder()
 			.usingInteraction(WindowClosed::new)
 			.toProduce(() -> new SaveDrawing(true, true, prefService.getCurrentFolder(), getDialog(true),
-				prefService, prefService.getCurrentFile().orElse(null), svgGen, statusBar.getProgressBar(), app,
+				injector, prefService.getCurrentFile().orElse(null), svgGen, statusBar.getProgressBar(), app,
 				statusBar.getLabel(), mainstage, getAskModificationsDialog()))
 			.on(mainstage)
 			.ifHadEffects((i, c) -> updateOnIOCommand(c.getFile()))
@@ -141,7 +144,7 @@ public class FileLoaderSaver extends JfxInstrument implements Initializable {
 		// Quit shortcut
 		shortcutBaseBinder
 			.toProduce(() -> new SaveDrawing(true, true, prefService.getCurrentFolder(), getDialog(true),
-				prefService, prefService.getCurrentFile().orElse(null), svgGen, statusBar.getProgressBar(), app,
+				injector, prefService.getCurrentFile().orElse(null), svgGen, statusBar.getProgressBar(), app,
 				statusBar.getLabel(), mainstage, getAskModificationsDialog()))
 			.with(KeyCode.W, SystemUtils.getInstance().getControlKey())
 			.ifHadEffects((i, c) -> updateOnIOCommand(c.getFile()))
@@ -150,7 +153,7 @@ public class FileLoaderSaver extends JfxInstrument implements Initializable {
 		// Save menu
 		menuItemBinder()
 			.toProduce(() -> new SaveDrawing(false, false, prefService.getCurrentFolder(), getDialog(true),
-				prefService, prefService.getCurrentFile().orElse(null), svgGen, statusBar.getProgressBar(), app,
+				injector, prefService.getCurrentFile().orElse(null), svgGen, statusBar.getProgressBar(), app,
 				statusBar.getLabel(), mainstage, getAskModificationsDialog()))
 			.on(saveMenu)
 			.ifHadEffects((i, c) -> updateOnIOCommand(c.getFile()))
@@ -159,7 +162,7 @@ public class FileLoaderSaver extends JfxInstrument implements Initializable {
 		// Save shortcut
 		shortcutBaseBinder
 			.toProduce(() -> new SaveDrawing(false, false, prefService.getCurrentFolder(), getDialog(true),
-				prefService, prefService.getCurrentFile().orElse(null), svgGen, statusBar.getProgressBar(), app,
+				injector, prefService.getCurrentFile().orElse(null), svgGen, statusBar.getProgressBar(), app,
 				statusBar.getLabel(), mainstage, getAskModificationsDialog()))
 			.with(KeyCode.S, SystemUtils.getInstance().getControlKey())
 			.ifHadEffects((i, c) -> updateOnIOCommand(c.getFile()))
@@ -168,7 +171,7 @@ public class FileLoaderSaver extends JfxInstrument implements Initializable {
 		// Save as menu
 		menuItemBinder()
 			.toProduce(() -> new SaveDrawing(true, false, prefService.getCurrentFolder(), getDialog(true),
-				prefService, null, svgGen, statusBar.getProgressBar(), app, statusBar.getLabel(), mainstage, getAskModificationsDialog()))
+				injector, null, svgGen, statusBar.getProgressBar(), app, statusBar.getLabel(), mainstage, getAskModificationsDialog()))
 			.on(saveAsMenu)
 			.ifHadEffects((i, c) -> updateOnIOCommand(c.getFile()))
 			.bind();

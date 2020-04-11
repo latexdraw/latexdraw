@@ -12,8 +12,6 @@ package net.sf.latexdraw.view.jfx;
 
 import java.io.File;
 import java.util.Optional;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -42,7 +40,6 @@ import net.sf.latexdraw.view.pst.PSTricksConstants;
  */
 public class ViewText extends ViewPositionShape<Text> {
 	static final Logger LOGGER = Logger.getAnonymousLogger();
-	public static final ExecutorService COMPILATION_POOL = Executors.newFixedThreadPool(5);
 
 	private final javafx.scene.text.Text text;
 	private final ImageView compiledText;
@@ -98,7 +95,7 @@ public class ViewText extends ViewPositionShape<Text> {
 
 	private final void update() {
 		text.setText(model.getText());
-		currentCompilation = COMPILATION_POOL.submit(() -> {
+		currentCompilation = latexData.getCompilationPool().submit(() -> {
 			final Tuple<Image, String> image = createImage();
 			Platform.runLater(() -> updateImageText(image));
 		});

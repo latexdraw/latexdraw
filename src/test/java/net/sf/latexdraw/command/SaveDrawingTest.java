@@ -16,6 +16,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import net.sf.latexdraw.LatexdrawExtension;
 import net.sf.latexdraw.service.PreferencesService;
+import net.sf.latexdraw.util.Injector;
 import net.sf.latexdraw.util.SystemUtils;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -36,6 +37,7 @@ import static org.assertj.core.api.Assertions.fail;
 class SaveDrawingTest extends CommandTest<SaveDrawing> {
 	Optional<File> currentFolder;
 	FileChooser fileChooser;
+	Injector injector;
 	PreferencesService prefService;
 	Stage mainstage;
 	File file;
@@ -72,8 +74,10 @@ class SaveDrawingTest extends CommandTest<SaveDrawing> {
 		openSaveManager = Mockito.mock(OpenSaver.class);
 		fileChooser = Mockito.mock(FileChooser.class);
 		currentFolder = Optional.empty();
+		injector = Mockito.mock(Injector.class);
 		prefService = Mockito.mock(PreferencesService.class);
-		cmd = new SaveDrawing(true, true, currentFolder, fileChooser, prefService,
+		Mockito.when(injector.getInstance(PreferencesService.class)).thenReturn(prefService);
+		cmd = new SaveDrawing(true, true, currentFolder, fileChooser, injector,
 			file, openSaveManager, progressBar, ui, statusWidget, mainstage, modifiedAlert);
 	}
 
@@ -114,12 +118,12 @@ class SaveDrawingTest extends CommandTest<SaveDrawing> {
 			}catch(final InterruptedException | ExecutionException ex) {
 				fail(ex.getMessage());
 			}
-			cmd = new SaveDrawing(true, false, currentFolder, fileChooser, prefService,
+			cmd = new SaveDrawing(true, false, currentFolder, fileChooser, injector,
 				file, openSaveManager, progressBar, ui, statusWidget, mainstage, modifiedAlert);
 		}, () -> {
 			// not save on close, file null and no selected file
 			Mockito.when(fileChooser.showSaveDialog(Mockito.any())).thenReturn(null);
-			cmd = new SaveDrawing(true, false, currentFolder, fileChooser, prefService,
+			cmd = new SaveDrawing(true, false, currentFolder, fileChooser, injector,
 				null, openSaveManager, progressBar, ui, statusWidget, mainstage, modifiedAlert);
 		}, () -> {
 			// not save on close, file null but file selected
@@ -131,7 +135,7 @@ class SaveDrawingTest extends CommandTest<SaveDrawing> {
 			}catch(final InterruptedException | ExecutionException ex) {
 				fail(ex.getMessage());
 			}
-			cmd = new SaveDrawing(true, false, currentFolder, fileChooser, prefService,
+			cmd = new SaveDrawing(true, false, currentFolder, fileChooser, injector,
 				null, openSaveManager, progressBar, ui, statusWidget, mainstage, modifiedAlert);
 		});
 	}
@@ -140,15 +144,18 @@ class SaveDrawingTest extends CommandTest<SaveDrawing> {
 	protected Stream<Runnable> doCheckers() {
 		return Stream.of(() -> {
 			Mockito.verify(mainstage, Mockito.times(1)).close();
+			Mockito.verify(injector, Mockito.times(1)).clear();
 			Mockito.verify(prefService, Mockito.times(1)).writePreferences();
 		}, () -> {
 			Mockito.verify(mainstage, Mockito.times(1)).close();
-			Mockito.verify(prefService, Mockito.times(1)).writePreferences();
+				Mockito.verify(injector, Mockito.times(1)).clear();
+				Mockito.verify(prefService, Mockito.times(1)).writePreferences();
 		}, () -> assertThat(cmd.hadEffect()).isFalse(),
 			() -> {
 			Mockito.verify(openSaveManager, Mockito.times(1)).save(selectedFileName + ".svg", progressBar, statusWidget);
 			Mockito.verify(mainstage, Mockito.times(1)).close();
-			Mockito.verify(prefService, Mockito.times(1)).writePreferences();
+				Mockito.verify(injector, Mockito.times(1)).clear();
+				Mockito.verify(prefService, Mockito.times(1)).writePreferences();
 		}, () -> Mockito.verify(openSaveManager, Mockito.times(1)).save("foo.svg", progressBar, statusWidget), () -> assertThat(cmd.hadEffect()).isFalse(),
 		() -> Mockito.verify(openSaveManager, Mockito.times(1)).save(selectedFileName + ".svg", progressBar, statusWidget));
 	}
