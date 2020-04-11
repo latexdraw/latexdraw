@@ -6,3 +6,4 @@ Version 4.0.1
   the app now uses pdftoppm, which is provided by LaTeX distributions
 - fix: export using LaTeX does not work on Windows
 - fix: issues in translation files
+- fix: the app may not stop correctly

@@ -22,6 +22,7 @@ import javafx.scene.control.ProgressBar;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import net.sf.latexdraw.service.PreferencesService;
+import net.sf.latexdraw.view.jfx.ViewText;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -119,6 +120,10 @@ public class SaveDrawing extends Save<Label> {
 
 	private void quit() {
 		prefService.writePreferences();
+		try {
+			ViewText.COMPILATION_POOL.shutdownNow();
+		}catch(final SecurityException ignore) {
+		}
 		mainstage.close();
 	}
 }

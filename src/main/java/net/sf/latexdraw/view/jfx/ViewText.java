@@ -42,7 +42,7 @@ import net.sf.latexdraw.view.pst.PSTricksConstants;
  */
 public class ViewText extends ViewPositionShape<Text> {
 	static final Logger LOGGER = Logger.getAnonymousLogger();
-	private static final ExecutorService COMPILATION_POOL = Executors.newFixedThreadPool(5);
+	public static final ExecutorService COMPILATION_POOL = Executors.newFixedThreadPool(5);
 
 	private final javafx.scene.text.Text text;
 	private final ImageView compiledText;
