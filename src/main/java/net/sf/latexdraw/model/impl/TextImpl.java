@@ -10,6 +10,8 @@
  */
 package net.sf.latexdraw.model.impl;
 
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import net.sf.latexdraw.model.ShapeFactory;
@@ -28,7 +30,7 @@ class TextImpl extends PositionShapeBase implements net.sf.latexdraw.model.api.s
 	/** The text */
 	private final @NotNull StringProperty text;
 	/** The text position of the text. */
-	private @NotNull TextPosition textPosition;
+	private final @NotNull ObjectProperty<TextPosition> textPosition;
 
 
 	/**
@@ -47,7 +49,7 @@ class TextImpl extends PositionShapeBase implements net.sf.latexdraw.model.api.s
 		super(pt);
 
 		this.text = new SimpleStringProperty(text == null || text.isEmpty() ? "text" : text); //NON-NLS
-		textPosition = TextPosition.BOT_LEFT;
+		textPosition = new SimpleObjectProperty<>(TextPosition.BOT_LEFT);
 	}
 
 	@Override
@@ -80,6 +82,10 @@ class TextImpl extends PositionShapeBase implements net.sf.latexdraw.model.api.s
 		return text;
 	}
 
+	@Override
+	public @NotNull ObjectProperty<TextPosition> textPositionProperty() {
+		return textPosition;
+	}
 
 	@Override
 	public void copy(final Shape s) {
@@ -88,20 +94,20 @@ class TextImpl extends PositionShapeBase implements net.sf.latexdraw.model.api.s
 		if(s instanceof TextProp) {
 			final TextProp textSh = (TextProp) s;
 			text.setValue(textSh.getText());
-			textPosition = textSh.getTextPosition();
+			textPosition.setValue(textSh.getTextPosition());
 		}
 	}
 
 
 	@Override
 	public @NotNull TextPosition getTextPosition() {
-		return textPosition;
+		return textPosition.get();
 	}
 
 
 	@Override
 	public void setTextPosition(final @NotNull TextPosition textPosition) {
-		this.textPosition = textPosition;
+		this.textPosition.setValue(textPosition);
 	}
 
 	@Override

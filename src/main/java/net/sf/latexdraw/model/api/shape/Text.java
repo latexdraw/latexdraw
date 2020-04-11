@@ -10,6 +10,7 @@
  */
 package net.sf.latexdraw.model.api.shape;
 
+import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.StringProperty;
 import net.sf.latexdraw.model.api.property.TextProp;
 import org.jetbrains.annotations.NotNull;
@@ -27,4 +28,9 @@ public interface Text extends PositionShape, TextProp {
 	 * @return The text property.
 	 */
 	@NotNull StringProperty textProperty();
+
+	/**
+	 * @return The text position property.
+	 */
+	@NotNull ObjectProperty<TextPosition> textPositionProperty();
 }

@@ -3,7 +3,7 @@
 [![Build Status](https://ci.inria.fr/malai/job/latexdraw4/badge/icon)](https://ci.inria.fr/malai/job/latexdraw4/)
 [![Code Coverage](https://sonarcloud.io/api/project_badges/measure?project=net.sf.latexdraw%3Alatexdraw&metric=coverage)](https://sonarcloud.io/dashboard?id=net.sf.latexdraw%3Alatexdraw)
 [![ncloc](https://sonarcloud.io/api/project_badges/measure?project=net.sf.latexdraw%3Alatexdraw&metric=ncloc)](https://sonarcloud.io/dashboard?id=net.sf.latexdraw%3Alatexdraw)
-[![java](https://img.shields.io/badge/java-11-blue.svg)](https://adoptopenjdk.net/)
+[![java](https://img.shields.io/badge/java-14-blue.svg)](https://adoptopenjdk.net/)
 [![java](https://img.shields.io/badge/license-GPL3-green.svg)](LICENSE)<br/>
 
 latexdraw

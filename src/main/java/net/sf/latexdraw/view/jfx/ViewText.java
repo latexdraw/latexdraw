@@ -16,6 +16,7 @@ import java.util.concurrent.Future;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Platform;
+import javafx.beans.binding.Bindings;
 import javafx.beans.value.ChangeListener;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
@@ -80,10 +81,38 @@ public class ViewText extends ViewPositionShape<Text> {
 		textUpdate = (observable, oldValue, newValue) -> update();
 		model.textProperty().addListener(textUpdate);
 
+		bindTextPosition();
+
 		getChildren().add(text);
 		getChildren().add(compiledText);
 		setImageTextEnable(false);
 		update();
+	}
+
+	private final void bindTextPosition() {
+		compiledText.translateXProperty().bind(Bindings.createDoubleBinding(() -> switch(model.getTextPosition()) {
+			case BOT_LEFT, TOP_LEFT, LEFT -> 0d;
+			case BOT, TOP, CENTER -> -compiledText.getImage().getWidth() / 4d;
+			case BOT_RIGHT, TOP_RIGHT, RIGHT -> -compiledText.getImage().getWidth() / 2d;
+		}, model.textPositionProperty()));
+
+		compiledText.translateYProperty().bind(Bindings.createDoubleBinding(() -> switch(model.getTextPosition()) {
+			case BOT_LEFT, BOT, BOT_RIGHT -> 0d;
+			case TOP_LEFT, TOP, TOP_RIGHT -> -compiledText.getImage().getHeight() / 2d;
+			case LEFT, RIGHT, CENTER -> -compiledText.getImage().getHeight() / 4d;
+		}, model.textPositionProperty()));
+
+		text.translateXProperty().bind(Bindings.createDoubleBinding(() -> switch(model.getTextPosition()) {
+			case BOT_LEFT, TOP_LEFT, LEFT -> 0d;
+			case BOT, TOP, CENTER -> -text.getBoundsInLocal().getWidth() / 2d;
+			case BOT_RIGHT, TOP_RIGHT, RIGHT -> -text.getBoundsInLocal().getWidth();
+		}, model.textPositionProperty()));
+
+		text.translateYProperty().bind(Bindings.createDoubleBinding(() -> switch(model.getTextPosition()) {
+			case BOT_LEFT, BOT, BOT_RIGHT -> 0d;
+			case TOP_LEFT, TOP, TOP_RIGHT -> -text.getBoundsInLocal().getHeight();
+			case LEFT, RIGHT, CENTER -> -text.getBoundsInLocal().getHeight() / 2d;
+		}, model.textPositionProperty()));
 	}
 
 	private final void setImageTextEnable(final boolean imageToEnable) {
@@ -289,6 +318,10 @@ public class ViewText extends ViewPositionShape<Text> {
 	@Override
 	public void flush() {
 		model.textProperty().removeListener(textUpdate);
+		compiledText.translateXProperty().unbind();
+		compiledText.translateYProperty().unbind();
+		text.translateXProperty().unbind();
+		text.translateYProperty().unbind();
 		super.flush();
 	}
 }

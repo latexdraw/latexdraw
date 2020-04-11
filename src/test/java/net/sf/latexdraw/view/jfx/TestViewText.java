@@ -123,9 +123,11 @@ public class TestViewText extends TestViewShape<ViewText, Text> {
 	public void testOnTranslateX() {
 		final Bounds before = view.getBoundsInParent();
 		model.translate(17d, 0d);
-		view.getChildren().get(0).setTranslateX(-17d);
 		WaitForAsyncUtils.waitForFxEvents();
-		assertEquals(before, view.getBoundsInParent());
+		assertEquals(before.getMinX(), view.getBoundsInParent().getMinX() - 17d);
+		assertEquals(before.getMaxX(), view.getBoundsInParent().getMaxX() - 17d);
+		assertEquals(before.getMinY(), view.getBoundsInParent().getMinY());
+		assertEquals(before.getMaxY(), view.getBoundsInParent().getMaxY());
 	}
 
 	@Test
@@ -133,8 +135,10 @@ public class TestViewText extends TestViewShape<ViewText, Text> {
 	public void testOnTranslateY() {
 		final Bounds before = view.getBoundsInParent();
 		model.translate(0d, -19d);
-		view.getChildren().get(0).setTranslateY(19d);
 		WaitForAsyncUtils.waitForFxEvents();
-		assertEquals(before, view.getBoundsInParent());
+		assertEquals(before.getMinX(), view.getBoundsInParent().getMinX());
+		assertEquals(before.getMaxX(), view.getBoundsInParent().getMaxX());
+		assertEquals(before.getMinY(), view.getBoundsInParent().getMinY() + 19d);
+		assertEquals(before.getMaxY(), view.getBoundsInParent().getMaxY() + 19d);
 	}
 }
