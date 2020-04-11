@@ -90,16 +90,26 @@ public class ViewText extends ViewPositionShape<Text> {
 	}
 
 	private final void bindTextPosition() {
-		compiledText.translateXProperty().bind(Bindings.createDoubleBinding(() -> switch(model.getTextPosition()) {
-			case BOT_LEFT, TOP_LEFT, LEFT -> 0d;
-			case BOT, TOP, CENTER -> -compiledText.getImage().getWidth() / 4d;
-			case BOT_RIGHT, TOP_RIGHT, RIGHT -> -compiledText.getImage().getWidth() / 2d;
+		compiledText.translateXProperty().bind(Bindings.createDoubleBinding(() -> {
+			if(compiledText.getImage() == null) {
+				return 0d;
+			}
+			return switch(model.getTextPosition()) {
+				case BOT_LEFT, TOP_LEFT, LEFT -> 0d;
+				case BOT, TOP, CENTER -> -compiledText.getImage().getWidth() / 4d;
+				case BOT_RIGHT, TOP_RIGHT, RIGHT -> -compiledText.getImage().getWidth() / 2d;
+			};
 		}, model.textPositionProperty()));
 
-		compiledText.translateYProperty().bind(Bindings.createDoubleBinding(() -> switch(model.getTextPosition()) {
-			case BOT_LEFT, BOT, BOT_RIGHT -> 0d;
-			case TOP_LEFT, TOP, TOP_RIGHT -> -compiledText.getImage().getHeight() / 2d;
-			case LEFT, RIGHT, CENTER -> -compiledText.getImage().getHeight() / 4d;
+		compiledText.translateYProperty().bind(Bindings.createDoubleBinding(() -> {
+			if(compiledText.getImage() == null) {
+				return 0d;
+			}
+			return switch(model.getTextPosition()) {
+				case BOT_LEFT, BOT, BOT_RIGHT -> 0d;
+				case TOP_LEFT, TOP, TOP_RIGHT -> -compiledText.getImage().getHeight() / 2d;
+				case LEFT, RIGHT, CENTER -> -compiledText.getImage().getHeight() / 4d;
+			};
 		}, model.textPositionProperty()));
 
 		text.translateXProperty().bind(Bindings.createDoubleBinding(() -> switch(model.getTextPosition()) {
