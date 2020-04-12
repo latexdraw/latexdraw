@@ -9,7 +9,9 @@ import net.sf.latexdraw.util.Page;
 import net.sf.latexdraw.util.Unit;
 import net.sf.latexdraw.view.GridStyle;
 import org.assertj.core.util.Files;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -24,6 +26,17 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 @ExtendWith(LatexdrawExtension.class)
 class TestPreferencesService {
 	PreferencesService prefs;
+	static Locale locale;
+
+	@BeforeAll
+	static void beforeAll() {
+		locale = Locale.getDefault();
+	}
+
+	@AfterAll
+	static void afterAll() {
+		Locale.setDefault(locale);
+	}
 
 	void assertPreferencesEqual(final PreferencesService p1, final PreferencesService p2) {
 		assertEquals(p1.getPathExport(), p2.getPathExport());
@@ -42,12 +55,9 @@ class TestPreferencesService {
 
 	@Nested
 	class TestEmptyPrefFile {
-		Locale locale;
-
 		@BeforeEach
 		void setUp(@TempDir final Path tempDir) {
 			prefs = new PreferencesService(tempDir.toString() + File.separator + "emptyFile.xml");
-			locale = Locale.getDefault();
 		}
 
 		@AfterEach
@@ -57,7 +67,14 @@ class TestPreferencesService {
 
 		@Test
 		void testGetLang() {
+			Locale.setDefault(new Locale("fr"));
 			assertEquals(Locale.getDefault(), prefs.getLang());
+		}
+
+		@Test
+		void testGetLangFR() {
+			Locale.setDefault(new Locale("fr", "FR"));
+			assertEquals(Locale.getDefault().getLanguage(), prefs.getLang().getLanguage());
 		}
 
 		@Test
@@ -246,6 +263,14 @@ class TestPreferencesService {
 			prefs = new PreferencesService(tempDir.toString() + File.separator + "emptyFile.xml");
 			assertThat(prefs.getLang().toLanguageTag()).isEqualTo("en-US");
 		}
+
+		@Test
+		void testEnglishButNotUKOrUSDefaultLang(@TempDir final Path tempDir) {
+			final Locale mockLocale = new Locale("en", "IN");
+			Locale.setDefault(mockLocale);
+			prefs = new PreferencesService(tempDir.toString() + File.separator + "emptyFile.xml");
+			assertThat(prefs.getLang().toLanguageTag()).isEqualTo("en-GB");
+		}
 	}
 
 	@Nested
@@ -270,6 +295,7 @@ class TestPreferencesService {
 
 		@Test
 		void testGetLang() {
+			Locale.setDefault(new Locale("fr"));
 			assertEquals(Locale.getDefault(), prefs.getLang());
 		}
 	}

@@ -197,13 +197,19 @@ public class PreferencesService {
 		// Getting the current locale
 		final Locale locale = res.orElseGet(() -> Locale.getDefault());
 
-		// If this locale is supported, it is used
-		if(getSupportedLocales().stream().anyMatch(loc -> loc.getLanguage().equals(locale.getLanguage()))) {
+		// If this locale is supported (same language, same country), it is used
+		if(getSupportedLocales().stream()
+			.anyMatch(loc -> loc.getLanguage().equals(locale.getLanguage()) && loc.getCountry().equals(locale.getCountry()))) {
 			return locale;
 		}
 
-		// If not supported by the app, we use the English American one
-		return Locale.forLanguageTag("en-US"); //NON-NLS
+		return getSupportedLocales()
+			.stream()
+			// Finding a locale that has the same language
+			.filter(loc -> loc.getLanguage().equals(locale.getLanguage()))
+			.findFirst()
+			// Or use en-US by default
+			.orElse(Locale.forLanguageTag("en-US")); //NON-NLS
 	}
 
 
