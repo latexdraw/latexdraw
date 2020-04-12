@@ -21,9 +21,14 @@ http://sourceforge.net/projects/latexdraw/
 
 You downloaded the binaries of a 4.x version and you want to run the app.
 Go in the `bin` folder and launch the `latexdraw-run` file (or `latexdraw-run.bat` on Windows).
-On Windows, the system may tell you `Windows has protected your computer`.
+
+
+**On Windows**, the system may tell you `Windows has protected your computer`.
 To overcome this issue, right-click on this file, click on the `properties` menu, and activate the `unlock` checkbox.
 
+**On MacOSX**, you may have the message `damaged and can't be opened. You should eject the disk image"` after installing the app.
+Look here: https://secure.clcbio.com/helpspot/index.php?pg=kb.page&id=323 and here:
+https://osxdaily.com/2019/02/13/fix-app-damaged-cant-be-opened-trash-error-mac/
 
 You do not need Java for running the app.
 For rendering LaTeX instructions, you need an up-to-date LaTeX installation.
