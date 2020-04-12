@@ -139,6 +139,8 @@ public class EditingSelector extends JfxInstrument implements Initializable {
 				oldValue.setSelected(true);
 			}
 		});
+
+		editing.setCurrentChoice(EditionChoice.HAND);
 	}
 
 	private ToggleButton[] getShapeButtons() {

@@ -8,5 +8,6 @@ Version 4.0.1
 - fix: the LaTeX 'text position' had no graphical effect
 - fix: issues in translation files
 - fix: the app may not stop correctly
+- fix: some actions do not work on start because of an configuration issue
 - translations updated
 - no more export using pdfcrop as the exported pdf files should now be cropped natively
