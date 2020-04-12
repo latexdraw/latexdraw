@@ -86,23 +86,14 @@ public class Export extends CommandImpl {
 	}
 
 	private boolean export(final @NotNull File file) {
-		switch(format) {
-			case BMP:
-				return exportAsPicture(file, "bmp", false); //NON-NLS
-			case EPS_LATEX:
-				return exportAsEPS(file);
-			case JPG:
-				return exportAsPicture(file, "jpg", false); //NON-NLS
-			case PDF:
-				return exportAsPDF(file);
-			case PDF_CROP:
-				return exportAsPDF(file);
-			case PNG:
-				return exportAsPicture(file, "png", true); //NON-NLS
-			case TEX:
-				return exportAsPST(file);
-		}
-		return false;
+		return switch(format) {
+			case BMP -> exportAsPicture(file, "bmp", false); //NON-NLS
+			case EPS_LATEX -> exportAsEPS(file);
+			case JPG -> exportAsPicture(file, "jpg", false); //NON-NLS
+			case PDF -> exportAsPDF(file);
+			case PNG -> exportAsPicture(file, "png", true); //NON-NLS
+			case TEX -> exportAsPST(file);
+		};
 	}
 
 
@@ -169,7 +160,7 @@ public class Export extends CommandImpl {
 		File pdfFile;
 
 		try {
-			pdfFile = pstGen.createPDFFile(file.getAbsolutePath(), format == ExportFormat.PDF_CROP).orElse(null);
+			pdfFile = pstGen.createPDFFile(file.getAbsolutePath()).orElse(null);
 		}catch(final @NotNull SecurityException ex) {
 			BadaboomCollector.INSTANCE.add(ex);
 			pdfFile = null;

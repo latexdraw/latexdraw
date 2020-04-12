@@ -27,7 +27,7 @@ public enum ArcStyle {
 
 		@Override
 		public @NotNull String getLabel(final @NotNull ResourceBundle bundle) {
-			return bundle.getString("Arc.arc"); //NON-NLS
+			return bundle.getString("arc"); //NON-NLS
 		}
 
 		@Override
@@ -42,7 +42,7 @@ public enum ArcStyle {
 
 		@Override
 		public @NotNull String getLabel(final @NotNull ResourceBundle bundle) {
-			return bundle.getString("Arc.wedge"); //NON-NLS
+			return bundle.getString("wedge"); //NON-NLS
 		}
 
 		@Override
@@ -57,7 +57,7 @@ public enum ArcStyle {
 
 		@Override
 		public @NotNull String getLabel(final @NotNull ResourceBundle bundle) {
-			return bundle.getString("Arc.chord"); //NON-NLS
+			return bundle.getString("chord"); //NON-NLS
 		}
 
 		@Override

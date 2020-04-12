@@ -16,7 +16,7 @@
             </ImageView>
         </graphic>
         <tooltip>
-            <Tooltip text="%DrawPanel.0"/>
+            <Tooltip text="%updateShapes"/>
         </tooltip>
     </Button>
 </HBox>

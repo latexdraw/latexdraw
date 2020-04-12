@@ -9,7 +9,7 @@
 <TitledPane xmlns:fx="http://javafx.com/fxml/1" fx:id="mainPane" text="Text" xmlns="http://javafx.com/javafx/8"
             fx:controller="net.sf.latexdraw.instrument.ShapeTextCustomiser" alignment="TOP_LEFT" expanded="false">
     <tooltip>
-        <Tooltip text="%PropBuilder.8"/>
+        <Tooltip text="%textPosition"/>
     </tooltip>
     <AnchorPane>
         <ComboBox fx:id="textPos" prefHeight="25.0" prefWidth="90.0">
@@ -17,12 +17,12 @@
                 <Tooltip text="The position of the text."/>
             </tooltip>
         </ComboBox>
-        <Label layoutX="5.0" layoutY="84.0" text="%TextCust.1"/>
+        <Label layoutX="5.0" layoutY="84.0" text="%pkgs"/>
         <TextArea fx:id="packagesField" layoutX="5.0" layoutY="104.0" prefHeight="100.0" prefWidth="290.0"/>
         <Label layoutX="5.0" layoutY="209.0" text="Compilation log:"/>
         <TextArea fx:id="logField" layoutX="5.0" layoutY="230.0" prefHeight="130.0" prefWidth="290.0" editable="false">
             <tooltip>
-                <Tooltip text="%TextCust.2"/>
+                <Tooltip text="%latexPkgs"/>
             </tooltip>
         </TextArea>
     </AnchorPane>

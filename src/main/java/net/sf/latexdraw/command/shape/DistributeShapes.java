@@ -160,6 +160,6 @@ public class DistributeShapes extends AlignDistribCmd {
 
 	@Override
 	public @NotNull String getUndoName(final @NotNull ResourceBundle bundle) {
-		return bundle.getString("Actions.6");
+		return bundle.getString("distribute");
 	}
 }

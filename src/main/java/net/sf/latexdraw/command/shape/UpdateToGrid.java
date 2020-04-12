@@ -92,6 +92,6 @@ public class UpdateToGrid extends ShapeCmdImpl<Group> implements Undoable, Modif
 
 	@Override
 	public @NotNull String getUndoName(final @NotNull ResourceBundle bundle) {
-		return bundle.getString("Actions.33");
+		return bundle.getString("updateGrid");
 	}
 }

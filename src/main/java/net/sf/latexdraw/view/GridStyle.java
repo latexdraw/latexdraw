@@ -23,14 +23,14 @@ public enum GridStyle {
 	CUSTOMISED {
 		@Override
 		public String getLabel(final ResourceBundle bundle) {
-			return bundle.getString("Res.3");
+			return bundle.getString("customGrid");
 		}
 	},
 	/** The standard grid. */
 	STANDARD {
 		@Override
 		public String getLabel(final ResourceBundle bundle) {
-			return bundle.getString("PreferencesFrame.4");
+			return bundle.getString("stdGrid");
 		}
 	},
 	/** No grid. */

@@ -273,13 +273,6 @@ public final class SystemUtils {
 	}
 
 	/**
-	 * @return The version of the current pdfcrop.
-	 */
-	public @NotNull String getPDFCROPVersion() {
-		return execute(new String[] { getSystem().orElse(OperatingSystem.LINUX).getPdfcropBinPath(), "--version" }, null).b; //NON-NLS
-	}
-
-	/**
 	 * Executes a command.
 	 * @param cmd The execution command
 	 * @param tmpdir The working dir

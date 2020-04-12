@@ -8,7 +8,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.VBox?>
-<TitledPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" text="%LaTeXDrawFrame.103" expanded="false"
+<TitledPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" text="%templates" expanded="false"
             fx:controller="net.sf.latexdraw.instrument.TemplateManager" alignment="TOP_LEFT" fx:id="mainPane">
     <VBox spacing="10">
         <Button fx:id="updateTemplates">
@@ -18,7 +18,7 @@
                 </ImageView>
             </graphic>
             <tooltip>
-                <Tooltip text="%LaTeXDrawFrame.41"/>
+                <Tooltip text="%updateTemplates"/>
             </tooltip>
         </Button>
         <Label maxWidth="270" text="Drag and drop one of the following icons into the drawing area" wrapText="true"/>

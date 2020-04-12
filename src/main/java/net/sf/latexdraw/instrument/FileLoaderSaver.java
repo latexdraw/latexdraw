@@ -235,8 +235,8 @@ public class FileLoaderSaver extends JfxInstrument implements Initializable {
 			fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("SVG", "*.svg")); //NON-NLS
 		}
 
-		fileChooser.setTitle(save ? prefService.getBundle().getString("LaTeXDrawFrame.188") : //NON-NLS
-			prefService.getBundle().getString("LaTeXDrawFrame.200")); //NON-NLS
+		fileChooser.setTitle(save ? prefService.getBundle().getString("saveDrawing") : //NON-NLS
+			prefService.getBundle().getString("openDrawing")); //NON-NLS
 
 		return fileChooser;
 	}
@@ -244,8 +244,8 @@ public class FileLoaderSaver extends JfxInstrument implements Initializable {
 	public @NotNull Alert getAskModificationsDialog() {
 		if(modifiedAlert == null) {
 			modifiedAlert = new Alert(Alert.AlertType.CONFIRMATION);
-			modifiedAlert.setTitle(prefService.getBundle().getString("Actions.2"));
-			modifiedAlert.setHeaderText(prefService.getBundle().getString("LaTeXDrawFrame.188"));
+			modifiedAlert.setTitle(prefService.getBundle().getString("wantSaveDrawing"));
+			modifiedAlert.setHeaderText(prefService.getBundle().getString("saveDrawing"));
 			modifiedAlert.getButtonTypes().setAll(ButtonType.NO, ButtonType.YES, ButtonType.CANCEL);
 		}
 		return modifiedAlert;

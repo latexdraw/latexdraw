@@ -61,8 +61,6 @@ public class Exporter extends JfxInstrument implements Initializable {
 	@FXML protected MenuItem menuItemPDF;
 	/** The menu item that export as PS (using latex) document. */
 	@FXML protected MenuItem menuItemEPSLatex;
-	/** The menu item that export as PDF (using pdfcrop) document. */
-	@FXML protected MenuItem menuItemPDFcrop;
 	@FXML protected MenuItem exportTemplateMenu;
 	/** The dialog box that allows to define where the drawing must be exported. */
 	private final @NotNull FileChooser fileChooserExport;
@@ -97,13 +95,13 @@ public class Exporter extends JfxInstrument implements Initializable {
 		this.canvas = Objects.requireNonNull(canvas);
 		this.svgGen = Objects.requireNonNull(svgGen);
 		fileChooserExport = new FileChooser();
-		fileChooserExport.setTitle(prefs.getBundle().getString("Exporter.1"));
+		fileChooserExport.setTitle(prefs.getBundle().getString("drawingExported"));
 	}
 
 	private @NotNull TextInputDialog getTemplateNameInput() {
 		if(templateNameInput == null) {
 			templateNameInput = new TextInputDialog("templateFileName"); //NON-NLS
-			templateNameInput.setHeaderText(prefs.getBundle().getString("DrawContainer.nameTemplate"));
+			templateNameInput.setHeaderText(prefs.getBundle().getString("nameTemplate"));
 		}
 		return templateNameInput;
 	}
@@ -111,8 +109,8 @@ public class Exporter extends JfxInstrument implements Initializable {
 	private @NotNull Alert getTemplateNameAlert() {
 		if(alertReplace == null) {
 			alertReplace = new Alert(Alert.AlertType.CONFIRMATION);
-			alertReplace.setHeaderText(prefs.getBundle().getString("DrawContainer.overwriteTemplate"));
-			alertReplace.setTitle(prefs.getBundle().getString("LaTeXDrawFrame.42"));
+			alertReplace.setHeaderText(prefs.getBundle().getString("overwriteTemplate"));
+			alertReplace.setTitle(prefs.getBundle().getString("exportAsTemplate"));
 		}
 		return alertReplace;
 	}
@@ -146,11 +144,11 @@ public class Exporter extends JfxInstrument implements Initializable {
 	@Override
 	protected void configureBindings() {
 		final var bindingFragment = menuItemBinder()
-			.end(() -> statusBar.getLabel().setText(prefs.getBundle().getString("LaTeXDrawFrame.184")));
+			.end(() -> statusBar.getLabel().setText(prefs.getBundle().getString("exportOK")));
 
 		bindingFragment
 			.toProduce(i -> new Export(canvas, pstGen, (ExportFormat) i.getWidget().getUserData(), getExportDialog((ExportFormat) i.getWidget().getUserData())))
-			.on(menuItemBMP, menuItemEPSLatex, menuItemJPG, menuItemPDF, menuItemPDFcrop, menuItemPNG, menuItemPST)
+			.on(menuItemBMP, menuItemEPSLatex, menuItemJPG, menuItemPDF, menuItemPNG, menuItemPST)
 			.when(i -> i.getWidget().getUserData() instanceof ExportFormat)
 			.bind();
 
@@ -186,7 +184,6 @@ public class Exporter extends JfxInstrument implements Initializable {
 		canvas.getDrawing().getShapes().addListener((ListChangeListener<Shape>) c -> setActivated(!canvas.getDrawing().isEmpty()));
 
 		menuItemPDF.setUserData(ExportFormat.PDF);
-		menuItemPDFcrop.setUserData(ExportFormat.PDF_CROP);
 		menuItemEPSLatex.setUserData(ExportFormat.EPS_LATEX);
 		menuItemJPG.setUserData(ExportFormat.JPG);
 		menuItemPST.setUserData(ExportFormat.TEX);

@@ -19,12 +19,12 @@
             </ImageView>
         </graphic>
         <tooltip>
-            <Tooltip text="%LaTeXDrawFrame.136"/>
+            <Tooltip text="%selectShapes"/>
         </tooltip>
     </ToggleButton>
     <ToggleButton fx:id="textB" mnemonicParsing="false" style="-fx-padding: 5 5 5 5" toggleGroup="$groupEditing">
         <tooltip>
-            <Tooltip text="%LaTeXDrawFrame.60"/>
+            <Tooltip text="%addText"/>
         </tooltip>
         <graphic>
             <ImageView>
@@ -34,7 +34,7 @@
     </ToggleButton>
     <ToggleButton fx:id="plotB" mnemonicParsing="false" style="-fx-padding: 5 5 5 5" toggleGroup="$groupEditing">
         <tooltip>
-            <Tooltip text="%Instruments.5"/>
+            <Tooltip text="%plotFct"/>
         </tooltip>
         <graphic>
             <ImageView>
@@ -44,7 +44,7 @@
     </ToggleButton>
     <ToggleButton fx:id="gridB" mnemonicParsing="false" style="-fx-padding: 5 5 5 5" toggleGroup="$groupEditing">
         <tooltip>
-            <Tooltip text="%LaTeXDrawFrame.133"/>
+            <Tooltip text="%drawGrid"/>
         </tooltip>
         <graphic>
             <ImageView>
@@ -54,7 +54,7 @@
     </ToggleButton>
     <ToggleButton fx:id="axesB" mnemonicParsing="false" style="-fx-padding: 5 5 5 5" toggleGroup="$groupEditing">
         <tooltip>
-            <Tooltip text="%LaTeXDrawFrame.17"/>
+            <Tooltip text="%drawAxes"/>
         </tooltip>
         <graphic>
             <ImageView>
@@ -64,7 +64,7 @@
     </ToggleButton>
     <ToggleButton fx:id="linesB" mnemonicParsing="false" style="-fx-padding: 5 5 5 5" toggleGroup="$groupEditing">
         <tooltip>
-            <Tooltip text="%Instruments.4"/>
+            <Tooltip text="%drawLines"/>
         </tooltip>
         <graphic>
             <ImageView>
@@ -74,7 +74,7 @@
     </ToggleButton>
     <ToggleButton fx:id="recB" mnemonicParsing="false" style="-fx-padding: 5 5 5 5" toggleGroup="$groupEditing">
         <tooltip>
-            <Tooltip text="%LaTeXDrawFrame.119"/>
+            <Tooltip text="%drawRect"/>
         </tooltip>
         <graphic>
             <ImageView>
@@ -84,7 +84,7 @@
     </ToggleButton>
     <ToggleButton fx:id="squareB" mnemonicParsing="false" style="-fx-padding: 5 5 5 5" toggleGroup="$groupEditing">
         <tooltip>
-            <Tooltip text="%LaTeXDrawFrame.120"/>
+            <Tooltip text="%drawSquare"/>
         </tooltip>
         <graphic>
             <ImageView>
@@ -94,7 +94,7 @@
     </ToggleButton>
     <ToggleButton fx:id="ellipseB" mnemonicParsing="false" style="-fx-padding: 5 5 5 5" toggleGroup="$groupEditing">
         <tooltip>
-            <Tooltip text="%LaTeXDrawFrame.125"/>
+            <Tooltip text="%drawEllipse"/>
         </tooltip>
         <graphic>
             <ImageView>
@@ -104,7 +104,7 @@
     </ToggleButton>
     <ToggleButton fx:id="circleB" mnemonicParsing="false" style="-fx-padding: 5 5 5 5" toggleGroup="$groupEditing">
         <tooltip>
-            <Tooltip text="%LaTeXDrawFrame.127"/>
+            <Tooltip text="%drawCircle"/>
         </tooltip>
         <graphic>
             <ImageView>
@@ -114,7 +114,7 @@
     </ToggleButton>
     <ToggleButton fx:id="polygonB" mnemonicParsing="false" style="-fx-padding: 5 5 5 5" toggleGroup="$groupEditing">
         <tooltip>
-            <Tooltip text="%LaTeXDrawFrame.121"/>
+            <Tooltip text="%drawPolygon"/>
         </tooltip>
         <graphic>
             <ImageView>
@@ -124,7 +124,7 @@
     </ToggleButton>
     <ToggleButton fx:id="rhombusB" mnemonicParsing="false" style="-fx-padding: 5 5 5 5" toggleGroup="$groupEditing">
         <tooltip>
-            <Tooltip text="%LaTeXDrawFrame.123"/>
+            <Tooltip text="%drawRhombus"/>
         </tooltip>
         <graphic>
             <ImageView>
@@ -134,7 +134,7 @@
     </ToggleButton>
     <ToggleButton fx:id="triangleB" mnemonicParsing="false" style="-fx-padding: 5 5 5 5" toggleGroup="$groupEditing">
         <tooltip>
-            <Tooltip text="%LaTeXDrawFrame.124"/>
+            <Tooltip text="%drawTriangle"/>
         </tooltip>
         <graphic>
             <ImageView>
@@ -144,7 +144,7 @@
     </ToggleButton>
     <ToggleButton fx:id="bezierB" mnemonicParsing="false" style="-fx-padding: 5 5 5 5" toggleGroup="$groupEditing">
         <tooltip>
-            <Tooltip text="%LaTeXDrawFrame.132"/>
+            <Tooltip text="%drawBezier"/>
         </tooltip>
         <graphic>
             <ImageView>
@@ -154,7 +154,7 @@
     </ToggleButton>
     <ToggleButton fx:id="arcB" mnemonicParsing="false" style="-fx-padding: 5 5 5 5" toggleGroup="$groupEditing">
         <tooltip>
-            <Tooltip text="%LaTeXDrawFrame.128"/>
+            <Tooltip text="%drawArc"/>
         </tooltip>
         <graphic>
             <ImageView>
@@ -164,7 +164,7 @@
     </ToggleButton>
     <ToggleButton fx:id="freeHandB" mnemonicParsing="false" style="-fx-padding: 5 5 5 5" toggleGroup="$groupEditing">
         <tooltip>
-            <Tooltip text="%LaTeXDrawFrame.7c"/>
+            <Tooltip text="%freehand"/>
         </tooltip>
         <graphic>
             <ImageView>
@@ -174,7 +174,7 @@
     </ToggleButton>
     <ToggleButton fx:id="dotB" mnemonicParsing="false" style="-fx-padding: 5 5 5 5" toggleGroup="$groupEditing">
         <tooltip>
-            <Tooltip text="%LaTeXDrawFrame.117"/>
+            <Tooltip text="%drawDot"/>
         </tooltip>
         <graphic>
             <ImageView>
@@ -184,7 +184,7 @@
     </ToggleButton>
     <ToggleButton fx:id="picB" mnemonicParsing="false" style="-fx-padding: 5 5 5 5" toggleGroup="$groupEditing">
         <tooltip>
-            <Tooltip text="%LaTeXDrawFrame.1"/>
+            <Tooltip text="%insertPic"/>
         </tooltip>
         <graphic>
             <ImageView>
@@ -194,7 +194,7 @@
     </ToggleButton>
     <Button fx:id="codeB" mnemonicParsing="false" style="-fx-padding: 5 5 5 5">
         <tooltip>
-            <Tooltip text="%LaTeXDrawFrame.0"/>
+            <Tooltip text="%insertPST"/>
         </tooltip>
         <graphic>
             <ImageView>

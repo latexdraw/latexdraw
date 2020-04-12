@@ -79,7 +79,7 @@ public class RotateShapes extends ShapeCmdImpl<Shape> implements Undoable, Modif
 
 	@Override
 	public @NotNull String getUndoName(final @NotNull ResourceBundle bundle) {
-		return bundle.getString("Actions.31");
+		return bundle.getString("rotation");
 	}
 
 	public void setRotationAngle(final double angle) {

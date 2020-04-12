@@ -51,16 +51,6 @@ public enum ExportFormat {
 		public @NotNull String getFileExtension() {
 			return ".eps"; //NON-NLS
 		}
-	}, PDF_CROP {
-		@Override
-		public @NotNull FileChooser.ExtensionFilter getFilter() {
-			return new FileChooser.ExtensionFilter("PDF", "*" + getFileExtension()); //NON-NLS
-		}
-
-		@Override
-		public @NotNull String getFileExtension() {
-			return ".pdf"; //NON-NLS
-		}
 	}, BMP {
 		@Override
 		public @NotNull FileChooser.ExtensionFilter getFilter() {

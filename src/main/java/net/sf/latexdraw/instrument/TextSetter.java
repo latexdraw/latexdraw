@@ -161,7 +161,7 @@ public class TextSetter extends JfxInstrument implements Initializable {
 
 	private void setPlotMessage() {
 		final String eqEx = " 2 x add sin"; //NON-NLS
-		textField.getMessageField().setText(lang.getString("write.the.equation") + ' ' + eqEx);
+		textField.getMessageField().setText(lang.getString("writeEq") + ' ' + eqEx);
 	}
 
 	@Override

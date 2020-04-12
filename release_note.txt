@@ -9,3 +9,4 @@ Version 4.0.1
 - fix: issues in translation files
 - fix: the app may not stop correctly
 - translations updated
+- no more export using pdfcrop as the exported pdf files should now be cropped natively

@@ -406,7 +406,7 @@ public class SVGDocumentGenerator implements OpenSaver<Label> {
 			super.done();
 			updateTemplates(templatePane, true);
 			if(statusBar != null) {
-				Platform.runLater(() -> statusBar.setText(lang.getString("LaTeXDrawFrame.169"))); //NON-NLS
+				Platform.runLater(() -> statusBar.setText(lang.getString("templateExported"))); //NON-NLS
 			}
 		}
 	}
@@ -509,7 +509,7 @@ public class SVGDocumentGenerator implements OpenSaver<Label> {
 			super.done();
 			// Showing a message in the status bar.
 			if(statusBar != null) {
-				Platform.runLater(() -> statusBar.setText(lang.getString("SVG.1"))); //NON-NLS
+				Platform.runLater(() -> statusBar.setText(lang.getString("drawingSaved"))); //NON-NLS
 			}
 		}
 	}

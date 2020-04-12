@@ -60,7 +60,7 @@ public class MovePointShape extends MovePoint implements Undoable {
 
 	@Override
 	public @NotNull String getUndoName(final @NotNull ResourceBundle bundle) {
-		return bundle.getString("Actions.10"); //NON-NLS
+		return bundle.getString("movePt"); //NON-NLS
 	}
 
 	public @NotNull ModifiablePointsShape getShape() {

@@ -81,6 +81,6 @@ public class SeparateShapes extends ShapeCmdImpl<Group> implements Modifying, Un
 
 	@Override
 	public @NotNull String getUndoName(final @NotNull ResourceBundle bundle) {
-		return bundle.getString("UndoRedoManager.seperate");
+		return bundle.getString("seperate");
 	}
 }

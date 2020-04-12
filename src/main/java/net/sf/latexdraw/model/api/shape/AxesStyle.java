@@ -33,7 +33,7 @@ public enum AxesStyle {
 
 		@Override
 		public @NotNull String getLabel(final @NotNull ResourceBundle bundle) {
-			return bundle.getString("Axe.1"); //NON-NLS
+			return bundle.getString("axe"); //NON-NLS
 		}
 	}, FRAME {
 		@Override
@@ -48,7 +48,7 @@ public enum AxesStyle {
 
 		@Override
 		public @NotNull String getLabel(final @NotNull ResourceBundle bundle) {
-			return bundle.getString("Axe.2"); //NON-NLS
+			return bundle.getString("frame"); //NON-NLS
 		}
 	}, NONE {
 		@Override

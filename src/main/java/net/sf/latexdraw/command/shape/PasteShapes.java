@@ -91,6 +91,6 @@ public class PasteShapes extends DrawingCmdImpl implements Undoable, Modifying {
 
 	@Override
 	public @NotNull String getUndoName(final @NotNull ResourceBundle bundle) {
-		return bundle.getString("LaTeXDrawFrame.43");
+		return bundle.getString("paste");
 	}
 }

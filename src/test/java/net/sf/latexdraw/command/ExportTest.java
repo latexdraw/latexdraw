@@ -48,7 +48,7 @@ class ExportTest extends CommandTest<Export> {
 			() -> cmd = new Export(canvas, pstGen, ExportFormat.PDF, dialogueBox),
 			() -> {
 				Mockito.when(dialogueBox.showSaveDialog(Mockito.any())).thenReturn(file);
-				Mockito.when(pstGen.createPDFFile(Mockito.anyString(), Mockito.anyBoolean())).thenReturn(Optional.empty());
+				Mockito.when(pstGen.createPDFFile(Mockito.anyString())).thenReturn(Optional.empty());
 				cmd = new Export(canvas, pstGen, ExportFormat.PDF, dialogueBox);
 			}, () -> {
 				Mockito.when(dialogueBox.showSaveDialog(Mockito.any())).thenReturn(file);
@@ -65,11 +65,11 @@ class ExportTest extends CommandTest<Export> {
 				cmd = new Export(canvas, pstGen, ExportFormat.EPS_LATEX, dialogueBox);
 			}, () -> {
 				Mockito.when(dialogueBox.showSaveDialog(Mockito.any())).thenReturn(file);
-				Mockito.when(pstGen.createPDFFile(Mockito.anyString(), Mockito.anyBoolean())).thenReturn(Optional.of(new File("eifdjfdhsizr__u")));
+				Mockito.when(pstGen.createPDFFile(Mockito.anyString())).thenReturn(Optional.of(new File("eifdjfdhsizr__u")));
 				cmd = new Export(canvas, pstGen, ExportFormat.PDF, dialogueBox);
 			}, () -> {
 				Mockito.when(dialogueBox.showSaveDialog(Mockito.any())).thenReturn(file);
-				Mockito.when(pstGen.createPDFFile(Mockito.anyString(), Mockito.anyBoolean())).thenThrow(SecurityException.class);
+				Mockito.when(pstGen.createPDFFile(Mockito.anyString())).thenThrow(SecurityException.class);
 				cmd = new Export(canvas, pstGen, ExportFormat.PDF, dialogueBox);
 			}, () -> {
 				Mockito.when(dialogueBox.showSaveDialog(Mockito.any())).thenReturn(file);
@@ -113,7 +113,7 @@ class ExportTest extends CommandTest<Export> {
 
 		Mockito.when(pstGen.createPSFile(Mockito.any())).thenReturn(Optional.of(psFile));
 		Mockito.when(pstGen.createEPSFile(Mockito.any())).thenReturn(Optional.of(psFile));
-		Mockito.when(pstGen.createPDFFile(Mockito.any(), Mockito.anyBoolean())).thenReturn(Optional.of(psFile));
+		Mockito.when(pstGen.createPDFFile(Mockito.any())).thenReturn(Optional.of(psFile));
 
 	}
 

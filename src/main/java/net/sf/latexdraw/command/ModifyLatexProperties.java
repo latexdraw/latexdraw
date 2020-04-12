@@ -111,7 +111,7 @@ public class ModifyLatexProperties extends CommandImpl implements Undoable, Modi
 
 	@Override
 	public @NotNull String getUndoName(final @NotNull ResourceBundle bundle) {
-		return bundle.getString("Actions.0");
+		return bundle.getString("drawingProps");
 	}
 
 	/**

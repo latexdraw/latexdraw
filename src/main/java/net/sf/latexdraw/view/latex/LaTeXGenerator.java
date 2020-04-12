@@ -14,7 +14,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.Objects;
 import java.util.Optional;
@@ -186,11 +185,10 @@ public abstract class LaTeXGenerator {
 	 * Create a .pdf file that corresponds to the compiled latex document containing
 	 * the pstricks drawing.
 	 * @param pathExportPdf The path of the .pdf file to create (MUST ends with .pdf).
-	 * @param crop if true, the output document will be cropped.
 	 * @return The create file or null.
 	 * @throws SecurityException In case of problem while accessing files.
 	 */
-	public Optional<File> createPDFFile(final String pathExportPdf, final boolean crop) {
+	public Optional<File> createPDFFile(final String pathExportPdf) {
 		if(pathExportPdf == null) {
 			return Optional.empty();
 		}
@@ -213,7 +211,6 @@ public abstract class LaTeXGenerator {
 			return Optional.empty();
 		}
 
-		String log;
 		File pdfFile;
 		final OperatingSystem os = SystemUtils.getInstance().getSystem().orElse(OperatingSystem.LINUX);
 
@@ -221,19 +218,8 @@ public abstract class LaTeXGenerator {
 		// -optionName#valueOption Thus, the classical = character must be replaced by a # when latexdraw runs on Windows.
 		final String optionEmbed = "-dEmbedAllFonts" + (SystemUtils.getInstance().isWindows() ? "#" : "=") + "true"; //NON-NLS
 
-		log = SystemUtils.getInstance().execute(new String[] {os.getPs2pdfBinPath(), optionEmbed, psFile.getAbsolutePath(),
-			crop ? name + ExportFormat.PDF.getFileExtension() : pathExportPdf}, tmpDir).b;
-
-		if(crop) {
-			pdfFile = new File(tmpDir.getAbsolutePath() + SystemUtils.getInstance().fileSep + name + ExportFormat.PDF.getFileExtension());
-			log = SystemUtils.getInstance().execute(new String[] {os.getPdfcropBinPath(), pdfFile.getAbsolutePath(), pdfFile.getAbsolutePath()}, tmpDir).b;
-			try {
-				Files.move(pdfFile.toPath(), Paths.get(pathExportPdf), StandardCopyOption.REPLACE_EXISTING);
-			}catch(final IOException ex) {
-				BadaboomCollector.INSTANCE.add(ex);
-				log += " The final pdf document cannot be moved to its final destination. If you use Windows, you must have a Perl interpretor installed, such as strawberryPerl (http://strawberryperl.com/)"; //NON-NLS
-			}
-		}
+		final String log = SystemUtils.getInstance().execute(new String[] {os.getPs2pdfBinPath(), optionEmbed, psFile.getAbsolutePath(),
+			pathExportPdf}, tmpDir).b;
 
 		pdfFile = new File(pathExportPdf);
 

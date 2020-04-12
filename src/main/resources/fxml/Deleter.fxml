@@ -13,6 +13,6 @@
         </ImageView>
     </graphic>
     <tooltip>
-        <Tooltip text="%LaTeXDrawFrame.139"/>
+        <Tooltip text="%deleteShapes"/>
     </tooltip>
 </Button>

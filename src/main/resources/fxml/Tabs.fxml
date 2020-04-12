@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.VBox?>
 <TabPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" tabClosingPolicy="UNAVAILABLE" fx:id="tabPane"
          fx:controller="net.sf.latexdraw.instrument.TabSelector">
-    <Tab closable="false" text="%UIBuilder.1" fx:id="canvasTab">
+    <Tab closable="false" text="%drawing" fx:id="canvasTab">
         <SplitPane dividerPositions="0.85">
             <ScrollPane fx:id="scrollPane">
                 <fx:include fx:id="canvasPane" source="Canvas.fxml"/>
@@ -32,7 +32,7 @@
         </SplitPane>
     </Tab>
     <fx:include source="CodePanel.fxml"/>
-    <Tab closable="false" text="%PreferencesFrame.Pref2" fx:id="prefTab">
+    <Tab closable="false" text="%prefs" fx:id="prefTab">
         <fx:include source="Preferences.fxml"/>
     </Tab>
 </TabPane>

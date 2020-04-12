@@ -10,7 +10,7 @@
             style="-fx-padding: 0 0 0 0" xmlns="http://javafx.com/javafx/8"
             fx:controller="net.sf.latexdraw.instrument.FileLoaderSaver" fx:id="fileMenu">
     <tooltip>
-        <Tooltip text="%LaTeXDrawFrame.91"/>
+        <Tooltip text="%draw"/>
     </tooltip>
     <graphic>
         <ImageView>
@@ -18,34 +18,34 @@
         </ImageView>
     </graphic>
     <items>
-        <MenuItem fx:id="newMenu" mnemonicParsing="false" text="%Res.2">
+        <MenuItem fx:id="newMenu" mnemonicParsing="false" text="%newDrawing">
             <graphic>
                 <ImageView>
                     <Image url="@/res/New.png"/>
                 </ImageView>
             </graphic>
         </MenuItem>
-        <MenuItem fx:id="loadMenu" mnemonicParsing="false" text="%FileLoaderSaver.3">
+        <MenuItem fx:id="loadMenu" mnemonicParsing="false" text="%openDrawing">
             <graphic>
                 <ImageView>
                     <Image url="@/res/document-open.png"/>
                 </ImageView>
             </graphic>
         </MenuItem>
-        <MenuItem fx:id="saveMenu" mnemonicParsing="false" text="%FileLoaderSaver.1">
+        <MenuItem fx:id="saveMenu" mnemonicParsing="false" text="%saveDrawing">
             <graphic>
                 <ImageView>
                     <Image url="@/res/document-save.png"/>
                 </ImageView>
             </graphic>
         </MenuItem>
-        <MenuItem fx:id="saveAsMenu" mnemonicParsing="false" text="%FileLoaderSaver.2">
+        <MenuItem fx:id="saveAsMenu" mnemonicParsing="false" text="%saveDrawingAs">
             <graphic>
                 <ImageView>
                     <Image url="@/res/document-save-as.png"/>
                 </ImageView>
             </graphic>
         </MenuItem>
-        <Menu fx:id="recentFilesMenu" mnemonicParsing="false" text="%LaTeXDrawFrame.0b"/>
+        <Menu fx:id="recentFilesMenu" mnemonicParsing="false" text="%recentfiles"/>
     </items>
 </MenuButton>

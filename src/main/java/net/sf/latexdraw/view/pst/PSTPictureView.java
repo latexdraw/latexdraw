@@ -44,7 +44,7 @@ public class PSTPictureView extends PSTShapeView<Picture> {
 		path = path.replaceAll("\\\\", "/");
 
 		if(path.contains(" ")) {
-			start.append(bundle.getString("Picture.0")).append(SystemUtils.getInstance().eol);
+			start.append(bundle.getString("spaces")).append(SystemUtils.getInstance().eol);
 		}
 
 		if(rot != null) {

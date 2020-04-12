@@ -32,10 +32,4 @@ public class TestOperatingSystem {
 	void testGetPs2pdfBinPath(final OperatingSystem os) {
 		assertThat(os.getPs2pdfBinPath()).isNotEmpty();
 	}
-
-	@ParameterizedTest
-	@EnumSource(OperatingSystem.class)
-	void testGetPdfcropBinPath(final OperatingSystem os) {
-		assertThat(os.getPdfcropBinPath()).isNotEmpty();
-	}
 }

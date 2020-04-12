@@ -11,17 +11,17 @@
 <TitledPane xmlns:fx="http://javafx.com/fxml/1" fx:id="mainPane" text="Double line" xmlns="http://javafx.com/javafx/8"
             fx:controller="net.sf.latexdraw.instrument.ShapeDoubleBorderCustomiser" alignment="TOP_LEFT" expanded="false">
     <tooltip>
-        <Tooltip text="%PropBuilder.14"/>
+        <Tooltip text="%dbleProps"/>
     </tooltip>
     <AnchorPane>
-        <CheckBox fx:id="dbleBoundCB" layoutX="14.0" layoutY="4.0" text="%AbstractParametersFrame.0b">
+        <CheckBox fx:id="dbleBoundCB" layoutX="14.0" layoutY="4.0" text="%dbleBound">
             <tooltip>
-                <Tooltip text="%LaTeXDrawFrame.78"/>
+                <Tooltip text="%doubleBord"/>
             </tooltip>
         </CheckBox>
         <ColorPicker fx:id="dbleBoundColB" layoutX="13.0" layoutY="31.0" prefHeight="25.0" prefWidth="112.0">
             <tooltip>
-                <Tooltip text="%LaTeXDrawFrame.79"/>
+                <Tooltip text="%colDoubleBord"/>
             </tooltip>
         </ColorPicker>
         <ImageView layoutX="14.0" layoutY="67.0">

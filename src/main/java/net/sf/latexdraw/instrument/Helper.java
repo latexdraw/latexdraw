@@ -103,7 +103,7 @@ public final class Helper extends JfxInstrument implements Initializable {
 					injector.getInstance(BuilderFactory.class), cl -> injector.getInstance(cl));
 				final Scene scene = new Scene(root);
 				aboutFrame = new Stage(StageStyle.UTILITY);
-				aboutFrame.setTitle(lang.getString("Res.1"));
+				aboutFrame.setTitle(lang.getString("about"));
 				aboutFrame.setScene(scene);
 				aboutFrame.centerOnScreen();
 			}catch(final IOException ex) {
@@ -121,7 +121,7 @@ public final class Helper extends JfxInstrument implements Initializable {
 					injector.getInstance(BuilderFactory.class), cl -> injector.getInstance(cl));
 				final Scene scene = new Scene(root);
 				shortcutFrame = new Stage(StageStyle.UTILITY);
-				shortcutFrame.setTitle(lang.getString("LaTeXDrawFrame.3c"));
+				shortcutFrame.setTitle(lang.getString("shortcuts"));
 				shortcutFrame.setScene(scene);
 				shortcutFrame.centerOnScreen();
 			}catch(final IOException ex) {

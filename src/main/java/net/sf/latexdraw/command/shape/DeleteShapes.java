@@ -78,6 +78,6 @@ public class DeleteShapes extends DrawingCmdImpl implements Undoable, Modifying 
 
 	@Override
 	public @NotNull String getUndoName(final @NotNull ResourceBundle bundle) {
-		return bundle.getString("Actions.5");
+		return bundle.getString("delete");
 	}
 }

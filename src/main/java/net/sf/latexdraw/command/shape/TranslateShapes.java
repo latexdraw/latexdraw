@@ -90,7 +90,7 @@ public class TranslateShapes extends ShapeCmdImpl<Group> implements Undoable, Mo
 
 	@Override
 	public @NotNull String getUndoName(final @NotNull ResourceBundle bundle) {
-		return bundle.getString("Actions.32");
+		return bundle.getString("translation");
 	}
 
 	/**

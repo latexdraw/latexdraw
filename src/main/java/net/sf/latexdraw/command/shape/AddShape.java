@@ -40,7 +40,7 @@ public class AddShape extends ShapeCmdImpl<Shape> implements Undoable, Modifying
 
 	@Override
 	public @NotNull String getUndoName(final @NotNull ResourceBundle bundle) {
-		return bundle.getString("UndoRedoManager.create");
+		return bundle.getString("create");
 	}
 
 	@Override

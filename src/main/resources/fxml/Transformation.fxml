@@ -16,7 +16,7 @@
                 </ImageView>
             </graphic>
             <tooltip>
-                <Tooltip text="%LaTeXDrawFrame.7"/>
+                <Tooltip text="%png"/>
             </tooltip>
         </Button>
         <Button fx:id="mirrorV" layoutX="40.0" layoutY="0.0">
@@ -26,7 +26,7 @@
                 </ImageView>
             </graphic>
             <tooltip>
-                <Tooltip text="%LaTeXDrawFrame.8"/>
+                <Tooltip text="%gradCol2"/>
             </tooltip>
         </Button>
     </AnchorPane>
@@ -40,7 +40,7 @@
                 </ImageView>
             </graphic>
             <tooltip>
-                <Tooltip text="%LFrame2.5"/>
+                <Tooltip text="%alignBot"/>
             </tooltip>
         </Button>
         <Button fx:id="alignTop" layoutX="40.0" layoutY="0.0">
@@ -50,7 +50,7 @@
                 </ImageView>
             </graphic>
             <tooltip>
-                <Tooltip text="%LFrame2.4"/>
+                <Tooltip text="%alignTop"/>
             </tooltip>
         </Button>
         <Button fx:id="alignLeft" layoutX="80.0" layoutY="0.0">
@@ -60,7 +60,7 @@
                 </ImageView>
             </graphic>
             <tooltip>
-                <Tooltip text="%LFrame2.2"/>
+                <Tooltip text="%alignLeft"/>
             </tooltip>
         </Button>
         <Button fx:id="alignRight" layoutX="120.0" layoutY="0.0">
@@ -70,7 +70,7 @@
                 </ImageView>
             </graphic>
             <tooltip>
-                <Tooltip text="%LFrame2.3"/>
+                <Tooltip text="%alignRight"/>
             </tooltip>
         </Button>
         <Button fx:id="alignMidHoriz" layoutX="160.0" layoutY="0.0">
@@ -80,7 +80,7 @@
                 </ImageView>
             </graphic>
             <tooltip>
-                <Tooltip text="%LFrame2.6"/>
+                <Tooltip text="%alignHoriz"/>
             </tooltip>
         </Button>
         <Button fx:id="alignMidVert" layoutX="200.0" layoutY="0.0">
@@ -90,7 +90,7 @@
                 </ImageView>
             </graphic>
             <tooltip>
-                <Tooltip text="%LFrame2.7"/>
+                <Tooltip text="%alignVert"/>
             </tooltip>
         </Button>
     </AnchorPane>
@@ -104,7 +104,7 @@
                 </ImageView>
             </graphic>
             <tooltip>
-                <Tooltip text="%LFrame2.9"/>
+                <Tooltip text="%distribVertBot"/>
             </tooltip>
         </Button>
         <Button fx:id="distribVertTop" layoutX="40.0" layoutY="0.0">
@@ -114,7 +114,7 @@
                 </ImageView>
             </graphic>
             <tooltip>
-                <Tooltip text="%LFrame2.12"/>
+                <Tooltip text="%distribVertTop"/>
             </tooltip>
         </Button>
         <Button fx:id="distribHorizLeft" layoutX="80.0" layoutY="0.0">
@@ -124,7 +124,7 @@
                 </ImageView>
             </graphic>
             <tooltip>
-                <Tooltip text="%LFrame2.13"/>
+                <Tooltip text="%distribHorizLeft"/>
             </tooltip>
         </Button>
         <Button fx:id="distribHorizRight" layoutX="120.0" layoutY="0.0">
@@ -134,7 +134,7 @@
                 </ImageView>
             </graphic>
             <tooltip>
-                <Tooltip text="%LFrame2.16"/>
+                <Tooltip text="%distribHorizRight"/>
             </tooltip>
         </Button>
         <Button fx:id="distribVertMid" layoutX="160.0" layoutY="0.0">
@@ -144,7 +144,7 @@
                 </ImageView>
             </graphic>
             <tooltip>
-                <Tooltip text="%LFrame2.11"/>
+                <Tooltip text="%distribVertMid"/>
             </tooltip>
         </Button>
         <Button fx:id="distribHorizMid" layoutX="200.0" layoutY="0.0">
@@ -154,7 +154,7 @@
                 </ImageView>
             </graphic>
             <tooltip>
-                <Tooltip text="%LFrame2.15"/>
+                <Tooltip text="%distribHorizMid"/>
             </tooltip>
         </Button>
         <Button fx:id="distribVertEq" layoutX="0.0" layoutY="33.0">
@@ -164,7 +164,7 @@
                 </ImageView>
             </graphic>
             <tooltip>
-                <Tooltip text="%LFrame2.10"/>
+                <Tooltip text="%distribVertEq"/>
             </tooltip>
         </Button>
         <Button fx:id="distribHorizEq" layoutX="40.0" layoutY="33.0">
@@ -174,7 +174,7 @@
                 </ImageView>
             </graphic>
             <tooltip>
-                <Tooltip text="%LFrame2.14"/>
+                <Tooltip text="%distribHorizEq"/>
             </tooltip>
         </Button>
     </AnchorPane>

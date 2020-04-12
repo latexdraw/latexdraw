@@ -13,35 +13,35 @@
         </ImageView>
     </graphic>
     <items>
-        <MenuItem fx:id="shortcutItem" mnemonicParsing="false" text="%LaTeXDrawFrame.3c">
+        <MenuItem fx:id="shortcutItem" mnemonicParsing="false" text="%shortcuts">
             <graphic>
                 <ImageView>
                     <Image url="@/res/emblem-important.png"/>
                 </ImageView>
             </graphic>
         </MenuItem>
-        <MenuItem fx:id="donateItem" mnemonicParsing="false" text="%Helper.1">
+        <MenuItem fx:id="donateItem" mnemonicParsing="false" text="%donate">
             <graphic>
                 <ImageView>
                     <Image url="@/res/emblem-important.png"/>
                 </ImageView>
             </graphic>
         </MenuItem>
-        <MenuItem fx:id="manuelItem" mnemonicParsing="false" text="%Helper.4">
+        <MenuItem fx:id="manuelItem" mnemonicParsing="false" text="%manual">
             <graphic>
                 <ImageView>
                     <Image url="@/res/emblem-important.png"/>
                 </ImageView>
             </graphic>
         </MenuItem>
-        <MenuItem fx:id="reportBugItem" mnemonicParsing="false" text="%Helper.2">
+        <MenuItem fx:id="reportBugItem" mnemonicParsing="false" text="%reportBug">
             <graphic>
                 <ImageView>
                     <Image url="@/res/emblem-unreadable.png"/>
                 </ImageView>
             </graphic>
         </MenuItem>
-        <MenuItem fx:id="forumItem" mnemonicParsing="false" text="%Helper.3">
+        <MenuItem fx:id="forumItem" mnemonicParsing="false" text="%forum">
             <graphic>
                 <ImageView>
                     <Image url="@/res/emblem-important.png"/>
@@ -49,7 +49,7 @@
             </graphic>
         </MenuItem>
         <SeparatorMenuItem mnemonicParsing="false"/>
-        <MenuItem fx:id="aboutItem" mnemonicParsing="false" text="%Res.1">
+        <MenuItem fx:id="aboutItem" mnemonicParsing="false" text="%about">
             <graphic>
                 <ImageView>
                     <Image url="@/res/emblem-important.png"/>

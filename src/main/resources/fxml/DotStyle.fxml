@@ -11,7 +11,7 @@
 <TitledPane xmlns:fx="http://javafx.com/fxml/1" fx:id="mainPane" text="Dot" xmlns="http://javafx.com/javafx/8"
             fx:controller="net.sf.latexdraw.instrument.ShapeDotCustomiser" alignment="TOP_LEFT" expanded="false">
     <tooltip>
-        <Tooltip text="%PropBuilder.10"/>
+        <Tooltip text="%dotCustom"/>
     </tooltip>
     <AnchorPane>
         <ImageView layoutX="13.0" layoutY="4.0">
@@ -20,17 +20,17 @@
         <LSpinner fx:id="dotSizeField" layoutX="40.0" layoutY="3.0" prefHeight="25.0" prefWidth="75.0" editable="true"
                   min="0.1" max="1000.0" initialValue="40.0" amountToStepBy="1.0">
             <tooltip>
-                <Tooltip text="%ShapeDot.1"/>
+                <Tooltip text="%sizeDot"/>
             </tooltip>
         </LSpinner>
         <ComboBox fx:id="dotCB" prefHeight="40.0" prefWidth="90.0" layoutX="13.0" layoutY="34.0">
             <tooltip>
-                <Tooltip text="%ShapeDot.2"/>
+                <Tooltip text="%styleDot"/>
             </tooltip>
         </ComboBox>
         <ColorPicker fx:id="fillingB" layoutX="13.0" layoutY="82.0" prefHeight="25.0" prefWidth="112.0">
             <tooltip>
-                <Tooltip text="%LaTeXDrawFrame.68"/>
+                <Tooltip text="%changeColFill"/>
             </tooltip>
         </ColorPicker>
     </AnchorPane>

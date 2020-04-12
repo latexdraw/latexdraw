@@ -13,7 +13,7 @@
       style="-fx-border-color:lightgray; -fx-border-width: 1; -fx-border-style: solid; -fx-border-radius: 5; -fx-border-insets: -3;"
       fx:controller="net.sf.latexdraw.instrument.ShapeRotationCustomiser">
     <HBox spacing="4" alignment="CENTER_LEFT">
-        <Label text="%AbstractParametersFrame.7"/>
+        <Label text="%angleRotation"/>
         <LSpinner fx:id="rotationField" prefHeight="25.0" prefWidth="80.0" editable="true" min="-360.0" max="360.0" initialValue="0.0"
                   amountToStepBy="1.0"/>
     </HBox>
@@ -25,7 +25,7 @@
                 </ImageView>
             </graphic>
             <tooltip>
-                <Tooltip text="%LaTeXDrawFrame.3"/>
+                <Tooltip text="%stop"/>
             </tooltip>
         </Button>
         <Button fx:id="rotate180Button">
@@ -35,7 +35,7 @@
                 </ImageView>
             </graphic>
             <tooltip>
-                <Tooltip text="%LaTeXDrawFrame.4"/>
+                <Tooltip text="%shadowShape"/>
             </tooltip>
         </Button>
         <Button fx:id="rotate270Button">
@@ -45,7 +45,7 @@
                 </ImageView>
             </graphic>
             <tooltip>
-                <Tooltip text="%LaTeXDrawFrame.5"/>
+                <Tooltip text="%shadowColor"/>
             </tooltip>
         </Button>
     </HBox>

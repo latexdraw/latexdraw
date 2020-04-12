@@ -84,35 +84,37 @@ public final class ShapeProperties<T> {
 
 	/** Show/Hide the origin of the axes. */
 	public static final ShapeProperties<Boolean> SHOW_POINTS = new ShapeProperties<>(
-		(v, g) -> g.setShowPts(v), (v, g) -> g.setShowPointsList(v), g -> g.getShowPointsList(), g -> g.isShowPtsable(), "Actions.12"); //NON-NLS
+		(v, g) -> g.setShowPts(v), (v, g) -> g.setShowPointsList(v), g -> g.getShowPointsList(), g -> g.isShowPtsable(), "showPt"); //NON-NLS
 
 	/** Show/Hide the origin of the axes. */
 	public static final ShapeProperties<Boolean> AXES_SHOW_ORIGIN = new ShapeProperties<>(
-		(v, g) -> g.setShowOrigin(v), (v, g) -> g.setAxesShowOriginList(v), g -> g.getAxesShowOriginList(), g -> g.isTypeOf(AxesProp.class), "Actions.13"); //NON-NLS
+		(v, g) -> g.setShowOrigin(v), (v, g) -> g.setAxesShowOriginList(v), g -> g.getAxesShowOriginList(), g -> g.isTypeOf(AxesProp.class), "axeParams"); //NON-NLS
 
 	/** The increment of the axes' labels. */
 	public static final ShapeProperties<Point> AXES_LABELS_DIST = new ShapeProperties<>(
-		(v, g) -> g.setDistLabels(v), (v, g) -> g.setAxesDistLabelsList(v), g -> g.getAxesDistLabelsList(), g -> g.isTypeOf(AxesProp.class), "Actions.13"); //NON-NLS
+		(v, g) -> g.setDistLabels(v), (v, g) -> g.setAxesDistLabelsList(v), g -> g.getAxesDistLabelsList(), g -> g.isTypeOf(AxesProp.class), "axeParams"); //NON-NLS
 
 	/** The increment of the axes' labels. */
 	public static final ShapeProperties<Point> AXES_LABELS_INCR = new ShapeProperties<>(
-		(v, g) -> g.setIncrement(v), (v, g) -> g.setAxesIncrementsList(v), g -> g.getAxesIncrementsList(), g -> g.isTypeOf(AxesProp.class), "Actions.13"); //NON-NLS
+		(v, g) -> g.setIncrement(v), (v, g) -> g.setAxesIncrementsList(v), g -> g.getAxesIncrementsList(), g -> g.isTypeOf(AxesProp.class), "axeParams"); //NON-NLS
 
 	/** How the labels of axes are displayed. */
 	public static final ShapeProperties<PlottingStyle> AXES_LABELS_SHOW = new ShapeProperties<>(
-		(v, g) -> g.setLabelsDisplayed(v), (v, g) -> g.setAxesLabelsDisplayedList(v), g -> g.getAxesLabelsDisplayedList(), g -> g.isTypeOf(AxesProp.class), "Actions.13"); //NON-NLS
+		(v, g) -> g.setLabelsDisplayed(v), (v, g) -> g.setAxesLabelsDisplayedList(v), g -> g.getAxesLabelsDisplayedList(), g -> g.isTypeOf(AxesProp.class),
+		"axeParams"); //NON-NLS
 
 	/** How the ticks of axes are displayed. */
 	public static final ShapeProperties<PlottingStyle> AXES_TICKS_SHOW = new ShapeProperties<>(
-		(v, g) -> g.setTicksDisplayed(v), (v, g) -> g.setAxesTicksDisplayedList(v), g -> g.getAxesTicksDisplayedList(), g -> g.isTypeOf(AxesProp.class), "Actions.13"); //NON-NLS
+		(v, g) -> g.setTicksDisplayed(v), (v, g) -> g.setAxesTicksDisplayedList(v), g -> g.getAxesTicksDisplayedList(), g -> g.isTypeOf(AxesProp.class),
+		"axeParams"); //NON-NLS
 
 	/** The ticks size */
 	public static final ShapeProperties<Double> AXES_TICKS_SIZE = new ShapeProperties<>(
-		(v, g) -> g.setTicksSize(v), (v, g) -> g.setAxesTicksSizeList(v), g -> g.getAxesTicksSizeList(), g -> g.isTypeOf(AxesProp.class), "Actions.13"); //NON-NLS
+		(v, g) -> g.setTicksSize(v), (v, g) -> g.setAxesTicksSizeList(v), g -> g.getAxesTicksSizeList(), g -> g.isTypeOf(AxesProp.class), "axeParams"); //NON-NLS
 
 	/** The width of the sub-grids. */
 	public static final ShapeProperties<Double> GRID_SUBGRID_WIDTH = new ShapeProperties<>(
-		(v, g) -> g.setSubGridWidth(v), (v, g) -> g.setSubGridWidthList(v), g -> g.getSubGridWidthList(), g -> g.isTypeOf(GridProp.class), "Actions.14"); //NON-NLS
+		(v, g) -> g.setSubGridWidth(v), (v, g) -> g.setSubGridWidthList(v), g -> g.getSubGridWidthList(), g -> g.isTypeOf(GridProp.class), "gridParams"); //NON-NLS
 
 	/** Defines whether bezier curves and co are closed. */
 	public static final ShapeProperties<Boolean> CLOSABLE_CLOSE = new ShapeProperties<>(
@@ -120,234 +122,239 @@ public final class ShapeProperties<T> {
 
 	/** The interval between the points of free hand shapes. */
 	public static final ShapeProperties<Integer> FREEHAND_INTERVAL = new ShapeProperties<>(
-		(v, g) -> g.setInterval(v), (v, g) -> g.setFreeHandIntervalList(v), g -> g.getFreeHandIntervalList(), g -> g.isTypeOf(FreeHandProp.class), "Actions.15"); //NON-NLS
+		(v, g) -> g.setInterval(v), (v, g) -> g.setFreeHandIntervalList(v), g -> g.getFreeHandIntervalList(), g -> g.isTypeOf(FreeHandProp.class),
+		"freehandParams"); //NON-NLS
 
 	/** The division the sub-lines of grids. */
 	public static final ShapeProperties<Integer> GRID_SUBGRID_DIV = new ShapeProperties<>(
-		(v, g) -> g.setSubGridDiv(v), (v, g) -> g.setSubGridDivList(v), g -> g.getSubGridDivList(), g -> g.isTypeOf(GridProp.class), "Actions.14"); //NON-NLS
+		(v, g) -> g.setSubGridDiv(v), (v, g) -> g.setSubGridDivList(v), g -> g.getSubGridDivList(), g -> g.isTypeOf(GridProp.class), "gridParams"); //NON-NLS
 
 	/** The number of dots composing the sub-lines of grids. */
 	public static final ShapeProperties<Integer> GRID_SUBGRID_DOTS = new ShapeProperties<>(
-		(v, g) -> g.setSubGridDots(v), (v, g) -> g.setSubGridDotsList(v), g -> g.getSubGridDotsList(), g -> g.isTypeOf(GridProp.class), "Actions.14"); //NON-NLS
+		(v, g) -> g.setSubGridDots(v), (v, g) -> g.setSubGridDotsList(v), g -> g.getSubGridDotsList(), g -> g.isTypeOf(GridProp.class), "gridParams"); //NON-NLS
 
 	/** The number of dots composing the main lines of grids. */
 	public static final ShapeProperties<Integer> GRID_DOTS = new ShapeProperties<>(
-		(v, g) -> g.setGridDots(v), (v, g) -> g.setGridDotsList(v), g -> g.getGridDotsList(), g -> g.isTypeOf(GridProp.class), "Actions.14"); //NON-NLS
+		(v, g) -> g.setGridDots(v), (v, g) -> g.setGridDotsList(v), g -> g.getGridDotsList(), g -> g.isTypeOf(GridProp.class), "gridParams"); //NON-NLS
 
 	/** The width of the grids. */
 	public static final ShapeProperties<Double> GRID_WIDTH = new ShapeProperties<>(
-		(v, g) -> g.setGridWidth(v), (v, g) -> g.setGridWidthList(v), g -> g.getGridWidthList(), g -> g.isTypeOf(GridProp.class), "Actions.14"); //NON-NLS
+		(v, g) -> g.setGridWidth(v), (v, g) -> g.setGridWidthList(v), g -> g.getGridWidthList(), g -> g.isTypeOf(GridProp.class), "gridParams"); //NON-NLS
 
 	/** The style of the ticks of axes. */
 	public static final ShapeProperties<TicksStyle> AXES_TICKS_STYLE = new ShapeProperties<>(
-		(v, g) -> g.setTicksStyle(v), (v, g) -> g.setAxesTicksStyleList(v), g -> g.getAxesTicksStyleList(), g -> g.isTypeOf(AxesProp.class), "Actions.13"); //NON-NLS
+		(v, g) -> g.setTicksStyle(v), (v, g) -> g.setAxesTicksStyleList(v), g -> g.getAxesTicksStyleList(), g -> g.isTypeOf(AxesProp.class), "axeParams"); //NON-NLS
 
 	/** The style of axes. */
 	public static final ShapeProperties<FreeHandStyle> FREEHAND_STYLE = new ShapeProperties<>(
-		(v, g) -> g.setType(v), (v, g) -> g.setFreeHandTypeList(v), g -> g.getFreeHandTypeList(), g -> g.isTypeOf(FreeHandProp.class), "Actions.15"); //NON-NLS
+		(v, g) -> g.setType(v), (v, g) -> g.setFreeHandTypeList(v), g -> g.getFreeHandTypeList(), g -> g.isTypeOf(FreeHandProp.class), "freehandParams"); //NON-NLS
 
 	/** The style of axes. */
 	public static final ShapeProperties<AxesStyle> AXES_STYLE = new ShapeProperties<>((v, g) -> g.setAxesStyle(v), (v, g) -> g.setAxesStyleList(v),
-		g -> g.getAxesStyleList(), g -> g.isTypeOf(AxesProp.class), "Actions.13"); //NON-NLS
+		g -> g.getAxesStyleList(), g -> g.isTypeOf(AxesProp.class), "axeParams"); //NON-NLS
 	/** The X-coordinate of the grid's labels. */
 	public static final ShapeProperties<Boolean> GRID_LABEL_POSITION_X = new ShapeProperties<>(
-		(v, g) -> g.setYLabelWest(v), (v, g) -> g.setGridYLabelWestList(v), g -> g.getGridYLabelWestList(), g -> g.isTypeOf(IStdGridProp.class), "Actions.14"); //NON-NLS
+		(v, g) -> g.setYLabelWest(v), (v, g) -> g.setGridYLabelWestList(v), g -> g.getGridYLabelWestList(), g -> g.isTypeOf(IStdGridProp.class), "gridParams"); //NON-NLS
 
 	/** The Y-coordinate of the grid's labels. */
 	public static final ShapeProperties<Boolean> GRID_LABEL_POSITION_Y = new ShapeProperties<>(
-		(v, g) -> g.setXLabelSouth(v), (v, g) -> g.setGridXLabelSouthList(v), g -> g.getGridXLabelSouthList(), g -> g.isTypeOf(IStdGridProp.class), "Actions.14"); //NON-NLS
+		(v, g) -> g.setXLabelSouth(v), (v, g) -> g.setGridXLabelSouthList(v), g -> g.getGridXLabelSouthList(), g -> g.isTypeOf(IStdGridProp.class),
+		"gridParams"); //NON-NLS
 
 	/** The size of the labels of grids. */
 	public static final ShapeProperties<Integer> GRID_SIZE_LABEL = new ShapeProperties<>(
-		(v, g) -> g.setLabelsSize(v), (v, g) -> g.setGridLabelSizeList(v), g -> g.getGridLabelSizeList(), g -> g.isTypeOf(IStdGridProp.class), "Actions.14"); //NON-NLS
+		(v, g) -> g.setLabelsSize(v), (v, g) -> g.setGridLabelSizeList(v), g -> g.getGridLabelSizeList(), g -> g.isTypeOf(IStdGridProp.class), "gridParams"); //NON-NLS
 
 	/** The t bar num of arrows. */
 	public static final ShapeProperties<Double> ARROW_T_BAR_SIZE_DIM = new ShapeProperties<>(
-		(v, g) -> g.setTBarSizeDim(v), (v, g) -> g.setTBarSizeDimList(v), g -> g.getTBarSizeDimList(), g -> g.isTypeOf(ArrowableSingleShape.class), "Actions.16"); //NON-NLS
+		(v, g) -> g.setTBarSizeDim(v), (v, g) -> g.setTBarSizeDimList(v), g -> g.getTBarSizeDimList(), g -> g.isTypeOf(ArrowableSingleShape.class),
+		"arrowParams"); //NON-NLS
 
 	/** The t bar num of arrows. */
 	public static final ShapeProperties<Double> ARROW_T_BAR_SIZE_NUM = new ShapeProperties<>(
-		(v, g) -> g.setTBarSizeNum(v), (v, g) -> g.setTBarSizeNumList(v), g -> g.getTBarSizeNumList(), g -> g.isTypeOf(ArrowableSingleShape.class), "Actions.16"); //NON-NLS
+		(v, g) -> g.setTBarSizeNum(v), (v, g) -> g.setTBarSizeNumList(v), g -> g.getTBarSizeNumList(), g -> g.isTypeOf(ArrowableSingleShape.class), "arrowParams"); //NON-NLS
 
 	/** The dot size dim of arrows. */
 	public static final ShapeProperties<Double> ARROW_DOT_SIZE_NUM = new ShapeProperties<>(
-		(v, g) -> g.setDotSizeNum(v), (v, g) -> g.setDotSizeNumList(v), g -> g.getDotSizeNumList(), g -> g.isTypeOf(ArrowableSingleShape.class), "Actions.16"); //NON-NLS
+		(v, g) -> g.setDotSizeNum(v), (v, g) -> g.setDotSizeNumList(v), g -> g.getDotSizeNumList(), g -> g.isTypeOf(ArrowableSingleShape.class), "arrowParams"); //NON-NLS
 
 	/** The dot size dim of arrows. */
 	public static final ShapeProperties<Double> ARROW_DOT_SIZE_DIM = new ShapeProperties<>(
-		(v, g) -> g.setDotSizeDim(v), (v, g) -> g.setDotSizeDimList(v), g -> g.getDotSizeDimList(), g -> g.isTypeOf(ArrowableSingleShape.class), "Actions.16"); //NON-NLS
+		(v, g) -> g.setDotSizeDim(v), (v, g) -> g.setDotSizeDimList(v), g -> g.getDotSizeDimList(), g -> g.isTypeOf(ArrowableSingleShape.class), "arrowParams"); //NON-NLS
 
 	/** The bracket num of arrows. */
 	public static final ShapeProperties<Double> ARROW_BRACKET_NUM = new ShapeProperties<>(
-		(v, g) -> g.setBracketNum(v), (v, g) -> g.setBracketNumList(v), g -> g.getBracketNumList(), g -> g.isTypeOf(ArrowableSingleShape.class), "Actions.16"); //NON-NLS
+		(v, g) -> g.setBracketNum(v), (v, g) -> g.setBracketNumList(v), g -> g.getBracketNumList(), g -> g.isTypeOf(ArrowableSingleShape.class), "arrowParams"); //NON-NLS
 
 	/** The round bracket num of arrows. */
 	public static final ShapeProperties<Double> ARROW_R_BRACKET_NUM = new ShapeProperties<>(
-		(v, g) -> g.setRBracketNum(v), (v, g) -> g.setRBracketNumList(v), g -> g.getRBracketNumList(), g -> g.isTypeOf(ArrowableSingleShape.class), "Actions.16"); //NON-NLS
+		(v, g) -> g.setRBracketNum(v), (v, g) -> g.setRBracketNumList(v), g -> g.getRBracketNumList(), g -> g.isTypeOf(ArrowableSingleShape.class), "arrowParams"); //NON-NLS
 	/** The size num of arrows. */
 	public static final ShapeProperties<Double> ARROW_SIZE_NUM = new ShapeProperties<>(
-		(v, g) -> g.setArrowSizeNum(v), (v, g) -> g.setArrowSizeNumList(v), g -> g.getArrowSizeNumList(), g -> g.isTypeOf(ArrowableSingleShape.class), "Actions.16"); //NON-NLS
+		(v, g) -> g.setArrowSizeNum(v), (v, g) -> g.setArrowSizeNumList(v), g -> g.getArrowSizeNumList(), g -> g.isTypeOf(ArrowableSingleShape.class),
+		"arrowParams"); //NON-NLS
 
 	/** The size dim of arrows. */
 	public static final ShapeProperties<Double> ARROW_SIZE_DIM = new ShapeProperties<>(
-		(v, g) -> g.setArrowSizeDim(v), (v, g) -> g.setArrowSizeDimList(v), g -> g.getArrowSizeDimList(), g -> g.isTypeOf(ArrowableSingleShape.class), "Actions.16"); //NON-NLS
+		(v, g) -> g.setArrowSizeDim(v), (v, g) -> g.setArrowSizeDimList(v), g -> g.getArrowSizeDimList(), g -> g.isTypeOf(ArrowableSingleShape.class), "arrowParams"); //NON-NLS
 
 	public static final ShapeProperties<Double> ARROW_LENGTH = new ShapeProperties<>(
-		(v, g) -> g.setArrowLength(v), (v, g) -> g.setArrowLengthList(v), g -> g.getArrowLengthList(), g -> g.isTypeOf(ArrowableSingleShape.class), "Actions.16"); //NON-NLS
+		(v, g) -> g.setArrowLength(v), (v, g) -> g.setArrowLengthList(v), g -> g.getArrowLengthList(), g -> g.isTypeOf(ArrowableSingleShape.class), "arrowParams"); //NON-NLS
 
 	/** The inset of arrows. */
 	public static final ShapeProperties<Double> ARROW_INSET = new ShapeProperties<>(
-		(v, g) -> g.setArrowInset(v), (v, g) -> g.setArrowInsetList(v), g -> g.getArrowInsetList(), g -> g.isTypeOf(ArrowableSingleShape.class), "Actions.16"); //NON-NLS
+		(v, g) -> g.setArrowInset(v), (v, g) -> g.setArrowInsetList(v), g -> g.getArrowInsetList(), g -> g.isTypeOf(ArrowableSingleShape.class), "arrowParams"); //NON-NLS
 
 	/** Modification of the starting position of grids. */
 	public static final ShapeProperties<Point> GRID_END = new ShapeProperties<>(
-		(v, g) -> g.setGridEnd(v.getX(), v.getY()), (v, g) -> g.setGridEndList(v), g -> g.getGridEndList(), g -> g.isTypeOf(IStdGridProp.class), "Actions.14"); //NON-NLS
+		(v, g) -> g.setGridEnd(v.getX(), v.getY()), (v, g) -> g.setGridEndList(v), g -> g.getGridEndList(), g -> g.isTypeOf(IStdGridProp.class), "gridParams"); //NON-NLS
 
 	/** Modification of the starting position of grids. */
 	public static final ShapeProperties<Point> GRID_ORIGIN = new ShapeProperties<>(
-		(v, g) -> g.setOrigin(v.getX(), v.getY()), (v, g) -> g.setGridOriginList(v), g -> g.getGridOriginList(), g -> g.isTypeOf(IStdGridProp.class), "Actions.14"); //NON-NLS
+		(v, g) -> g.setOrigin(v.getX(), v.getY()), (v, g) -> g.setGridOriginList(v), g -> g.getGridOriginList(), g -> g.isTypeOf(IStdGridProp.class),
+		"gridParams"); //NON-NLS
 
 	/** Modification of the starting position of grids. */
 	public static final ShapeProperties<Point> GRID_START = new ShapeProperties<>(
-		(v, g) -> g.setGridStart(v.getX(), v.getY()), (v, g) -> g.setGridStartList(v), g -> g.getGridStartList(), g -> g.isTypeOf(IStdGridProp.class), "Actions.14"); //NON-NLS
+		(v, g) -> g.setGridStart(v.getX(), v.getY()), (v, g) -> g.setGridStartList(v), g -> g.getGridStartList(), g -> g.isTypeOf(IStdGridProp.class), "gridParams"); //NON-NLS
 
 	/** Modification of the start angle of arcs. */
 	public static final ShapeProperties<Double> ARC_START_ANGLE = new ShapeProperties<>(
-		(v, g) -> g.setAngleStart(v), (v, g) -> g.setAngleStartList(v), g -> g.getAngleStartList(), g -> g.isTypeOf(ArcProp.class), "Actions.17"); //NON-NLS
+		(v, g) -> g.setAngleStart(v), (v, g) -> g.setAngleStartList(v), g -> g.getAngleStartList(), g -> g.isTypeOf(ArcProp.class), "arcParams"); //NON-NLS
 	/** Modification of the end angle of arcs. */
 
 	public static final ShapeProperties<Double> ARC_END_ANGLE = new ShapeProperties<>(
-		(v, g) -> g.setAngleEnd(v), (v, g) -> g.setAngleEndList(v), g -> g.getAngleEndList(), g -> g.isTypeOf(ArcProp.class), "Actions.17"); //NON-NLS
+		(v, g) -> g.setAngleEnd(v), (v, g) -> g.setAngleEndList(v), g -> g.getAngleEndList(), g -> g.isTypeOf(ArcProp.class), "arcParams"); //NON-NLS
 
 	/** Modification of the style of arcs. */
 	public static final ShapeProperties<ArcStyle> ARC_STYLE = new ShapeProperties<>(
-		(v, g) -> g.setArcStyle(v), (v, g) -> g.setArcStyleList(v), g -> g.getArcStyleList(), g -> g.isTypeOf(ArcProp.class), "Actions.17"); //NON-NLS
+		(v, g) -> g.setArcStyle(v), (v, g) -> g.setArcStyleList(v), g -> g.getArcStyleList(), g -> g.isTypeOf(ArcProp.class), "arcParams"); //NON-NLS
 
 	/** Defines if the shape has a second arrow. */
 	public static final ShapeProperties<ArrowStyle> ARROW2_STYLE = new ShapeProperties<>(
 		(v, g) -> g.setArrowStyle(v, -1), (v, g) -> g.setArrowStyleList(v, -1), g -> g.getArrowStyleList(-1),
-		g -> g.isTypeOf(ArrowableSingleShape.class), "Actions.16"); //NON-NLS
+		g -> g.isTypeOf(ArrowableSingleShape.class), "arrowParams"); //NON-NLS
 
 	/** Defines if the shape has a first arrow. */
 	public static final ShapeProperties<ArrowStyle> ARROW1_STYLE = new ShapeProperties<>(
 		(v, g) -> g.setArrowStyle(v, 0), (v, g) -> g.setArrowStyleList(v, 0), g -> g.getArrowStyleList(0),
-		g -> g.isTypeOf(ArrowableSingleShape.class), "Actions.16"); //NON-NLS
+		g -> g.isTypeOf(ArrowableSingleShape.class), "arrowParams"); //NON-NLS
 
 	/** Modification of the position of texts. */
 	public static final ShapeProperties<TextPosition> TEXT_POSITION = new ShapeProperties<>(
-		(v, g) -> g.setTextPosition(v), (v, g) -> g.setTextPositionList(v), g -> g.getTextPositionList(), g -> g.isTypeOf(TextProp.class), "Actions.18"); //NON-NLS
+		(v, g) -> g.setTextPosition(v), (v, g) -> g.setTextPositionList(v), g -> g.getTextPositionList(), g -> g.isTypeOf(TextProp.class), "textParams"); //NON-NLS
 
 	/** Modification of the text. */
 	public static final ShapeProperties<String> TEXT = new ShapeProperties<>(
-		(v, g) -> g.setText(v), (v, g) -> g.setTextList(v), g -> g.getTextList(), g -> g.isTypeOf(TextProp.class), "Actions.18"); //NON-NLS
+		(v, g) -> g.setText(v), (v, g) -> g.setTextList(v), g -> g.getTextList(), g -> g.isTypeOf(TextProp.class), "textParams"); //NON-NLS
 
 	/** Modification of the hatchings angle of shapes. */
 	public static final ShapeProperties<Double> HATCHINGS_ANGLE = new ShapeProperties<>(
-		(v, g) -> g.setHatchingsAngle(v), (v, g) -> g.setHatchingsAngleList(v), g -> g.getHatchingsAngleList(), g -> g.isInteriorStylable(), "Actions.19"); //NON-NLS
+		(v, g) -> g.setHatchingsAngle(v), (v, g) -> g.setHatchingsAngleList(v), g -> g.getHatchingsAngleList(), g -> g.isInteriorStylable(), "hatchingParams"); //NON-NLS
 
 	/** Modification of the hatchings width a shape. */
 	public static final ShapeProperties<Double> HATCHINGS_WIDTH = new ShapeProperties<>(
-		(v, g) -> g.setHatchingsWidth(v), (v, g) -> g.setHatchingsWidthList(v), g -> g.getHatchingsWidthList(), g -> g.isInteriorStylable(), "Actions.19"); //NON-NLS
+		(v, g) -> g.setHatchingsWidth(v), (v, g) -> g.setHatchingsWidthList(v), g -> g.getHatchingsWidthList(), g -> g.isInteriorStylable(), "hatchingParams"); //NON-NLS
 
 	/** Modification of the hatching spacing a shape. */
 	public static final ShapeProperties<Double> HATCHINGS_SEP = new ShapeProperties<>(
-		(v, g) -> g.setHatchingsSep(v), (v, g) -> g.setHatchingsSepList(v), g -> g.getHatchingsSepList(), g -> g.isInteriorStylable(), "Actions.19"); //NON-NLS
+		(v, g) -> g.setHatchingsSep(v), (v, g) -> g.setHatchingsSepList(v), g -> g.getHatchingsSepList(), g -> g.isInteriorStylable(), "hatchingParams"); //NON-NLS
 
 	/** Modification of the gradient angle a shape. */
 	public static final ShapeProperties<Double> GRAD_ANGLE = new ShapeProperties<>(
-		(v, g) -> g.setGradAngle(v), (v, g) -> g.setGradAngleList(v), g -> g.getGradAngleList(), g -> g.isInteriorStylable(), "Actions.20"); //NON-NLS
+		(v, g) -> g.setGradAngle(v), (v, g) -> g.setGradAngleList(v), g -> g.getGradAngleList(), g -> g.isInteriorStylable(), "gradientParams"); //NON-NLS
 
 	/** Modification of the middle point of the gradient a shape. */
 	public static final ShapeProperties<Double> GRAD_MID_POINT = new ShapeProperties<>(
-		(v, g) -> g.setGradMidPt(v), (v, g) -> g.setGradMidPtList(v), g -> g.getGradMidPtList(), g -> g.isInteriorStylable(), "Actions.20"); //NON-NLS
+		(v, g) -> g.setGradMidPt(v), (v, g) -> g.setGradMidPtList(v), g -> g.getGradMidPtList(), g -> g.isInteriorStylable(), "gradientParams"); //NON-NLS
 
 	/** Modification of the round corner value of a shape. */
 	public static final ShapeProperties<Double> ROUND_CORNER_VALUE = new ShapeProperties<>(
-		(v, g) -> g.setLineArc(v), (v, g) -> g.setLineArcList(v), g -> g.getLineArcList(), g -> g.isTypeOf(LineArcProp.class), "Actions.21"); //NON-NLS
+		(v, g) -> g.setLineArc(v), (v, g) -> g.setLineArcList(v), g -> g.getLineArcList(), g -> g.isTypeOf(LineArcProp.class), "cornerRound"); //NON-NLS
 
 	/** Modification of the colour of the labels of a grid. */
 	public static final ShapeProperties<Color> GRID_SUBGRID_COLOUR = new ShapeProperties<>(
-		(v, g) -> g.setSubGridColour(v), (v, g) -> g.setSubGridColourList(v), g -> g.getSubGridColourList(), g -> g.isTypeOf(GridProp.class), "Actions.14"); //NON-NLS
+		(v, g) -> g.setSubGridColour(v), (v, g) -> g.setSubGridColourList(v), g -> g.getSubGridColourList(), g -> g.isTypeOf(GridProp.class), "gridParams"); //NON-NLS
 
 	/** Modification of the colour of the labels of a grid. */
 	public static final ShapeProperties<Color> GRID_LABELS_COLOUR = new ShapeProperties<>(
-		(v, g) -> g.setGridLabelsColour(v), (v, g) -> g.setGridLabelsColourList(v), g -> g.getGridLabelsColourList(), g -> g.isTypeOf(GridProp.class), "Actions.14"); //NON-NLS
+		(v, g) -> g.setGridLabelsColour(v), (v, g) -> g.setGridLabelsColourList(v), g -> g.getGridLabelsColourList(), g -> g.isTypeOf(GridProp.class), "gridParams"); //NON-NLS
 
 	/** Modification of the colour of the filling of a shape. */
 	public static final ShapeProperties<Color> COLOUR_FILLING = new ShapeProperties<>(
-		(v, g) -> g.setFillingCol(v), (v, g) -> g.setFillingColList(v), g -> g.getFillingColList(), g -> g.isFillable(), "Actions.21"); //NON-NLS
+		(v, g) -> g.setFillingCol(v), (v, g) -> g.setFillingColList(v), g -> g.getFillingColList(), g -> g.isFillable(), "cornerRound"); //NON-NLS
 
 	/** Modification of the colour of the borders of a shape. */
 	public static final ShapeProperties<Color> COLOUR_LINE = new ShapeProperties<>(
-		(v, g) -> g.setLineColour(v), (v, g) -> g.setLineColourList(v), g -> g.getLineColourList(), g -> true, "Actions.23"); //NON-NLS
+		(v, g) -> g.setLineColour(v), (v, g) -> g.setLineColourList(v), g -> g.getLineColourList(), g -> true, "lineCol"); //NON-NLS
 
 	/** Modification of the colour of the hatchings of a shape. */
 	public static final ShapeProperties<Color> COLOUR_HATCHINGS = new ShapeProperties<>(
-		(v, g) -> g.setHatchingsCol(v), (v, g) -> g.setHatchingsColList(v), g -> g.getHatchingsColList(), g -> g.isInteriorStylable(), "Actions.19"); //NON-NLS
+		(v, g) -> g.setHatchingsCol(v), (v, g) -> g.setHatchingsColList(v), g -> g.getHatchingsColList(), g -> g.isInteriorStylable(), "hatchingParams"); //NON-NLS
 
 	/** Defines if a shape must have double borders. */
 	public static final ShapeProperties<Boolean> DBLE_BORDERS = new ShapeProperties<>(
-		(v, g) -> g.setHasDbleBord(v), (v, g) -> g.setHasDbleBordList(v), g -> g.hasDbleBordList(), g -> g.isDbleBorderable(), "Actions.24"); //NON-NLS
+		(v, g) -> g.setHasDbleBord(v), (v, g) -> g.setHasDbleBordList(v), g -> g.hasDbleBordList(), g -> g.isDbleBorderable(), "dbleCol"); //NON-NLS
 
 	/** Modification of the size of the double borders of a shape. */
 	public static final ShapeProperties<Double> DBLE_BORDERS_SIZE = new ShapeProperties<>(
-		(v, g) -> g.setDbleBordSep(v), (v, g) -> g.setDbleBordSepList(v), g -> g.getDbleBordSepList(), g -> g.isDbleBorderable(), "Actions.24"); //NON-NLS
+		(v, g) -> g.setDbleBordSep(v), (v, g) -> g.setDbleBordSepList(v), g -> g.getDbleBordSepList(), g -> g.isDbleBorderable(), "dbleCol"); //NON-NLS
 
 	/** Modification of the colour of the double borders of a shape. */
 	public static final ShapeProperties<Color> COLOUR_DBLE_BORD = new ShapeProperties<>(
-		(v, g) -> g.setDbleBordCol(v), (v, g) -> g.setDbleBordColList(v), g -> g.getDbleBordColList(), g -> g.isDbleBorderable(), "Actions.24"); //NON-NLS
+		(v, g) -> g.setDbleBordCol(v), (v, g) -> g.setDbleBordColList(v), g -> g.getDbleBordColList(), g -> g.isDbleBorderable(), "dbleCol"); //NON-NLS
 
 	/** Defines if a shape must have a shadow. */
 	public static final ShapeProperties<Boolean> SHADOW = new ShapeProperties<>(
-		(v, g) -> g.setHasShadow(v), (v, g) -> g.setHasShadowList(v), g -> g.hasShadowList(), g -> g.isShadowable(), "Actions.25"); //NON-NLS
+		(v, g) -> g.setHasShadow(v), (v, g) -> g.setHasShadowList(v), g -> g.hasShadowList(), g -> g.isShadowable(), "shadowParams"); //NON-NLS
 
 	/** Modification of the size of the shadow of a shape. */
 	public static final ShapeProperties<Double> SHADOW_SIZE = new ShapeProperties<>(
-		(v, g) -> g.setShadowSize(v), (v, g) -> g.setShadowSizeList(v), g -> g.getShadowSizeList(), g -> g.isShadowable(), "Actions.25"); //NON-NLS
+		(v, g) -> g.setShadowSize(v), (v, g) -> g.setShadowSizeList(v), g -> g.getShadowSizeList(), g -> g.isShadowable(), "shadowParams"); //NON-NLS
 
 	/** Modification of the angle of the shadow of a shape. */
 	public static final ShapeProperties<Double> SHADOW_ANGLE = new ShapeProperties<>(
-		(v, g) -> g.setShadowAngle(v), (v, g) -> g.setShadowAngleList(v), g -> g.getShadowAngleList(), g -> g.isShadowable(), "Actions.25"); //NON-NLS
+		(v, g) -> g.setShadowAngle(v), (v, g) -> g.setShadowAngleList(v), g -> g.getShadowAngleList(), g -> g.isShadowable(), "shadowParams"); //NON-NLS
 
 	/** Modification of colour of the shadow of a shape. */
 	public static final ShapeProperties<Color> SHADOW_COLOUR = new ShapeProperties<>(
-		(v, g) -> g.setShadowCol(v), (v, g) -> g.setShadowColList(v), g -> g.getShadowColList(), g -> g.isShadowable(), "Actions.25"); //NON-NLS
+		(v, g) -> g.setShadowCol(v), (v, g) -> g.setShadowColList(v), g -> g.getShadowColList(), g -> g.isShadowable(), "shadowParams"); //NON-NLS
 
 	/** Modification of the colour of the start gradient of a shape. */
 	public static final ShapeProperties<Color> COLOUR_GRADIENT_START = new ShapeProperties<>(
-		(v, g) -> g.setGradColStart(v), (v, g) -> g.setGradColStartList(v), g -> g.getGradColStartList(), g -> g.isLineStylable(), "Actions.20"); //NON-NLS
+		(v, g) -> g.setGradColStart(v), (v, g) -> g.setGradColStartList(v), g -> g.getGradColStartList(), g -> g.isLineStylable(), "gradientParams"); //NON-NLS
 
 	/** Modification of the colour of the end gradient of a shape. */
 	public static final ShapeProperties<Color> COLOUR_GRADIENT_END = new ShapeProperties<>(
-		(v, g) -> g.setGradColEnd(v), (v, g) -> g.setGradColEndList(v), g -> g.getGradColEndList(), g -> g.isLineStylable(), "Actions.20"); //NON-NLS
+		(v, g) -> g.setGradColEnd(v), (v, g) -> g.setGradColEndList(v), g -> g.getGradColEndList(), g -> g.isLineStylable(), "gradientParams"); //NON-NLS
 
 	/** Modification of the thickness of the borders of a shape. */
 	public static final ShapeProperties<Double> LINE_THICKNESS = new ShapeProperties<>(
-		(v, g) -> g.setThickness(v), (v, g) -> g.setThicknessList(v), g -> g.getThicknessList(), g -> g.isThicknessable(), "Actions.26"); //NON-NLS
+		(v, g) -> g.setThickness(v), (v, g) -> g.setThicknessList(v), g -> g.getThicknessList(), g -> g.isThicknessable(), "lineThick"); //NON-NLS
 
 	/** Modification of the filling style of a shape. */
 	public static final ShapeProperties<FillingStyle> FILLING_STYLE = new ShapeProperties<>(
-		(v, g) -> g.setFillingStyle(v), (v, g) -> g.setFillingStyleList(v), g -> g.getFillingStyleList(), g -> g.isInteriorStylable(), "Actions.22"); //NON-NLS
+		(v, g) -> g.setFillingStyle(v), (v, g) -> g.setFillingStyleList(v), g -> g.getFillingStyleList(), g -> g.isInteriorStylable(), "fillParams"); //NON-NLS
 
 	/** Modification of the border position of a shape. */
 	public static final ShapeProperties<BorderPos> BORDER_POS = new ShapeProperties<>(
-		(v, g) -> g.setBordersPosition(v), (v, g) -> g.setBordersPositionList(v), g -> g.getBordersPositionList(), g -> g.isBordersMovable(), "Actions.27"); //NON-NLS
+		(v, g) -> g.setBordersPosition(v), (v, g) -> g.setBordersPositionList(v), g -> g.getBordersPositionList(), g -> g.isBordersMovable(), "borderPos"); //NON-NLS
 
 	/** Modification of the line style of a shape. */
 	public static final ShapeProperties<LineStyle> LINE_STYLE = new ShapeProperties<>(
-		(v, g) -> g.setLineStyle(v), (v, g) -> g.setLineStyleList(v), g -> g.getLineStyleList(), g -> g.isLineStylable(), "Actions.28"); //NON-NLS
+		(v, g) -> g.setLineStyle(v), (v, g) -> g.setLineStyleList(v), g -> g.getLineStyleList(), g -> g.isLineStylable(), "lineStyle"); //NON-NLS
 
 	/** Modification of the filling colour of a dot. */
 	public static final ShapeProperties<Color> DOT_FILLING_COL = new ShapeProperties<>(
-		(v, g) -> g.setDotFillingCol(v), (v, g) -> g.setDotFillingColList(v), g -> g.getDotFillingColList(), g -> g.isTypeOf(DotProp.class), "Actions.29"); //NON-NLS
+		(v, g) -> g.setDotFillingCol(v), (v, g) -> g.setDotFillingColList(v), g -> g.getDotFillingColList(), g -> g.isTypeOf(DotProp.class), "dotParams"); //NON-NLS
 
 	/** Modification of the style of a dot. */
 	public static final ShapeProperties<DotStyle> DOT_STYLE = new ShapeProperties<>(
-		(v, g) -> g.setDotStyle(v), (v, g) -> g.setDotStyleList(v), g -> g.getDotStyleList(), g -> g.isTypeOf(DotProp.class), "Actions.29"); //NON-NLS
+		(v, g) -> g.setDotStyle(v), (v, g) -> g.setDotStyleList(v), g -> g.getDotStyleList(), g -> g.isTypeOf(DotProp.class), "dotParams"); //NON-NLS
 
 	/** Modification of the size of dots. */
 	public static final ShapeProperties<Double> DOT_SIZE = new ShapeProperties<>(
-		(v, g) -> g.setDiametre(v), (v, g) -> g.setDotSizeList(v), g -> g.getDotSizeList(), g -> g.isTypeOf(DotProp.class), "Actions.29"); //NON-NLS
+		(v, g) -> g.setDiametre(v), (v, g) -> g.setDotSizeList(v), g -> g.getDotSizeList(), g -> g.isTypeOf(DotProp.class), "dotParams"); //NON-NLS
 
 	private final @NotNull BiConsumer<T, Group> setValue;
 	private final @NotNull BiConsumer<List<Optional<T>>, Group> setListValue;

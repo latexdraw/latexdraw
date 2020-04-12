@@ -144,7 +144,7 @@ public class ScaleShapes extends ShapeCmdImpl<Group> implements Undoable, Modify
 
 	@Override
 	public @NotNull String getUndoName(final @NotNull ResourceBundle bundle) {
-		return bundle.getString("Actions.11");
+		return bundle.getString("resize");
 	}
 
 	public @NotNull Position getRefPosition() {

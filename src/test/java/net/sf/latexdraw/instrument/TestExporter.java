@@ -130,7 +130,7 @@ public class TestExporter extends BaseTestCanvas {
 
 	@Theory
 	public void testExportPicture(@StringData(vals = {"#menuItemBMP", "#menuItemPST", "#menuItemPNG",
-		"#menuItemBMP", "#menuItemPDF", "#menuItemEPSLatex", "#menuItemPDFcrop"}) final String widgetID) {
+		"#menuItemBMP", "#menuItemPDF", "#menuItemEPSLatex"}) final String widgetID) {
 		Cmds.of(addRec, () -> clickOn(exporter.exportMenu), () -> clickOn(widgetID)).execute();
 		assertEquals(1, CommandsRegistry.getInstance().getCommands().size());
 		assertTrue(CommandsRegistry.getInstance().getCommands().get(0) instanceof Export);

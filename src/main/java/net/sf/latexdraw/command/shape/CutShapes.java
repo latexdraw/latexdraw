@@ -68,6 +68,6 @@ public class CutShapes extends CopyShapes implements Undoable, Modifying {
 
 	@Override
 	public @NotNull String getUndoName(final @NotNull ResourceBundle bundle) {
-		return bundle.getString("LaTeXDrawFrame.44");
+		return bundle.getString("cut");
 	}
 }

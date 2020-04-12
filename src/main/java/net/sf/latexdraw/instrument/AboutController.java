@@ -43,10 +43,10 @@ public class AboutController implements Initializable {
 
 	@Override
 	public void initialize(final URL location, final ResourceBundle resources) {
-		aboutText.setText(lang.getString("LaTeXDrawFrame.219") + ' ' +  //NON-NLS
+		aboutText.setText(lang.getString("version") + ' ' +  //NON-NLS
 			VersionChecker.VERSION + VersionChecker.VERSION_STABILITY + SystemUtils.getInstance().eol +  //NON-NLS
-			LaTeXDraw.LABEL_APP + lang.getString("LaTeXDrawFrame.221") + SystemUtils.getInstance().eol + //NON-NLS
-			"Copyright(c) 2005-2018 - Arnaud BLOUIN" + SystemUtils.getInstance().eol + //NON-NLS
+			LaTeXDraw.LABEL_APP + lang.getString("licenceDistrib") + SystemUtils.getInstance().eol + //NON-NLS
+			"Copyright(c) 2005-2020 - Arnaud BLOUIN" + SystemUtils.getInstance().eol + //NON-NLS
 			"http://latexdraw.sourceforge.net/"); //NON-NLS
 		noteText.setText(SystemUtils.getInstance().readTextFile("/res/release_note.txt")); //NON-NLS
 		contribText.setText(SystemUtils.getInstance().readTextFile("/res/contributors.txt")); //NON-NLS
@@ -57,7 +57,6 @@ public class AboutController implements Initializable {
 		builder.append("DviPS version:").append(SystemUtils.getInstance().getDVIPSVersion()).append(SystemUtils.getInstance().eol); //NON-NLS
 		builder.append("PS2PDF version:").append(SystemUtils.getInstance().eol).append(SystemUtils.getInstance().getPS2PDFVersion()).append(SystemUtils.getInstance().eol); //NON-NLS
 		builder.append("PS2EPSI version:").append(SystemUtils.getInstance().getPS2EPSVersion()).append(SystemUtils.getInstance().eol); //NON-NLS
-		builder.append("PDFcrop version:").append(SystemUtils.getInstance().getPDFCROPVersion()).append(SystemUtils.getInstance().eol); //NON-NLS
 		builder.append("Java properties:").append(SystemUtils.getInstance().eol); //NON-NLS
 		System.getProperties().forEach((key, value) -> builder.append(key).append(':').append(' ').append(value).append(SystemUtils.getInstance().eol));
 		sysText.setText(builder.toString());

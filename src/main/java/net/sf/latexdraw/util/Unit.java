@@ -23,14 +23,14 @@ public enum Unit {
 	CM {
 		@Override
 		public String getLabel(final ResourceBundle bundle) {
-			return bundle.getString("XScale.cm"); //NON-NLS
+			return bundle.getString("cm"); //NON-NLS
 		}
 	},
 	/** Inch */
 	INCH {
 		@Override
 		public String getLabel(final ResourceBundle bundle) {
-			return bundle.getString("XScale.inch"); //NON-NLS
+			return bundle.getString("inch"); //NON-NLS
 		}
 	};
 

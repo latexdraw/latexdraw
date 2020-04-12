@@ -78,7 +78,7 @@ public class PreferencesSetter extends JfxInstrument implements Initializable {
 	@Override
 	public void initialize(final URL location, final ResourceBundle resources) {
 		latexIncludes.setTooltip(new Tooltip("<html>" + //NON-NLS
-			prefsService.getBundle().getString("PreferencesSetter.1") + //NON-NLS
+			prefsService.getBundle().getString("listPkg") + //NON-NLS
 			"<br>\\usepackage[frenchb]{babel}<br>\\usepackage[utf8]{inputenc}</html>"//NON-NLS
 		));
 
@@ -141,7 +141,7 @@ public class PreferencesSetter extends JfxInstrument implements Initializable {
 	private DirectoryChooser getFileChooser() {
 		if(fileChooser == null) {
 			fileChooser = new DirectoryChooser();
-			fileChooser.setTitle(prefsService.getBundle().getString("PreferencesFrame.selectFolder")); //NON-NLS
+			fileChooser.setTitle(prefsService.getBundle().getString("selectFolder")); //NON-NLS
 		}
 		return fileChooser;
 	}

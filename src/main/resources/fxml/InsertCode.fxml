@@ -19,8 +19,8 @@
             <bottom>
                 <ButtonBar>
                     <buttons>
-                        <Button fx:id="ok" BorderPane.alignment="CENTER" text="%AbstractParametersFrame.4b" ButtonBar.buttonData="OK_DONE"/>
-                        <Button fx:id="cancel" BorderPane.alignment="CENTER" text="%AbstractParametersFrame.6" cancelButton="true"
+                        <Button fx:id="ok" BorderPane.alignment="CENTER" text="%ok" ButtonBar.buttonData="OK_DONE"/>
+                        <Button fx:id="cancel" BorderPane.alignment="CENTER" text="%cancel" cancelButton="true"
                                 ButtonBar.buttonData="CANCEL_CLOSE"/>
                     </buttons>
                 </ButtonBar>

@@ -13,7 +13,7 @@
           style="-fx-border-color:lightgray; -fx-border-width: 1; -fx-border-style: solid; -fx-border-radius: 5; -fx-border-insets: -3;">
         <ColorPicker fx:id="colourLabels" prefHeight="25.0" prefWidth="110.0">
             <tooltip>
-                <Tooltip text="%ShapeGrid.1"/>
+                <Tooltip text="%labels"/>
             </tooltip>
         </ColorPicker>
         <ToggleButton fx:id="labelsYInvertedCB" mnemonicParsing="false">
@@ -23,7 +23,7 @@
                 </ImageView>
             </graphic>
             <tooltip>
-                <Tooltip text="%ShapeGrid.3"/>
+                <Tooltip text="%ycoodlabel"/>
             </tooltip>
         </ToggleButton>
         <ToggleButton fx:id="labelsXInvertedCB" mnemonicParsing="false">
@@ -33,7 +33,7 @@
                 </ImageView>
             </graphic>
             <tooltip>
-                <Tooltip text="%ShapeGrid.4"/>
+                <Tooltip text="%xcoordlabel"/>
             </tooltip>
         </ToggleButton>
     </HBox>
@@ -42,19 +42,19 @@
         <ColorPicker fx:id="colourSubGrid" GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.columnSpan="2" prefHeight="25.0"
                      prefWidth="110.0">
             <tooltip>
-                <Tooltip text="%ShapeGrid.2"/>
+                <Tooltip text="%subgrid"/>
             </tooltip>
         </ColorPicker>
-        <Label GridPane.columnIndex="0" GridPane.rowIndex="1" text="%ParametersGridFrame.8"/>
+        <Label GridPane.columnIndex="0" GridPane.rowIndex="1" text="%subgridDiv"/>
         <LSpinner fx:id="subGridDiv" GridPane.columnIndex="1" GridPane.rowIndex="1" prefHeight="25.0" prefWidth="75.0" editable="true">
             <valueFactory>
                 <SpinnerValueFactory.IntegerSpinnerValueFactory min="1" max="100" initialValue="1" amountToStepBy="1"/>
             </valueFactory>
         </LSpinner>
-        <Label GridPane.columnIndex="0" GridPane.rowIndex="2" text="%ParametersGridFrame.7"/>
+        <Label GridPane.columnIndex="0" GridPane.rowIndex="2" text="%subgridWidth"/>
         <LSpinner fx:id="subGridWidth" GridPane.columnIndex="1" GridPane.rowIndex="2" prefHeight="25.0" prefWidth="75.0"
                  min="0.1" max="1000.0" initialValue="1.0" amountToStepBy="0.5" editable="true"/>
-        <Label GridPane.columnIndex="0" GridPane.rowIndex="3" text="%ParametersGridFrame.4"/>
+        <Label GridPane.columnIndex="0" GridPane.rowIndex="3" text="%subGridDot"/>
         <LSpinner fx:id="subGridDots" GridPane.columnIndex="1" GridPane.rowIndex="3" prefHeight="25.0" prefWidth="75.0" editable="true">
             <valueFactory>
                 <SpinnerValueFactory.IntegerSpinnerValueFactory min="0" max="10000" initialValue="0" amountToStepBy="1"/>
@@ -63,10 +63,10 @@
     </GridPane>
     <GridPane minWidth="270" maxWidth="270" hgap="5" vgap="3"
               style="-fx-border-color:lightgray; -fx-border-width: 1; -fx-border-style: solid; -fx-border-radius: 5; -fx-border-insets: -3;">
-        <Label GridPane.columnIndex="0" GridPane.rowIndex="0" text="%ParametersGridFrame.6"/>
+        <Label GridPane.columnIndex="0" GridPane.rowIndex="0" text="%gridWidth"/>
         <LSpinner fx:id="gridWidth" GridPane.columnIndex="1" GridPane.rowIndex="0" prefHeight="25.0" prefWidth="75.0"
                  min="0.1" max="1000.0" initialValue="1.0" amountToStepBy="0.5" editable="true"/>
-        <Label GridPane.columnIndex="0" GridPane.rowIndex="1" text="%ParametersGridFrame.5"/>
+        <Label GridPane.columnIndex="0" GridPane.rowIndex="1" text="%gridDot"/>
         <LSpinner fx:id="gridDots" GridPane.columnIndex="1" GridPane.rowIndex="1" prefHeight="25.0" prefWidth="75.0" editable="true">
             <valueFactory>
                 <SpinnerValueFactory.IntegerSpinnerValueFactory min="0" max="10000" initialValue="0" amountToStepBy="1"/>

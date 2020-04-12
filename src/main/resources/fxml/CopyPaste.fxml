@@ -13,24 +13,24 @@
         </ImageView>
     </graphic>
     <tooltip>
-        <Tooltip text="%LaTeXDrawFrame.89"/>
+        <Tooltip text="%edit"/>
     </tooltip>
     <items>
-        <MenuItem fx:id="copyMenu" mnemonicParsing="false" text="%LaTeXDrawFrame.40">
+        <MenuItem fx:id="copyMenu" mnemonicParsing="false" text="%copy">
             <graphic>
                 <ImageView>
                     <Image url="@/res/Copy.png"/>
                 </ImageView>
             </graphic>
         </MenuItem>
-        <MenuItem fx:id="cutMenu" mnemonicParsing="false" text="%LaTeXDrawFrame.44">
+        <MenuItem fx:id="cutMenu" mnemonicParsing="false" text="%cut">
             <graphic>
                 <ImageView>
                     <Image url="@/res/Cut.png"/>
                 </ImageView>
             </graphic>
         </MenuItem>
-        <MenuItem fx:id="pasteMenu" mnemonicParsing="false" text="%LaTeXDrawFrame.43">
+        <MenuItem fx:id="pasteMenu" mnemonicParsing="false" text="%paste">
             <graphic>
                 <ImageView>
                     <Image url="@/res/Paste.png"/>

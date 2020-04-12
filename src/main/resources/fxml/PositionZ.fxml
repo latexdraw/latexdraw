@@ -16,7 +16,7 @@
             </ImageView>
         </graphic>
         <tooltip>
-            <Tooltip text="%LaTeXDrawFrame.70"/>
+            <Tooltip text="%putFore"/>
         </tooltip>
     </Button>
     <Button fx:id="backgroundB">
@@ -26,7 +26,7 @@
             </ImageView>
         </graphic>
         <tooltip>
-            <Tooltip text="%LaTeXDrawFrame.71"/>
+            <Tooltip text="%putBack"/>
         </tooltip>
     </Button>
 </HBox>

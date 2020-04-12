@@ -11,7 +11,7 @@
             fx:controller="net.sf.latexdraw.instrument.AboutController">
     <center>
         <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
-            <Tab closable="false" text="%PreferencesFrame.general">
+            <Tab closable="false" text="%general">
                 <BorderPane>
                     <center>
                         <ImageView>
@@ -23,16 +23,16 @@
                     </bottom>
                 </BorderPane>
             </Tab>
-            <Tab closable="false" text="%LaTeXDrawFrame.27">
+            <Tab closable="false" text="%releasenote">
                 <TextArea fx:id="noteText" editable="false"/>
             </Tab>
-            <Tab closable="false" text="%About.2">
+            <Tab closable="false" text="%contributors">
                 <TextArea fx:id="contribText" editable="false"/>
             </Tab>
-            <Tab closable="false" text="%About.1">
+            <Tab closable="false" text="%system">
                 <TextArea fx:id="sysText" editable="false"/>
             </Tab>
-            <Tab closable="false" text="%LaTeXDrawFrame.28">
+            <Tab closable="false" text="%licence">
                 <TextArea fx:id="licenseText" editable="false"/>
             </Tab>
         </TabPane>

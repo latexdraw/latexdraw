@@ -75,7 +75,7 @@ public final class CodeInserter extends JfxInstrument implements Initializable {
 
 	@Override
 	public void initialize(final URL location, final ResourceBundle resources) {
-		label.setText(lang.getString("LaTeXDrawFrame.16"));
+		label.setText(lang.getString("PSTParserLimits"));
 
 		// Collecting errors from the parser.
 		final ANTLRErrorListener errorListener = new BaseErrorListener() {
@@ -153,7 +153,7 @@ public final class CodeInserter extends JfxInstrument implements Initializable {
 					injector.getInstance(BuilderFactory.class), cl -> injector.getInstance(cl));
 				final Scene scene = new Scene(root);
 				codeInserterDialogue = new Stage(StageStyle.UTILITY);
-				codeInserterDialogue.setTitle(lang.getString("InsertPSTricksCodeFrame.0"));
+				codeInserterDialogue.setTitle(lang.getString("insertPST"));
 				codeInserterDialogue.setScene(scene);
 				codeInserterDialogue.setOnHiding(evt -> setActivated(false));
 			}catch(final IOException ex) {

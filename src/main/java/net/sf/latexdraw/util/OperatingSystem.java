@@ -46,11 +46,6 @@ public enum OperatingSystem {
 		public String getPs2pdfBinPath() {
 			return "/usr/local/bin/ps2pdf"; //NON-NLS
 		}
-
-		@Override
-		public String getPdfcropBinPath() {
-			return "/Library/TeX/texbin/pdfcrop"; //NON-NLS
-		}
 	},
 	MAC_OS_X {
 		@Override
@@ -102,12 +97,5 @@ public enum OperatingSystem {
 	 */
 	public String getPs2pdfBinPath() {
 		return "ps2pdf"; //NON-NLS
-	}
-
-	/**
-	 * @return The path where is the pdfcrop binary.
-	 */
-	public String getPdfcropBinPath() {
-		return "pdfcrop"; //NON-NLS
 	}
 }

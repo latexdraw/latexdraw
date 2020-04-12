@@ -85,6 +85,6 @@ public class JoinShapes extends DrawingCmdImpl implements Undoable, Modifying {
 
 	@Override
 	public @NotNull String getUndoName(final @NotNull ResourceBundle bundle) {
-		return bundle.getString("UndoRedoManager.join");
+		return bundle.getString("join");
 	}
 }

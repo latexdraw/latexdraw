@@ -122,6 +122,6 @@ public class MoveBackForegroundShapes extends ShapeCmdImpl<Group> implements Und
 
 	@Override
 	public @NotNull String getUndoName(final @NotNull ResourceBundle bundle) {
-		return bundle.getString("Actions.8");
+		return bundle.getString("moveBack");
 	}
 }

@@ -38,7 +38,7 @@ public enum TicksStyle {
 
 		@Override
 		public @NotNull String getLabel(final @NotNull ResourceBundle bundle) {
-			return bundle.getString("Axe.3"); //NON-NLS
+			return bundle.getString("full"); //NON-NLS
 		}
 	}, TOP {
 		@Override
@@ -58,7 +58,7 @@ public enum TicksStyle {
 
 		@Override
 		public @NotNull String getLabel(final @NotNull ResourceBundle bundle) {
-			return bundle.getString("Axe.4"); //NON-NLS
+			return bundle.getString("top"); //NON-NLS
 		}
 	}, BOTTOM {
 		@Override
@@ -78,7 +78,7 @@ public enum TicksStyle {
 
 		@Override
 		public @NotNull String getLabel(final @NotNull ResourceBundle bundle) {
-			return bundle.getString("Axe.5"); //NON-NLS
+			return bundle.getString("bottom"); //NON-NLS
 		}
 	};
 

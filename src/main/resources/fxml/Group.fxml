@@ -16,7 +16,7 @@
             </ImageView>
         </graphic>
         <tooltip>
-            <Tooltip text="%LaTeXDrawFrame.75"/>
+            <Tooltip text="%group"/>
         </tooltip>
     </Button>
     <Button fx:id="sepB" layoutX="40.0" layoutY="0.0">
@@ -26,7 +26,7 @@
             </ImageView>
         </graphic>
         <tooltip>
-            <Tooltip text="%LaTeXDrawFrame.76"/>
+            <Tooltip text="%separate"/>
         </tooltip>
     </Button>
 </AnchorPane>

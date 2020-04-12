@@ -8,9 +8,9 @@
     <center>
         <TableView fx:id="table" editable="false">
             <columns>
-                <TableColumn text="%ShortcutsFrame.1"/>
-                <TableColumn text="%ParserMessagesFrame.0"/>
-                <TableColumn text="%ShortcutsFrame.3"/>
+                <TableColumn text="%sequence"/>
+                <TableColumn text="%cmd"/>
+                <TableColumn text="%category"/>
             </columns>
         </TableView>
     </center>

@@ -78,7 +78,7 @@ public class InsertPSTCode extends DrawingCmdImpl implements Undoable, Modifying
 			sh.translate(tx, ty);
 			redo();
 
-			statusBar.setText(lang.getString("LaTeXDrawFrame.36"));
+			statusBar.setText(lang.getString("codeConverted"));
 		}
 		parser.getInterpreter().clearDFA();
 		lexer.getInterpreter().clearDFA();
@@ -102,7 +102,7 @@ public class InsertPSTCode extends DrawingCmdImpl implements Undoable, Modifying
 
 	@Override
 	public @NotNull String getUndoName(final @NotNull ResourceBundle bundle) {
-		return bundle.getString("Actions.4");
+		return bundle.getString("insertPSTCode");
 	}
 
 	@Override

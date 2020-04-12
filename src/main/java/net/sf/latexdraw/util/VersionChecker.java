@@ -58,7 +58,7 @@ public final class VersionChecker implements Runnable {
 			if(div != null && div.length > 3 && VERSION.compareTo(div[3]) < 0) {
 				Platform.runLater(() -> {
 					statusBar.getLabel().setVisible(true);
-					statusBar.getLabel().setText(lang.getString("Version.1") + ' ' + div[3] + ". See the release note:"); //NON-NLS
+					statusBar.getLabel().setText(lang.getString("newVersion") + ' ' + div[3] + ". See the release note:"); //NON-NLS
 					statusBar.getLink().setVisible(true);
 					statusBar.getLink().setText("http://latexdraw.sourceforge.net/"); //NON-NLS
 				});
