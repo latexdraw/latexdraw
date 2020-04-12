@@ -133,13 +133,8 @@ class SVGAxes extends SVGShape<Axes> implements GenericAxes<SVGTextElement> {
 	}
 
 	private final void setParametersFromSVG(final SVGGElement elt) {
-		switch(shape.getAxesStyle()) {
-			case AXES:
-				setAxesStyleFromSVG(elt);
-				break;
-			case FRAME:
-			case NONE:
-				break;
+		if(shape.getAxesStyle() == AxesStyle.AXES) {
+			setAxesStyleFromSVG(elt);
 		}
 	}
 
@@ -288,14 +283,8 @@ class SVGAxes extends SVGShape<Axes> implements GenericAxes<SVGTextElement> {
 
 	private void createSVGAxe(final SVGElement elt, final SVGDocument document) {
 		switch(shape.getAxesStyle()) {
-			case AXES:
-				createArrows(elt, document);
-				break;
-			case FRAME:
-				createFrame(elt, document);
-				break;
-			case NONE:
-				break;
+			case AXES -> createArrows(elt, document);
+			case FRAME -> createFrame(elt, document);
 		}
 	}
 

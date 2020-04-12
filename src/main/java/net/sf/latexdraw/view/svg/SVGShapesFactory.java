@@ -175,14 +175,11 @@ public class SVGShapesFactory implements SVGShapeProducer {
 
 		// If we have a group of shapes.
 		if(type.isEmpty() || LNamespace.XML_TYPE_GROUP.equals(type)) {
-			switch(elt.getChildNodes().getLength()) {
-				case 0:
-					return null;
-				case 1:
-					return createShape((SVGElement) elt.getChildNodes().item(0));
-				default:
-					return new SVGGroup(elt, withTransformations, this).getShape();
-			}
+			return switch(elt.getChildNodes().getLength()) {
+				case 0 -> null;
+				case 1 -> createShape((SVGElement) elt.getChildNodes().item(0));
+				default -> new SVGGroup(elt, withTransformations, this).getShape();
+			};
 		}
 
 		// Otherwise, it should be a latexdraw shape saved in an SVG document.

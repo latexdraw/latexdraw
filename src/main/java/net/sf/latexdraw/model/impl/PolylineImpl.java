@@ -54,14 +54,11 @@ class PolylineImpl extends PolygonImpl implements Polyline, ArrowableShapeBase {
 		if(getNbPoints() < 2) {
 			return null;
 		}
-		switch(index) {
-			case 0:
-				return ShapeFactory.INST.createLine(points.get(0), points.get(1));
-			case 1:
-				return ShapeFactory.INST.createLine(points.get(getNbPoints() - 1), points.get(getNbPoints() - 2));
-			default:
-				return null;
-		}
+		return switch(index) {
+			case 0 -> ShapeFactory.INST.createLine(points.get(0), points.get(1));
+			case 1 -> ShapeFactory.INST.createLine(points.get(getNbPoints() - 1), points.get(getNbPoints() - 2));
+			default -> null;
+		};
 	}
 
 	@Override

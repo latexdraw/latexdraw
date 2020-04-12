@@ -187,74 +187,66 @@ class DotImpl extends PositionShapeBase implements Dot {
 
 		// Each dot shape has a special shape computed from the parameters
 		// defined below.
+		// The thickness of the bar.
+		// thickness may be used into radius/1.875
 		switch(getDotStyle()) {
-			case ASTERISK:
+			case ASTERISK -> {
 				final double radiusAst = tly + diam / 5d - (bry - diam / 5d) / 2d + dec;
 				tl.setX(Math.cos(7d * Math.PI / 6d) * radiusAst + x);
 				tl.setY(tly + diam / 5d - dec);
 				br.setX(Math.cos(Math.PI / 6d) * radiusAst + x);
 				br.setY(bry - diam / 5d + dec);
-				break;
-			case BAR:
-				// The thickness of the bar.
+			}
+			case BAR -> {
 				final double barThickness = diam / 8d;
 				tl.setX(x - barThickness);
 				tl.setY(tly);
 				br.setX(x + barThickness);
-				// thickness may be used into radius/1.875
 				br.setY(bry + diam / 1.875);
-				break;
-			case DIAMOND:
-			case FDIAMOND:
+			}
+			case DIAMOND, FDIAMOND -> {
 				final double p = 2d * Math.abs(tlx - brx) / (2d * Math.sin(GOLDEN_ANGLE)) * Math.cos(GOLDEN_ANGLE);
 				final double x1 = brx - 1.5 * dec;
 				final double x2 = tlx + 1.5 * dec;
-				tl.setX(x1 < x2 ? x1 : x2);
+				tl.setX(Math.min(x1, x2));
 				tl.setY((tly + bry) / 2d + p / 2d - 1.5 * dec);
-				br.setX(x1 > x2 ? x1 : x2);
+				br.setX(Math.max(x1, x2));
 				br.setY((tly + bry) / 2d - p / 2d + 1.5 * dec);
-				break;
-			case FPENTAGON:
-			case PENTAGON:
+			}
+			case FPENTAGON, PENTAGON -> {
 				final double dist = diam + dec;
 				final double xValue = Math.sin(2d * Math.PI / 5d) * dist;
 				tl.setX(-xValue + x);
 				tl.setY(tly - dec);
 				br.setX(xValue + x);
 				br.setY(0.25 * (Math.sqrt(5d) + 1d) * dist + y + dec);
-				break;
-			case FTRIANGLE:
-			case TRIANGLE:
+			}
+			case FTRIANGLE, TRIANGLE -> {
 				tl.setX(tlx - 0.3 * dec);
 				tl.setY(tly - 1.5 * dec);
 				br.setX(brx + 0.3 * dec);
 				br.setY(bry - 3d * dec);
-				break;
-			case FSQUARE:
-			case SQUARE:
-			case DOT:
-			case O:
-			case OPLUS:
-			case OTIMES:
+			}
+			case FSQUARE, SQUARE, DOT, O, OPLUS, OTIMES -> {
 				tl.setX(tlx);
 				tl.setY(tly);
 				br.setX(brx);
 				br.setY(bry);
-				break;
-			case PLUS:
+			}
+			case PLUS -> {
 				final double plusGap = diam / 80d;
 				tl.setX(tlx - plusGap);
 				tl.setY(tly - plusGap);
 				br.setX(brx + plusGap);
 				br.setY(bry + plusGap);
-				break;
-			case X:
+			}
+			case X -> {
 				final double crossGap = diam / 5d;
 				tl.setX(tlx - crossGap);
 				tl.setY(tly - crossGap);
 				br.setX(brx + crossGap);
 				br.setY(bry + crossGap);
-				break;
+			}
 		}
 	}
 

@@ -203,13 +203,14 @@ public class PreferencesService {
 		}
 
 		// If not supported by the app, we use the English American one
-		return Locale.forLanguageTag("en-US");
+		return Locale.forLanguageTag("en-US"); //NON-NLS
 	}
 
 
 	public @NotNull List<Locale> getSupportedLocales() {
-		return Stream.of("ar", "de", "es", "hu", "ja", "pl", "ru", "sv", "uk", "ca", "en-GB", "fr", "it", "nl", "pt-BR", "si", "ta", "vi", "cs", //NON-NLS
-			"en-US", "gl", "iw", "oc", "pt", "sr", "tr", "zh-CN").map(id -> Locale.forLanguageTag(id)).collect(Collectors.toList()); //NON-NLS
+		return Stream.of("ar", "ca", "cs", "de", "en-GB", "en-US", "es", "fr", "gl", "hu", "it", "iw", "ja", //NON-NLS
+			"nl", "oc", "pl", "pt", "pt-BR", "ru", "si", "sr", "sv", "ta", "tr", "uk", "vi", "zh-CN") //NON-NLS
+			.map(id -> Locale.forLanguageTag(id)).collect(Collectors.toList());
 	}
 
 

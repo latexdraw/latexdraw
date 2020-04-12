@@ -148,24 +148,11 @@ class SVGPlot extends SVGShape<Plot> implements PlotViewComputation {
 		final double posY = shape.getPosition().getY();
 
 		switch(shape.getPlotStyle()) {
-			case LINE:
-				toSVGLine(elt, doc, posX, posY, minX, maxX, step);
-				break;
-			case CURVE:
-				toSVGCurve(elt, doc, posX, posY, minX, maxX, step);
-				break;
-			case ECURVE:
-				toSVGCurve(elt, doc, posX, posY, minX + step, maxX - step, step);
-				break;
-			case CCURVE:
-				toSVGCurve(elt, doc, posX, posY, minX, maxX, step);
-				break;
-			case DOTS:
-				toSVGDots(elt, doc, posX, posY, minX, maxX, step);
-				break;
-			case POLYGON:
-				toSVGPolygon(elt, doc, posX, posY, minX, maxX, step);
-				break;
+			case LINE -> toSVGLine(elt, doc, posX, posY, minX, maxX, step);
+			case CURVE, CCURVE -> toSVGCurve(elt, doc, posX, posY, minX, maxX, step);
+			case ECURVE -> toSVGCurve(elt, doc, posX, posY, minX + step, maxX - step, step);
+			case DOTS -> toSVGDots(elt, doc, posX, posY, minX, maxX, step);
+			case POLYGON -> toSVGPolygon(elt, doc, posX, posY, minX, maxX, step);
 		}
 	}
 

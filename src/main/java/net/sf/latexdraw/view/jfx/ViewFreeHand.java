@@ -50,12 +50,8 @@ public class ViewFreeHand extends ViewPathShape<Freehand> {
 
 		if(model.getNbPoints() > 1) {
 			switch(model.getType()) {
-				case CURVES:
-					setPathCurves();
-					break;
-				case LINES:
-					setPathLines();
-					break;
+				case CURVES -> setPathCurves();
+				case LINES -> setPathLines();
 			}
 
 			if(!model.isOpened()) {

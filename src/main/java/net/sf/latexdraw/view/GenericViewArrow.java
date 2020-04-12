@@ -240,47 +240,19 @@ public interface GenericViewArrow {
 		setTranslation(pt1.getX(), pt1.getY());
 
 		switch(arrow.getArrowStyle()) {
-			case BAR_END:
-				updatePathBarEnd(isShadow);
-				break;
-			case BAR_IN:
-				updatePathBarIn(pt1, pt2, isShadow);
-				break;
-			case CIRCLE_END:
-			case DISK_END:
-				updatePathDiskCircleEnd(isShadow);
-				break;
-			case CIRCLE_IN:
-			case DISK_IN:
-				updatePathDiskCircleIn(pt1, pt2, isShadow);
-				break;
-			case RIGHT_ARROW:
-			case LEFT_ARROW:
-				updatePathRightLeftArrow(isShadow);
-				break;
-			case RIGHT_DBLE_ARROW:
-			case LEFT_DBLE_ARROW:
-				updatePathDoubleLeftRightArrow(isShadow);
-				break;
-			case RIGHT_ROUND_BRACKET:
-			case LEFT_ROUND_BRACKET:
-				updatePathRoundLeftRightBracket(isShadow);
-				break;
-			case LEFT_SQUARE_BRACKET:
-			case RIGHT_SQUARE_BRACKET:
-				updatePathRightLeftSquaredBracket(isShadow);
-				break;
-			case SQUARE_END:
-				updatePathSquareEnd(pt1, pt2, isShadow);
-				break;
-			case ROUND_END:
-				updatePathRoundEnd(isShadow);
-				break;
-			case ROUND_IN:
-				updatePathRoundIn(pt1, pt2, isShadow);
-				break;
-			case NONE:
-				break;
+			case BAR_END -> updatePathBarEnd(isShadow);
+			case BAR_IN -> updatePathBarIn(pt1, pt2, isShadow);
+			case CIRCLE_END, DISK_END -> updatePathDiskCircleEnd(isShadow);
+			case CIRCLE_IN, DISK_IN -> updatePathDiskCircleIn(pt1, pt2, isShadow);
+			case RIGHT_ARROW, LEFT_ARROW -> updatePathRightLeftArrow(isShadow);
+			case RIGHT_DBLE_ARROW, LEFT_DBLE_ARROW -> updatePathDoubleLeftRightArrow(isShadow);
+			case RIGHT_ROUND_BRACKET, LEFT_ROUND_BRACKET -> updatePathRoundLeftRightBracket(isShadow);
+			case LEFT_SQUARE_BRACKET, RIGHT_SQUARE_BRACKET -> updatePathRightLeftSquaredBracket(isShadow);
+			case SQUARE_END -> updatePathSquareEnd(pt1, pt2, isShadow);
+			case ROUND_END -> updatePathRoundEnd(isShadow);
+			case ROUND_IN -> updatePathRoundIn(pt1, pt2, isShadow);
+			case NONE -> {
+			}
 		}
 	}
 

@@ -42,38 +42,38 @@ class ScaleShapesTest extends UndoableCmdTest<ScaleShapes> {
 			refPosition = pos;
 			cmd = new ScaleShapes(shape, drawing, refPosition);
 			switch(pos) {
-				case NORTH:
+				case NORTH -> {
 					newX = 0;
 					newY = 65;
-					break;
-				case SOUTH:
+				}
+				case SOUTH -> {
 					newX = 0;
 					newY = 200;
-					break;
-				case EAST:
+				}
+				case EAST -> {
 					newX = 55;
 					newY = 0;
-					break;
-				case WEST:
+				}
+				case WEST -> {
 					newX = 190;
 					newY = 0;
-					break;
-				case NE:
+				}
+				case NE -> {
 					newX = 100;
 					newY = 65;
-					break;
-				case NW:
+				}
+				case NW -> {
 					newX = 120;
 					newY = 70;
-					break;
-				case SE:
+				}
+				case SE -> {
 					newX = 110;
 					newY = 165;
-					break;
-				case SW:
+				}
+				case SW -> {
 					newX = 100;
 					newY = 200;
-					break;
+				}
 			}
 			cmd.setNewX(newX);
 			cmd.setNewY(newY);
@@ -113,38 +113,38 @@ class ScaleShapesTest extends UndoableCmdTest<ScaleShapes> {
 			assertThat(cmd.hadEffect()).isTrue();
 
 			switch(refPosition) {
-				case NORTH:
+				case NORTH -> {
 					assertThat(s0.getTopLeftPoint()).isEqualTo(ShapeFactory.INST.createPoint(20, 60));
 					assertThat(s0.getBottomRightPoint()).isEqualTo(ShapeFactory.INST.createPoint(120, 65));
-					break;
-				case SOUTH:
+				}
+				case SOUTH -> {
 					assertThat(s0.getTopLeftPoint()).isEqualTo(ShapeFactory.INST.createPoint(20, 200));
 					assertThat(s0.getBottomRightPoint()).isEqualTo(ShapeFactory.INST.createPoint(120, 260));
-					break;
-				case EAST:
+				}
+				case EAST -> {
 					assertThat(s0.getTopLeftPoint()).isEqualTo(ShapeFactory.INST.createPoint(55, 60));
 					assertThat(s0.getBottomRightPoint()).isEqualTo(ShapeFactory.INST.createPoint(120, 260));
-					break;
-				case WEST:
+				}
+				case WEST -> {
 					assertThat(s0.getTopLeftPoint()).isEqualTo(ShapeFactory.INST.createPoint(20, 60));
 					assertThat(s0.getBottomRightPoint()).isEqualTo(ShapeFactory.INST.createPoint(190, 260));
-					break;
-				case NE:
+				}
+				case NE -> {
 					assertThat(s0.getTopLeftPoint()).isEqualTo(ShapeFactory.INST.createPoint(100, 60));
 					assertThat(s0.getBottomRightPoint()).isEqualTo(ShapeFactory.INST.createPoint(120, 65));
-					break;
-				case NW:
+				}
+				case NW -> {
 					assertThat(s0.getTopLeftPoint()).isEqualTo(ShapeFactory.INST.createPoint(20, 60));
 					assertThat(s0.getBottomRightPoint()).isEqualTo(ShapeFactory.INST.createPoint(120, 70));
-					break;
-				case SE:
+				}
+				case SE -> {
 					assertThat(s0.getTopLeftPoint()).isEqualTo(ShapeFactory.INST.createPoint(110, 165));
 					assertThat(s0.getBottomRightPoint()).isEqualTo(ShapeFactory.INST.createPoint(120, 260));
-					break;
-				case SW:
+				}
+				case SW -> {
 					assertThat(s0.getTopLeftPoint()).isEqualTo(ShapeFactory.INST.createPoint(20, 200));
 					assertThat(s0.getBottomRightPoint()).isEqualTo(ShapeFactory.INST.createPoint(100, 260));
-					break;
+				}
 			}
 		});
 	}

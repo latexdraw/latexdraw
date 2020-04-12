@@ -80,29 +80,17 @@ public class Hand extends CanvasInstrument implements Flushable {
 	 */
 	private void setUpCursorOnShapeView(final ListChange<Node> evt) {
 		switch(evt.getFlag()) {
-			case ADDED:
-				final var binding1 = Bindings.nodeBinder(this)
-					.toProduce(() -> new ChangeCursor(Cursor.HAND, canvas))
-					.usingInteraction(MouseEntered::new)
-					.on(evt.getValue())
-					.bind();
-				final var binding2 = Bindings.nodeBinder(this)
-					.toProduce(() -> new ChangeCursor(Cursor.DEFAULT, canvas))
-					.usingInteraction(MouseExited::new)
-					.on(evt.getValue())
-					.bind();
-
+			case ADDED -> {
+				final var binding1 =
+					Bindings.nodeBinder(this).toProduce(() -> new ChangeCursor(Cursor.HAND, canvas)).usingInteraction(MouseEntered::new).on(evt.getValue()).bind();
+				final var binding2 =
+					Bindings.nodeBinder(this).toProduce(() -> new ChangeCursor(Cursor.DEFAULT, canvas)).usingInteraction(MouseExited::new).on(evt.getValue()).bind();
 				cursorsEvents.put(evt.getValue(), new Tuple<>(binding1, binding2));
-				break;
-			case REMOVED:
-				Optional.ofNullable(cursorsEvents.get(evt.getValue()))
-					.ifPresent(tuple -> {
-						tuple.a.uninstallBinding();
-						tuple.b.uninstallBinding();
-					});
-				break;
-			case UPDATED:
-				break;
+			}
+			case REMOVED -> Optional.ofNullable(cursorsEvents.get(evt.getValue())).ifPresent(tuple -> {
+				tuple.a.uninstallBinding();
+				tuple.b.uninstallBinding();
+			});
 		}
 	}
 

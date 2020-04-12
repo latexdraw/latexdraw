@@ -42,34 +42,34 @@ class ModifyLatexPropertiesTest extends UndoableCmdTest<ModifyLatexProperties> {
 			property = prop;
 
 			switch(property) {
-				case PACKAGES:
+				case PACKAGES -> {
 					mementoCmd = () -> data.getPackages();
 					value = "pkg";
-					break;
-				case CAPTION:
+				}
+				case CAPTION -> {
 					mementoCmd = () -> data.getCaption();
 					value = "mycaption";
-					break;
-				case LABEL:
+				}
+				case LABEL -> {
 					mementoCmd = () -> data.getLabel();
 					value = "mylabel";
-					break;
-				case POSITION_HORIZONTAL:
+				}
+				case POSITION_HORIZONTAL -> {
 					mementoCmd = () -> data.isPositionHoriCentre();
 					value = true;
-					break;
-				case POSITION_VERTICAL:
+				}
+				case POSITION_VERTICAL -> {
 					mementoCmd = () -> data.getPositionVertToken();
 					value = VerticalPosition.FLOATS_PAGE;
-					break;
-				case SCALE:
+				}
+				case SCALE -> {
 					mementoCmd = () -> data.getScale();
 					value = 1.1d;
-					break;
-				case COMMENT:
+				}
+				case COMMENT -> {
 					mementoCmd = () -> data.getComment();
 					value = "comment";
-					break;
+				}
 			}
 
 			oldValue = mementoCmd.get();

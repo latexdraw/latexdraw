@@ -118,18 +118,10 @@ class AxesImpl extends GridBase implements Axes, ArrowableShapeBase {
 		if(pos < 4 && pos >= 0) {
 			ArrowableShapeBase.super.setArrowStyle(style, position);
 			switch(pos) {
-				case 0:
-					arrows.get(2).setArrowStyle(style);
-					break;
-				case 1:
-					arrows.get(3).setArrowStyle(style);
-					break;
-				case 2:
-					arrows.get(0).setArrowStyle(style);
-					break;
-				case 3:
-					arrows.get(1).setArrowStyle(style);
-					break;
+				case 0 -> arrows.get(2).setArrowStyle(style);
+				case 1 -> arrows.get(3).setArrowStyle(style);
+				case 2 -> arrows.get(0).setArrowStyle(style);
+				case 3 -> arrows.get(1).setArrowStyle(style);
 			}
 		}
 	}

@@ -68,48 +68,17 @@ public class ViewDot extends ViewShape<Dot> {
 		setFill();
 
 		switch(dotStyle) {
-			case ASTERISK:
-				setPathAsterisk();
-				break;
-			case BAR:
-				setPathBar();
-				break;
-			case DIAMOND:
-				setPathDiamond();
-				break;
-			case O:
-			case DOT:
-				setPathO();
-				break;
-			case FDIAMOND:
-				setPathDiamond();
-				break;
-			case PENTAGON:
-			case FPENTAGON:
-				setPathPentagon();
-				break;
-			case SQUARE:
-			case FSQUARE:
-				setPathSquare();
-				break;
-			case TRIANGLE:
-			case FTRIANGLE:
-				setPathTriangle();
-				break;
-			case OPLUS:
-				setPathOPlus();
-				break;
-			case OTIMES:
-				setPathOTime();
-				break;
-			case PLUS:
-				setPathPlus();
-				break;
-			case X:
-				setPathX();
-				break;
-			default:
-				// Nothing to do for the other ones.
+			case ASTERISK -> setPathAsterisk();
+			case BAR -> setPathBar();
+			case DIAMOND, FDIAMOND -> setPathDiamond();
+			case O, DOT -> setPathO();
+			case PENTAGON, FPENTAGON -> setPathPentagon();
+			case SQUARE, FSQUARE -> setPathSquare();
+			case TRIANGLE, FTRIANGLE -> setPathTriangle();
+			case OPLUS -> setPathOPlus();
+			case OTIMES -> setPathOTime();
+			case PLUS -> setPathPlus();
+			case X -> setPathX();
 		}
 	}
 
@@ -301,30 +270,11 @@ public class ViewDot extends ViewShape<Dot> {
 
 	private final void setFill() {
 		switch(model.getDotStyle()) {
-			case O:
-				dot.setFill(model.getFillingCol().toJFX());
-				break;
-			case OPLUS:
-			case OTIMES:
-				dot.setFill(null);
-				break;
-			case DIAMOND:
-			case PENTAGON:
-			case SQUARE:
-			case TRIANGLE:
-				path.setFill(model.getFillingCol().toJFX());
-				break;
-			case DOT:
-				dot.setFill(model.getLineColour().toJFX());
-				break;
-			case FDIAMOND:
-			case FPENTAGON:
-			case FSQUARE:
-			case FTRIANGLE:
-				path.setFill(model.getLineColour().toJFX());
-				break;
-			default:
-				// Nothing to do for the other ones.
+			case O -> dot.setFill(model.getFillingCol().toJFX());
+			case OPLUS, OTIMES -> dot.setFill(null);
+			case DIAMOND, PENTAGON, SQUARE, TRIANGLE -> path.setFill(model.getFillingCol().toJFX());
+			case DOT -> dot.setFill(model.getLineColour().toJFX());
+			case FDIAMOND, FPENTAGON, FSQUARE, FTRIANGLE -> path.setFill(model.getLineColour().toJFX());
 		}
 	}
 
@@ -334,48 +284,40 @@ public class ViewDot extends ViewShape<Dot> {
 		dot.setStroke(model.getLineColour().toJFX());
 
 		switch(model.getDotStyle()) {
-			case O:
+			case O -> {
 				dot.setStrokeLineCap(StrokeLineCap.SQUARE);
 				dot.setStrokeWidth(model.getGeneralGap());
-				break;
-			case DOT:
+			}
+			case DOT -> {
 				dot.setStrokeLineCap(StrokeLineCap.SQUARE);
 				dot.setStrokeWidth(model.getDiametre() / Dot.THICKNESS_O_STYLE_FACTOR);
-				break;
-			case OPLUS:
-			case OTIMES:
+			}
+			case OPLUS, OTIMES -> {
 				dot.setStrokeLineCap(StrokeLineCap.SQUARE);
 				dot.setStrokeWidth(model.getDiametre() / Dot.THICKNESS_O_STYLE_FACTOR);
 				path.setStrokeLineCap(StrokeLineCap.BUTT);
 				path.setStrokeWidth(model.getGeneralGap());
-				break;
-			case FTRIANGLE:
-			case TRIANGLE:
-			case FPENTAGON:
-			case PENTAGON:
-			case FDIAMOND:
-			case DIAMOND:
-			case ASTERISK:
+			}
+			case FTRIANGLE, TRIANGLE, FPENTAGON, PENTAGON, FDIAMOND, DIAMOND, ASTERISK -> {
 				path.setStrokeLineCap(StrokeLineCap.SQUARE);
 				path.setStrokeWidth(model.getGeneralGap());
-				break;
-			case BAR:
+			}
+			case BAR -> {
 				path.setStrokeLineCap(StrokeLineCap.SQUARE);
 				path.setStrokeWidth(model.getBarThickness());
-				break;
-			case FSQUARE:
-			case SQUARE:
+			}
+			case FSQUARE, SQUARE -> {
 				path.setStrokeLineCap(StrokeLineCap.BUTT);
 				path.setStrokeWidth(model.getGeneralGap());
-				break;
-			case PLUS:
+			}
+			case PLUS -> {
 				path.setStrokeLineCap(StrokeLineCap.SQUARE);
 				path.setStrokeWidth(model.getDiametre() / Dot.PLUS_COEFF_WIDTH);
-				break;
-			case X:
+			}
+			case X -> {
 				path.setStrokeLineCap(StrokeLineCap.SQUARE);
 				path.setStrokeWidth(model.getCrossGap());
-				break;
+			}
 		}
 	}
 

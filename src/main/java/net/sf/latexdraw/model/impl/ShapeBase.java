@@ -213,15 +213,11 @@ abstract class ShapeBase implements SingleShape {
 
 	@Override
 	public double getBorderGap() {
-		switch(bordersPosition.get()) {
-			case MID:
-				return hasDbleBord() ? thickness.doubleValue() + getDbleBordSep() / 2d : thickness.doubleValue() / 2d;
-			case OUT:
-				return hasDbleBord() ? thickness.doubleValue() * 2d + getDbleBordSep() : thickness.doubleValue();
-			case INTO:
-				return 0d;
-		}
-		return 0d;
+		return switch(bordersPosition.get()) {
+			case MID -> hasDbleBord() ? thickness.doubleValue() + getDbleBordSep() / 2d : thickness.doubleValue() / 2d;
+			case OUT -> hasDbleBord() ? thickness.doubleValue() * 2d + getDbleBordSep() : thickness.doubleValue();
+			case INTO -> 0d;
+		};
 	}
 
 	@Override

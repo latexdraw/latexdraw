@@ -222,30 +222,14 @@ class PlotImpl extends PositionShapeBase implements Plot {
 	protected void scaleSetPoints(final @NotNull List<Point> pts, final double prevWidth, final double prevHeight, final @NotNull Position pos,
 		final @NotNull Rectangle2D bound) {
 		switch(pos) {
-			case EAST:
-				getPtAt(0).translate(bound.getWidth() - prevWidth, 0d);
-				break;
-			case WEST:
-				getPtAt(0).translate(prevWidth - bound.getWidth(), 0d);
-				break;
-			case SOUTH:
-				getPtAt(0).translate(0d, bound.getHeight() - prevHeight);
-				break;
-			case NORTH:
-				getPtAt(0).translate(0d, prevHeight - bound.getHeight());
-				break;
-			case NE:
-				getPtAt(0).translate(bound.getWidth() - prevWidth, prevHeight - bound.getHeight());
-				break;
-			case NW:
-				getPtAt(0).translate(prevWidth - bound.getWidth(), prevHeight - bound.getHeight());
-				break;
-			case SE:
-				getPtAt(0).translate(bound.getWidth() - prevWidth, bound.getHeight() - prevHeight);
-				break;
-			case SW:
-				getPtAt(0).translate(prevWidth - bound.getWidth(), bound.getHeight() - prevHeight);
-				break;
+			case EAST -> getPtAt(0).translate(bound.getWidth() - prevWidth, 0d);
+			case WEST -> getPtAt(0).translate(prevWidth - bound.getWidth(), 0d);
+			case SOUTH -> getPtAt(0).translate(0d, bound.getHeight() - prevHeight);
+			case NORTH -> getPtAt(0).translate(0d, prevHeight - bound.getHeight());
+			case NE -> getPtAt(0).translate(bound.getWidth() - prevWidth, prevHeight - bound.getHeight());
+			case NW -> getPtAt(0).translate(prevWidth - bound.getWidth(), prevHeight - bound.getHeight());
+			case SE -> getPtAt(0).translate(bound.getWidth() - prevWidth, bound.getHeight() - prevHeight);
+			case SW -> getPtAt(0).translate(prevWidth - bound.getWidth(), bound.getHeight() - prevHeight);
 		}
 	}
 

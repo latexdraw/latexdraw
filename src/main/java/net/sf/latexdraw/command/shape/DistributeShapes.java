@@ -100,32 +100,17 @@ public class DistributeShapes extends AlignDistribCmd {
 		final List<Double> centres = new ArrayList<>();
 
 		for(final ViewShape<?> view : views) {
-			double x = 0;
-			switch(distribution) {
-				case HORIZ_LEFT:
-					x = view.getBoundsInLocal().getMinX();
-					break;
-				case HORIZ_MID:
-					x = (view.getBoundsInLocal().getMinX() + view.getBoundsInLocal().getMaxX()) / 2d;
-					break;
-				case HORIZ_RIGHT:
-					x = view.getBoundsInLocal().getMaxX();
-					break;
-				case VERT_BOT:
-					x = view.getBoundsInLocal().getMaxY();
-					break;
-				case VERT_MID:
-					x = (view.getBoundsInLocal().getMinY() + view.getBoundsInLocal().getMaxY()) / 2d;
-					break;
-				case VERT_TOP:
-					x = view.getBoundsInLocal().getMinY();
-					break;
-				default:
-					// Nothing to do for the other ones.
-			}
+			final double x = switch(distribution) {
+				case HORIZ_LEFT -> view.getBoundsInLocal().getMinX();
+				case HORIZ_MID -> (view.getBoundsInLocal().getMinX() + view.getBoundsInLocal().getMaxX()) / 2d;
+				case HORIZ_RIGHT -> view.getBoundsInLocal().getMaxX();
+				case VERT_BOT -> view.getBoundsInLocal().getMaxY();
+				case VERT_MID -> (view.getBoundsInLocal().getMinY() + view.getBoundsInLocal().getMaxY()) / 2d;
+				case VERT_TOP -> view.getBoundsInLocal().getMinY();
+				default -> 0;
+			};
 
-			final double finalX = x;
-			final OptionalInt res = IntStream.range(0, centres.size()).filter(index -> finalX < centres.get(index)).findFirst();
+			final OptionalInt res = IntStream.range(0, centres.size()).filter(index -> x < centres.get(index)).findFirst();
 
 			if(res.isPresent()) {
 				final int i = res.getAsInt();

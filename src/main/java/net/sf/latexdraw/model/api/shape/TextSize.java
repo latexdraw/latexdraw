@@ -93,30 +93,19 @@ public enum TextSize {
 	 * @return The corresponding text size item or null.
 	 */
 	public static TextSize getTextSizeFromSize(final int size) {
-		switch(size) {
-			case 11:
-				return TINY;
-			case 16:
-				return FOOTNOTE;
-			case 35:
-				return HUGE1;
-			case 44:
-				return HUGE2;
-			case 22:
-				return LARGE1;
-			case 24:
-				return LARGE2;
-			case 30:
-				return LARGE3;
-			case 18:
-				return NORMAL;
-			case 14:
-				return SCRIPT;
-			case 17:
-				return SMALL;
-			default:
-				return null;
-		}
+		return switch(size) {
+			case 11 -> TINY;
+			case 16 -> FOOTNOTE;
+			case 35 -> HUGE1;
+			case 44 -> HUGE2;
+			case 22 -> LARGE1;
+			case 24 -> LARGE2;
+			case 30 -> LARGE3;
+			case 18 -> NORMAL;
+			case 14 -> SCRIPT;
+			case 17 -> SMALL;
+			default -> null;
+		};
 	}
 
 	/**

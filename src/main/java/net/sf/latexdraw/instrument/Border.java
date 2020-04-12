@@ -292,42 +292,42 @@ public class Border extends CanvasInstrument implements Initializable {
 					.map(n -> n.localToParent(i.getSrcLocalPoint())).orElse(null));
 
 				switch(c.getRefPosition()) {
-					case EAST:
+					case EAST -> {
 						xgap.set((int) (tl.getX() - srcPt.getX()));
 						canvas.setCursor(Cursor.W_RESIZE);
-						break;
-					case NE:
+					}
+					case NE -> {
 						xgap.set((int) (tl.getX() - srcPt.getX()));
 						ygap.set((int) (srcPt.getY() - br.getY()));
 						canvas.setCursor(Cursor.SW_RESIZE);
-						break;
-					case NORTH:
+					}
+					case NORTH -> {
 						ygap.set((int) (srcPt.getY() - br.getY()));
 						canvas.setCursor(Cursor.S_RESIZE);
-						break;
-					case NW:
+					}
+					case NW -> {
 						xgap.set((int) (srcPt.getX() - br.getX()));
 						ygap.set((int) (srcPt.getY() - br.getY()));
 						canvas.setCursor(Cursor.SE_RESIZE);
-						break;
-					case SE:
+					}
+					case SE -> {
 						xgap.set((int) (tl.getX() - srcPt.getX()));
 						ygap.set((int) (tl.getY() - srcPt.getY()));
 						canvas.setCursor(Cursor.NW_RESIZE);
-						break;
-					case SOUTH:
+					}
+					case SOUTH -> {
 						ygap.set((int) (tl.getY() - srcPt.getY()));
 						canvas.setCursor(Cursor.N_RESIZE);
-						break;
-					case SW:
+					}
+					case SW -> {
 						xgap.set((int) (srcPt.getX() - br.getX()));
 						ygap.set((int) (tl.getY() - srcPt.getY()));
 						canvas.setCursor(Cursor.NE_RESIZE);
-						break;
-					case WEST:
+					}
+					case WEST -> {
 						xgap.set((int) (srcPt.getX() - br.getX()));
 						canvas.setCursor(Cursor.E_RESIZE);
-						break;
+					}
 				}
 			})
 			.then((i, c) -> {

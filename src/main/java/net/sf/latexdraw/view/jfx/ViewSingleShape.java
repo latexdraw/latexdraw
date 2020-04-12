@@ -196,23 +196,12 @@ public abstract class ViewSingleShape<S extends SingleShape, T extends Shape> ex
 	protected abstract T createJFXShape();
 
 	private Paint getFillingPaint(final FillingStyle style) {
-		switch(style) {
-			case NONE:
-				return model.hasShadow() && model.shadowFillsShape() ? model.getFillingCol().toJFX() : null;
-			case GRAD:
-				return computeGradient();
-			case PLAIN:
-				return model.getFillingCol().toJFX();
-			case CLINES_PLAIN:
-			case HLINES_PLAIN:
-			case VLINES_PLAIN:
-			case CLINES:
-			case VLINES:
-			case HLINES:
-				return getHatchingsFillingPaint(style);
-			default:
-				return null;
-		}
+		return switch(style) {
+			case NONE -> model.hasShadow() && model.shadowFillsShape() ? model.getFillingCol().toJFX() : null;
+			case GRAD -> computeGradient();
+			case PLAIN -> model.getFillingCol().toJFX();
+			case CLINES_PLAIN, HLINES_PLAIN, VLINES_PLAIN, CLINES, VLINES, HLINES -> getHatchingsFillingPaint(style);
+		};
 	}
 
 
@@ -228,20 +217,15 @@ public abstract class ViewSingleShape<S extends SingleShape, T extends Shape> ex
 
 		hatchings.getChildren().add(new Rectangle(bounds.getWidth(), bounds.getHeight(), style.isFilled() ? model.getFillingCol().toJFX() : null));
 
+		final double angle = hAngle > 0d ? hAngle - Math.PI / 2d : hAngle + Math.PI / 2d;
+
 		switch(style) {
-			case VLINES:
-			case VLINES_PLAIN:
+			case VLINES, VLINES_PLAIN -> computeHatchings(hatchings, hAngle, bounds.getWidth(), bounds.getHeight());
+			case HLINES, HLINES_PLAIN -> computeHatchings(hatchings, angle, bounds.getWidth(), bounds.getHeight());
+			case CLINES, CLINES_PLAIN -> {
 				computeHatchings(hatchings, hAngle, bounds.getWidth(), bounds.getHeight());
-				break;
-			case HLINES:
-			case HLINES_PLAIN:
-				computeHatchings(hatchings, hAngle > 0d ? hAngle - Math.PI / 2d : hAngle + Math.PI / 2d, bounds.getWidth(), bounds.getHeight());
-				break;
-			case CLINES:
-			case CLINES_PLAIN:
-				computeHatchings(hatchings, hAngle, bounds.getWidth(), bounds.getHeight());
-				computeHatchings(hatchings, hAngle > 0d ? hAngle - Math.PI / 2d : hAngle + Math.PI / 2d, bounds.getWidth(), bounds.getHeight());
-				break;
+				computeHatchings(hatchings, angle, bounds.getWidth(), bounds.getHeight());
+			}
 		}
 
 		final WritableImage image = new WritableImage((int) bounds.getWidth(), (int) bounds.getHeight());
@@ -415,12 +399,11 @@ public abstract class ViewSingleShape<S extends SingleShape, T extends Shape> ex
 	private final void bindBorderMovable() {
 		if(model.isBordersMovable()) {
 			border.strokeTypeProperty().bind(Bindings.createObjectBinding(() -> {
-				switch(model.getBordersPosition()) {
-					case INTO: return StrokeType.INSIDE;
-					case MID: return StrokeType.CENTERED;
-					case OUT: return StrokeType.OUTSIDE;
-					default: return StrokeType.INSIDE;
-				}
+				return switch(model.getBordersPosition()) {
+					case INTO -> StrokeType.INSIDE;
+					case MID -> StrokeType.CENTERED;
+					case OUT -> StrokeType.OUTSIDE;
+				};
 			}, model.borderPosProperty()));
 
 			if(dblBorder != null) {
@@ -434,13 +417,11 @@ public abstract class ViewSingleShape<S extends SingleShape, T extends Shape> ex
 			return 0d;
 		}
 
-		switch(model.getBordersPosition()) {
-			case MID: return 0d;
-			case INTO: return model.getThickness();
-			case OUT: return -model.getThickness();
-		}
-
-		return 0d;
+		return switch(model.getBordersPosition()) {
+			case MID -> 0d;
+			case INTO -> model.getThickness();
+			case OUT -> -model.getThickness();
+		};
 	}
 
 	private final void updateStrokes() {
@@ -461,20 +442,20 @@ public abstract class ViewSingleShape<S extends SingleShape, T extends Shape> ex
 
 		if(model.isLineStylable()) {
 			switch(model.getLineStyle()) {
-				case DASHED:
+				case DASHED -> {
 					border.setStrokeLineCap(StrokeLineCap.BUTT);
 					border.getStrokeDashArray().clear();
 					border.getStrokeDashArray().addAll(model.getDashSepBlack(), model.getDashSepWhite());
-					break;
-				case DOTTED:
+				}
+				case DOTTED -> {
 					border.setStrokeLineCap(StrokeLineCap.ROUND);
 					border.getStrokeDashArray().clear();
 					border.getStrokeDashArray().addAll(0d, model.getDotSep() + model.getFullThickness());
-					break;
-				case SOLID:
+				}
+				case SOLID -> {
 					border.setStrokeLineCap(StrokeLineCap.BUTT);
 					border.getStrokeDashArray().clear();
-					break;
+				}
 			}
 		}
 	}

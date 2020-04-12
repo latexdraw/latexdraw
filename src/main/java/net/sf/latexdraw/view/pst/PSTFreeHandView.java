@@ -137,12 +137,8 @@ public class PSTFreeHandView extends PSTClassicalView<Freehand> {
 		final StringBuilder code = new StringBuilder();
 
 		switch(shape.getType()) {
-			case CURVES:
-				updateCacheCurve(coord, origin.getX(), origin.getY(), ppc);
-				break;
-			case LINES:
-				updateCacheLines(coord, origin.getX(), origin.getY(), ppc);
-				break;
+			case CURVES -> updateCacheCurve(coord, origin.getX(), origin.getY(), ppc);
+			case LINES -> updateCacheLines(coord, origin.getX(), origin.getY(), ppc);
 		}
 
 		if(rot != null) {

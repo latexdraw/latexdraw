@@ -32,18 +32,11 @@ public interface GenericAxes<T> {
 		final boolean noArrowLeftX = isNoArrowLeftX();
 		final boolean noArrowRightX = isNoArrowRightX();
 		final double distX = model.getDistLabelsX();
-		final double y;
-
-		switch(ticksStyle) {
-			case FULL:
-				y = tickLgth / 2d;
-				break;
-			case TOP:
-				y = 0d;
-				break;
-			default:
-				y = tickLgth;
-		}
+		final double y = switch(ticksStyle) {
+			case FULL -> tickLgth / 2d;
+			case TOP -> 0d;
+			default -> tickLgth;
+		};
 
 		for(double incrx = model.getIncrementX(), maxx = model.getGridMaxX() / distX, minx = model.getGridMinX() / distX, i = minx * incrx; i <= maxx * incrx;
 			i += incrx * distX) {
@@ -61,18 +54,11 @@ public interface GenericAxes<T> {
 		final boolean noArrowTopY = model.getArrowStyle(2) == ArrowStyle.NONE || model.getGridMaxY() == model.getOriginY();
 		final boolean noArrowBotY = model.getArrowStyle(0) == ArrowStyle.NONE || model.getGridMinY() == model.getOriginY();
 		final double distY = model.getDistLabelsY();
-		final double x;
-
-		switch(ticksStyle) {
-			case FULL:
-				x = -tickLgth / 2d;
-				break;
-			case TOP:
-				x = 0d;
-				break;
-			default:
-				x = -tickLgth;
-		}
+		final double x = switch(ticksStyle) {
+			case FULL -> -tickLgth / 2d;
+			case TOP -> 0d;
+			default -> -tickLgth;
+		};
 
 		for(double incry = model.getIncrementY(), maxy = model.getGridMaxY() / distY, miny = model.getGridMinY() / distY, i = miny * incry; i <= maxy * incry;
 			i += incry * distY) {

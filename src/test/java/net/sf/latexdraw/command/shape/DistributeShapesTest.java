@@ -75,46 +75,46 @@ class DistributeShapesTest extends UndoableCmdTest<DistributeShapes> {
 	protected Stream<Runnable> doCheckers() {
 		return Stream.of(() -> {
 			switch(distribution) {
-				case VERT_BOT:
+				case VERT_BOT -> {
 					checkVertBase();
 					assertThat(shape.getShapeAt(0).orElseThrow().getTopLeftPoint().getY()).isEqualTo(140);
 					assertThat(shape.getShapeAt(0).orElseThrow().getBottomRightPoint().getY()).isEqualTo(180);
-					break;
-				case VERT_TOP:
+				}
+				case VERT_TOP -> {
 					checkVertBase();
 					assertThat(shape.getShapeAt(0).orElseThrow().getTopLeftPoint().getY()).isEqualTo(125);
 					assertThat(shape.getShapeAt(0).orElseThrow().getBottomRightPoint().getY()).isEqualTo(165);
-					break;
-				case VERT_MID:
+				}
+				case VERT_MID -> {
 					checkVertBase();
 					assertThat(shape.getShapeAt(0).orElseThrow().getTopLeftPoint().getY()).isEqualTo(132.5);
 					assertThat(shape.getShapeAt(0).orElseThrow().getBottomRightPoint().getY()).isEqualTo(172.5);
-					break;
-				case VERT_EQ:
+				}
+				case VERT_EQ -> {
 					checkVertBase();
 					assertThat(shape.getShapeAt(0).orElseThrow().getTopLeftPoint().getY()).isEqualTo(110);
 					assertThat(shape.getShapeAt(0).orElseThrow().getBottomRightPoint().getY()).isEqualTo(150);
-					break;
-				case HORIZ_LEFT:
+				}
+				case HORIZ_LEFT -> {
 					checkHorizBase();
 					assertThat(shape.getShapeAt(1).orElseThrow().getTopLeftPoint().getX()).isEqualTo(130);
 					assertThat(shape.getShapeAt(1).orElseThrow().getBottomRightPoint().getX()).isEqualTo(150);
-					break;
-				case HORIZ_RIGHT:
+				}
+				case HORIZ_RIGHT -> {
 					checkHorizBase();
 					assertThat(shape.getShapeAt(1).orElseThrow().getTopLeftPoint().getX()).isEqualTo(235);
 					assertThat(shape.getShapeAt(1).orElseThrow().getBottomRightPoint().getX()).isEqualTo(255);
-					break;
-				case HORIZ_MID:
+				}
+				case HORIZ_MID -> {
 					checkHorizBase();
 					assertThat(shape.getShapeAt(1).orElseThrow().getTopLeftPoint().getX()).isEqualTo(182.5);
 					assertThat(shape.getShapeAt(1).orElseThrow().getBottomRightPoint().getX()).isEqualTo(202.5);
-					break;
-				case HORIZ_EQ:
+				}
+				case HORIZ_EQ -> {
 					checkHorizBase();
 					assertThat(shape.getShapeAt(1).orElseThrow().getTopLeftPoint().getX()).isEqualTo(145);
 					assertThat(shape.getShapeAt(1).orElseThrow().getBottomRightPoint().getX()).isEqualTo(165);
-					break;
+				}
 			}
 		});
 	}

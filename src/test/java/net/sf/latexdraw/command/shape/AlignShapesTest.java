@@ -75,24 +75,12 @@ class AlignShapesTest extends UndoableCmdTest<AlignShapes> {
 	protected Stream<Runnable> doCheckers() {
 		return Stream.of(() -> {
 			switch(alignment) {
-				case TOP:
-					assertThat(shape.getShapes().stream().mapToDouble(sh -> sh.getTopLeftPoint().getY()).boxed().collect(Collectors.toList())).allMatch(value -> MathUtils.INST.equalsDouble(value, -2d, 0.000001d));
-					break;
-				case BOTTOM:
-					assertThat(shape.getShapes().stream().mapToDouble(sh -> sh.getBottomRightPoint().getY()).boxed().collect(Collectors.toList())).allMatch(value -> MathUtils.INST.equalsDouble(value, 76d, 0.000001d));
-					break;
-				case LEFT:
-					assertThat(shape.getShapes().stream().mapToDouble(sh -> sh.getTopLeftPoint().getX()).boxed().collect(Collectors.toList())).allMatch(value -> MathUtils.INST.equalsDouble(value, -5d, 0.000001d));
-					break;
-				case RIGHT:
-					assertThat(shape.getShapes().stream().mapToDouble(sh -> sh.getBottomRightPoint().getX()).boxed().collect(Collectors.toList())).allMatch(value -> MathUtils.INST.equalsDouble(value, 34d, 0.000001d));
-					break;
-				case MID_HORIZ:
-					assertThat(shape.getShapes().stream().mapToDouble(sh -> sh.getGravityCentre().getY()).boxed().collect(Collectors.toList())).allMatch(value -> MathUtils.INST.equalsDouble(value, 37d, 0.000001d));
-					break;
-				case MID_VERT:
-					assertThat(shape.getShapes().stream().mapToDouble(sh -> sh.getGravityCentre().getX()).boxed().collect(Collectors.toList())).allMatch(value -> MathUtils.INST.equalsDouble(value, 14.5d, 0.000001d));
-					break;
+				case TOP -> assertThat(shape.getShapes().stream().mapToDouble(sh -> sh.getTopLeftPoint().getY()).boxed().collect(Collectors.toList())).allMatch(value -> MathUtils.INST.equalsDouble(value, -2d, 0.000001d));
+				case BOTTOM -> assertThat(shape.getShapes().stream().mapToDouble(sh -> sh.getBottomRightPoint().getY()).boxed().collect(Collectors.toList())).allMatch(value -> MathUtils.INST.equalsDouble(value, 76d, 0.000001d));
+				case LEFT -> assertThat(shape.getShapes().stream().mapToDouble(sh -> sh.getTopLeftPoint().getX()).boxed().collect(Collectors.toList())).allMatch(value -> MathUtils.INST.equalsDouble(value, -5d, 0.000001d));
+				case RIGHT -> assertThat(shape.getShapes().stream().mapToDouble(sh -> sh.getBottomRightPoint().getX()).boxed().collect(Collectors.toList())).allMatch(value -> MathUtils.INST.equalsDouble(value, 34d, 0.000001d));
+				case MID_HORIZ -> assertThat(shape.getShapes().stream().mapToDouble(sh -> sh.getGravityCentre().getY()).boxed().collect(Collectors.toList())).allMatch(value -> MathUtils.INST.equalsDouble(value, 37d, 0.000001d));
+				case MID_VERT -> assertThat(shape.getShapes().stream().mapToDouble(sh -> sh.getGravityCentre().getX()).boxed().collect(Collectors.toList())).allMatch(value -> MathUtils.INST.equalsDouble(value, 14.5d, 0.000001d));
 			}
 		});
 	}

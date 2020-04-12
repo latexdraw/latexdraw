@@ -241,23 +241,12 @@ public abstract class PSTShapeView<S extends Shape> {
 	 * @return The PSTricks code of the border position.
 	 */
 	protected StringBuilder getBorderPositionCode() {
-		StringBuilder code = null;
-
-		if(shape.isBordersMovable()) {
+		return shape.isBordersMovable() ?
 			switch(shape.getBordersPosition()) {
-				case INTO:
-					code = new StringBuilder().append("dimen=").append(PSTricksConstants.BORDERS_INSIDE); //NON-NLS
-					break;
-				case MID:
-					code = new StringBuilder().append("dimen=").append(PSTricksConstants.BORDERS_MIDDLE); //NON-NLS
-					break;
-				case OUT:
-					code = new StringBuilder().append("dimen=").append(PSTricksConstants.BORDERS_OUTSIDE); //NON-NLS
-					break;
-			}
-		}
-
-		return code;
+				case INTO -> new StringBuilder().append("dimen=").append(PSTricksConstants.BORDERS_INSIDE); //NON-NLS
+				case MID -> new StringBuilder().append("dimen=").append(PSTricksConstants.BORDERS_MIDDLE); //NON-NLS
+				case OUT -> new StringBuilder().append("dimen=").append(PSTricksConstants.BORDERS_OUTSIDE); //NON-NLS
+			} : null;
 	}
 
 
@@ -280,14 +269,14 @@ public abstract class PSTShapeView<S extends Shape> {
 		}
 
 		switch(shape.getLineStyle()) {
-			case DOTTED:
+			case DOTTED -> {
 				code.append(", linestyle="); //NON-NLS
 				code.append(PSTricksConstants.LINE_DOTTED_STYLE);
 				code.append(", dotsep="); //NON-NLS
 				code.append(MathUtils.INST.getCutNumberFloat(shape.getDotSep() / ppc));
 				code.append(PSTricksConstants.TOKEN_CM);
-				break;
-			case DASHED:
+			}
+			case DASHED -> {
 				code.append(", linestyle="); //NON-NLS
 				code.append(PSTricksConstants.LINE_DASHED_STYLE);
 				code.append(", dash="); //NON-NLS
@@ -295,8 +284,9 @@ public abstract class PSTShapeView<S extends Shape> {
 				code.append(PSTricksConstants.TOKEN_CM).append(' ');
 				code.append(MathUtils.INST.getCutNumberFloat(shape.getDashSepWhite() / ppc));
 				code.append(PSTricksConstants.TOKEN_CM);
-				break;
-			case SOLID:
+			}
+			case SOLID -> {
+			}
 		}
 		return code;
 	}
@@ -359,17 +349,9 @@ public abstract class PSTShapeView<S extends Shape> {
 		final StringBuilder code = new StringBuilder();
 
 		switch(shape.getFillingStyle()) {
-			case CLINES:
-			case CLINES_PLAIN:
-				code.append("fillstyle=crosshatch"); //NON-NLS
-				break;
-			case HLINES:
-			case HLINES_PLAIN:
-				code.append("fillstyle=hlines"); //NON-NLS
-				break;
-			default:
-				code.append("fillstyle=vlines"); //NON-NLS
-				break;
+			case CLINES, CLINES_PLAIN -> code.append("fillstyle=crosshatch"); //NON-NLS
+			case HLINES, HLINES_PLAIN -> code.append("fillstyle=hlines"); //NON-NLS
+			default -> code.append("fillstyle=vlines"); //NON-NLS
 		}
 
 		if(shape.isFilled()) {
@@ -396,25 +378,13 @@ public abstract class PSTShapeView<S extends Shape> {
 	 * @return The PSTricks code for the filling of the shape. Null if there is no filling.
 	 */
 	protected StringBuilder getFillingCode(final float ppc) {
-		StringBuilder code = null;
 		final Color interiorColor = shape.getFillingCol();
-
-		switch(shape.getFillingStyle()) {
-			case PLAIN:
-				code = getFillingPlain();
-				break;
-			case GRAD:
-				code = getFillingGrad();
-				break;
-			case CLINES:
-			case CLINES_PLAIN:
-			case HLINES:
-			case HLINES_PLAIN:
-			case VLINES:
-			case VLINES_PLAIN:
-				code = getFillingHatchings(ppc);
-				break;
-		}
+		StringBuilder code =  switch(shape.getFillingStyle()) {
+			case PLAIN -> getFillingPlain();
+			case GRAD -> getFillingGrad();
+			case CLINES, CLINES_PLAIN, HLINES, HLINES_PLAIN, VLINES, VLINES_PLAIN -> getFillingHatchings(ppc);
+			case NONE -> null;
+		};
 
 		if(!shape.isFilled() && shape.hasShadow() && shape.shadowFillsShape() && !PSTricksConstants.DEFAULT_FILL_COLOR.equals(interiorColor)) {
 			if(code == null) {

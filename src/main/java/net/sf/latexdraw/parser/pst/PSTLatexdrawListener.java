@@ -100,14 +100,11 @@ public class PSTLatexdrawListener extends PSTCtxListener {
 	 * the unique shape if the group contains a single shape, the group otherwise.
 	 */
 	private Optional<Shape> flatGroup(final Group gp) {
-		switch(gp.size()) {
-			case 0:
-				return Optional.empty();
-			case 1:
-				return gp.getShapeAt(0);
-			default:
-				return Optional.of(gp);
-		}
+		return switch(gp.size()) {
+			case 0 -> Optional.empty();
+			case 1 -> gp.getShapeAt(0);
+			default -> Optional.of(gp);
+		};
 	}
 
 	@Override
@@ -647,52 +644,35 @@ public class PSTLatexdrawListener extends PSTCtxListener {
 
 	@Override
 	public void exitDefinecolor(final net.sf.latexdraw.parser.pst.PSTParser.DefinecolorContext ctx) {
-		Color colour = null;
-
-		switch(ctx.colortype.getText()) {
-			case "rgb": //NON-NLS
-				if(ctx.NUMBER().size() == 3) {
-					colour = ShapeFactory.INST.createColor(ctx.pstctx.numberToDouble(ctx.NUMBER(0).getSymbol()),
-								ctx.pstctx.numberToDouble(ctx.NUMBER(1).getSymbol()),
-								ctx.pstctx.numberToDouble(ctx.NUMBER(2).getSymbol()));
-				}
-				break;
-			case "RGB": //NON-NLS
-				if(ctx.NUMBER().size() == 3) {
-					colour = DviPsColors.INSTANCE.convertRGB2rgb(ctx.pstctx.numberToDouble(ctx.NUMBER(0).getSymbol()),
-								ctx.pstctx.numberToDouble(ctx.NUMBER(1).getSymbol()),
-								ctx.pstctx.numberToDouble(ctx.NUMBER(2).getSymbol()));
-				}
-				break;
-			case "gray": //NON-NLS
-				colour = DviPsColors.INSTANCE.convertgray2rgb(ctx.pstctx.numberToDouble(ctx.NUMBER(0).getSymbol()));
-				break;
-			case "HTML": //NON-NLS
-				colour = DviPsColors.INSTANCE.convertHTML2rgb(ctx.HEXA().getText());
-				break;
-			case "cmyk": //NON-NLS
-				if(ctx.NUMBER().size() == 4) {
-					colour = DviPsColors.INSTANCE.convertcmyk2rgb(ctx.pstctx.numberToDouble(ctx.NUMBER(0).getSymbol()),
+		final Color colour = switch(ctx.colortype.getText()) {
+			case "rgb" -> //NON-NLS
+				ctx.NUMBER().size() == 3 ? ShapeFactory.INST.createColor(ctx.pstctx.numberToDouble(ctx.NUMBER(0).getSymbol()),
+					ctx.pstctx.numberToDouble(ctx.NUMBER(1).getSymbol()), ctx.pstctx.numberToDouble(ctx.NUMBER(2).getSymbol())) : null;
+			case "RGB" -> //NON-NLS
+				ctx.NUMBER().size() == 3 ? DviPsColors.INSTANCE.convertRGB2rgb(ctx.pstctx.numberToDouble(ctx.NUMBER(0).getSymbol()),
+					ctx.pstctx.numberToDouble(ctx.NUMBER(1).getSymbol()), ctx.pstctx.numberToDouble(ctx.NUMBER(2).getSymbol())) : null;
+			case "gray" -> //NON-NLS
+				DviPsColors.INSTANCE.convertgray2rgb(ctx.pstctx.numberToDouble(ctx.NUMBER(0).getSymbol()));
+			case "HTML"-> //NON-NLS
+				DviPsColors.INSTANCE.convertHTML2rgb(ctx.HEXA().getText());
+			case "cmyk" -> //NON-NLS
+				ctx.NUMBER().size() == 4 ? DviPsColors.INSTANCE.convertcmyk2rgb(
+						ctx.pstctx.numberToDouble(ctx.NUMBER(0).getSymbol()),
 						ctx.pstctx.numberToDouble(ctx.NUMBER(1).getSymbol()),
 						ctx.pstctx.numberToDouble(ctx.NUMBER(2).getSymbol()),
-						ctx.pstctx.numberToDouble(ctx.NUMBER(3).getSymbol()));
-				}
-				break;
-			case "cmy": //NON-NLS
-				if(ctx.NUMBER().size() == 3) {
-					colour = ShapeFactory.INST.createColor(1d - ctx.pstctx.numberToDouble(ctx.NUMBER(0).getSymbol()),
+						ctx.pstctx.numberToDouble(ctx.NUMBER(3).getSymbol())) : null;
+			case "cmy" -> //NON-NLS
+				ctx.NUMBER().size() == 3 ? ShapeFactory.INST.createColor(
+						1d - ctx.pstctx.numberToDouble(ctx.NUMBER(0).getSymbol()),
 						1d - ctx.pstctx.numberToDouble(ctx.NUMBER(1).getSymbol()),
-						1d - ctx.pstctx.numberToDouble(ctx.NUMBER(2).getSymbol()));
-				}
-				break;
-			case "hsb": //NON-NLS
-				if(ctx.NUMBER().size() == 3) {
-					colour = ShapeFactory.INST.createColorHSB(ctx.pstctx.numberToDouble(ctx.NUMBER(0).getSymbol()),
+						1d - ctx.pstctx.numberToDouble(ctx.NUMBER(2).getSymbol())) : null;
+			case "hsb" -> //NON-NLS
+				ctx.NUMBER().size() == 3 ? ShapeFactory.INST.createColorHSB(
+						ctx.pstctx.numberToDouble(ctx.NUMBER(0).getSymbol()),
 						ctx.pstctx.numberToDouble(ctx.NUMBER(1).getSymbol()),
-						ctx.pstctx.numberToDouble(ctx.NUMBER(2).getSymbol()));
-				}
-				break;
-		}
+						ctx.pstctx.numberToDouble(ctx.NUMBER(2).getSymbol())) : null;
+			default -> null;
+		};
 
 		if(colour != null) {
 			DviPsColors.INSTANCE.addUserColour(colour, ctx.name.getText());

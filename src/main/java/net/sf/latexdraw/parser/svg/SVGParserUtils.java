@@ -275,28 +275,15 @@ public final class SVGParserUtils {
 	 * @return The value in the user unit (in pixels).
 	 */
 	public double toUserUnit(final double value, final @NotNull SVGLength.LengthType lgthType) {
-		switch(lgthType) {
-			case CM:
-				return value * 35.43307;
-			case IN:
-				return value * 90d;
-			case MM:
-				return value * 3.543307;
-			case PC:
-				return value * 15d;
-			case PT:
-				return value * 1.25;
-			case EM:
-			case EX:
-			case PERCENTAGE:
-				throw new IllegalArgumentException("Not yet managed."); //NON-NLS
-			case NUMBER:
-			case PX:
-			case UNKNOWN:
-				return value;
-			default:
-				throw new IllegalArgumentException("Invalid length type."); //NON-NLS
-		}
+		return switch(lgthType) {
+			case CM -> value * 35.43307;
+			case IN -> value * 90d;
+			case MM -> value * 3.543307;
+			case PC -> value * 15d;
+			case PT -> value * 1.25;
+			case EM, EX, PERCENTAGE -> throw new IllegalArgumentException("Not yet managed."); //NON-NLS
+			case NUMBER, PX, UNKNOWN -> value;
+		};
 	}
 
 	public Map<String, String> parseCSS(final @NotNull String code) {

@@ -159,12 +159,8 @@ class SVGFreeHand extends SVGShape<Freehand> {
 		final SVGPathSegList path = new SVGPathSegList();
 
 		switch(shape.getType()) {
-			case CURVES:
-				getPathCurves(path);
-				break;
-			case LINES:
-				getPathLines(path);
-				break;
+			case CURVES -> getPathCurves(path);
+			case LINES -> getPathLines(path);
 		}
 
 		if(!shape.isOpened()) {

@@ -53,14 +53,11 @@ class BezierCurveImpl extends CtrlPointShapeBase implements BezierCurve, Arrowab
 		if(getNbPoints() < 2) {
 			return null;
 		}
-		switch(index) {
-			case 0:
-				return ShapeFactory.INST.createLine(points.get(0), firstCtrlPts.get(0));
-			case 1:
-				return ShapeFactory.INST.createLine(points.get(points.size() - 1), firstCtrlPts.get(points.size() - 1));
-			default:
-				return null;
-		}
+		return switch(index) {
+			case 0 -> ShapeFactory.INST.createLine(points.get(0), firstCtrlPts.get(0));
+			case 1 -> ShapeFactory.INST.createLine(points.get(points.size() - 1), firstCtrlPts.get(points.size() - 1));
+			default -> null;
+		};
 	}
 
 	@Override

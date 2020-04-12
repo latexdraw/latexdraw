@@ -131,24 +131,13 @@ class ArrowImpl implements Arrow {
 
 	@Override
 	public double getArrowShapeLength() {
-		switch(style.get()) {
-			case LEFT_ARROW:
-			case RIGHT_ARROW:
-				return getArrowShapedWidth() * arrowLength.get();
-			case LEFT_DBLE_ARROW:
-			case RIGHT_DBLE_ARROW:
-				return getArrowShapedWidth() * arrowLength.get() * 2d;
-			case ROUND_IN:
-				return getShape().getFullThickness() / 2d;
-			case LEFT_SQUARE_BRACKET:
-			case RIGHT_SQUARE_BRACKET:
-				return getShape().getFullThickness() / 2d;
-			case CIRCLE_IN:
-			case DISK_IN:
-				return getRoundShapedArrowRadius();
-			default:
-				return 0d;
-		}
+		return switch(style.get()) {
+			case LEFT_ARROW, RIGHT_ARROW -> getArrowShapedWidth() * arrowLength.get();
+			case LEFT_DBLE_ARROW, RIGHT_DBLE_ARROW -> getArrowShapedWidth() * arrowLength.get() * 2d;
+			case ROUND_IN, LEFT_SQUARE_BRACKET, RIGHT_SQUARE_BRACKET -> getShape().getFullThickness() / 2d;
+			case CIRCLE_IN, DISK_IN -> getRoundShapedArrowRadius();
+			default -> 0d;
+		};
 	}
 
 

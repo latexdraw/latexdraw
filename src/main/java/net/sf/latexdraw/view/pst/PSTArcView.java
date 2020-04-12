@@ -59,26 +59,21 @@ public class PSTArcView extends PSTClassicalView<Arc> {
 			start.append(rotation);
 		}
 
+		// Creating the closing line
 		switch(shape.getArcStyle()) {
-			case ARC:
-				start.append("\\psarc"); //NON-NLS
-				break;
-			case CHORD:
+			case ARC -> start.append("\\psarc"); //NON-NLS
+			case CHORD -> {
 				final Point startPt = shape.getStartPoint();
 				final Point endPt = shape.getEndPoint();
-
 				start.append("\\psarc"); //NON-NLS
-				// Creating the closing line
 				final Point gcArc = shape.getGravityCentre();
-				final Polyline closingLine = ShapeFactory.INST.createPolyline(
-					List.of(startPt.rotatePoint(gcArc, shape.getRotationAngle()), endPt.rotatePoint(gcArc, shape.getRotationAngle())));
+				final Polyline closingLine = ShapeFactory.INST.createPolyline(List.of(startPt.rotatePoint(gcArc, shape.getRotationAngle()),
+					endPt.rotatePoint(gcArc, shape.getRotationAngle())));
 				closingLine.copy(shape);
 				closingLine.setRotationAngle(0d);
 				end.append(System.getProperty("line.separator")).append(new PSTLinesView(closingLine).getCode(origin, ppc));
-				break;
-			case WEDGE:
-				start.append("\\pswedge"); //NON-NLS
-				break;
+			}
+			case WEDGE -> start.append("\\pswedge"); //NON-NLS
 		}
 
 		cache.append(start);

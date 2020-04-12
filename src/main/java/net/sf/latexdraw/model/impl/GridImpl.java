@@ -163,38 +163,35 @@ class GridImpl extends GridBase implements Grid {
 		final double u = getUnit();
 
 		switch(pos) {
-			case WEST:
-			case SW:
+			case WEST, SW -> {
 				if(u + sx - 1d >= 0.5) {
 					setUnit(u + sx - 1d);
 				}
-				break;
-			case SOUTH:
+			}
+			case SOUTH -> {
 				if(u + sy - 1d >= 0.5) {
 					setUnit(u + sy - 1d);
 				}
-				break;
-			case NORTH:
-			case NW:
+			}
+			case NORTH, NW -> {
 				if(u + sy - 1d >= 0.5) {
 					setUnit(u + sy - 1d);
 					translate(0., -getTopRightPoint().getY() + bound.getY());
 				}
-				break;
-			case NE:
+			}
+			case NE -> {
 				if(u + sy - 1d >= 0.5) {
 					setUnit(u + sy - 1d);
 					final Point tr = getTopRightPoint();
 					translate(-tr.getX() + bound.getMaxX(), -tr.getY() + bound.getY());
 				}
-				break;
-			case EAST:
-			case SE:
+			}
+			case EAST, SE -> {
 				if(u + sx - 1d >= 0.5) {
 					setUnit(u + sx - 1d);
 					translate(-getTopRightPoint().getX() + bound.getMaxX(), 0d);
 				}
-				break;
+			}
 		}
 	}
 

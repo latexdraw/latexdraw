@@ -199,24 +199,12 @@ public class AlignShapes extends AlignDistribCmd {
 	@Override
 	public void redo() {
 		switch(alignment) {
-			case LEFT:
-				alignLeft();
-				break;
-			case RIGHT:
-				alignRight();
-				break;
-			case TOP:
-				alignTop();
-				break;
-			case BOTTOM:
-				alignBottom();
-				break;
-			case MID_HORIZ:
-				alignMidHoriz();
-				break;
-			case MID_VERT:
-				alignMidVert();
-				break;
+			case LEFT -> alignLeft();
+			case RIGHT -> alignRight();
+			case TOP -> alignTop();
+			case BOTTOM -> alignBottom();
+			case MID_HORIZ -> alignMidHoriz();
+			case MID_VERT -> alignMidVert();
 		}
 
 		shape.setModified(true);

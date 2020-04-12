@@ -68,18 +68,11 @@ public class ScaleShapes extends ShapeCmdImpl<Group> implements Undoable, Modify
 
 	@Override
 	public boolean canDo() {
-		switch(refPosition) {
-			case EAST:
-				return MathUtils.INST.isValidCoord(newX);
-			case WEST:
-				return MathUtils.INST.isValidCoord(newX);
-			case NORTH:
-				return MathUtils.INST.isValidCoord(newY);
-			case SOUTH:
-				return MathUtils.INST.isValidCoord(newY);
-			default:
-				return MathUtils.INST.isValidCoord(newX) && MathUtils.INST.isValidCoord(newY);
-		}
+		return switch(refPosition) {
+			case EAST, WEST -> MathUtils.INST.isValidCoord(newX);
+			case NORTH, SOUTH -> MathUtils.INST.isValidCoord(newY);
+			default -> MathUtils.INST.isValidCoord(newX) && MathUtils.INST.isValidCoord(newY);
+		};
 	}
 
 

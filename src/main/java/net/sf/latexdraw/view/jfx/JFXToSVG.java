@@ -108,12 +108,11 @@ public final class JFXToSVG {
 	}
 
 	private String strokeLineCapToSVGLineCap(final StrokeLineCap cap) {
-		switch(cap) {
-			case SQUARE: return SVGAttributes.SVG_LINECAP_VALUE_SQUARE;
-			case BUTT: return SVGAttributes.SVG_LINECAP_VALUE_BUTT;
-			case ROUND: return SVGAttributes.SVG_LINECAP_VALUE_ROUND;
-		}
-		return null;
+		return switch(cap) {
+			case SQUARE -> SVGAttributes.SVG_LINECAP_VALUE_SQUARE;
+			case BUTT -> SVGAttributes.SVG_LINECAP_VALUE_BUTT;
+			case ROUND -> SVGAttributes.SVG_LINECAP_VALUE_ROUND;
+		};
 	}
 
 	public SVGEllipseElement ellipseToSVGEllipse(final Ellipse ell, final SVGDocument doc) {

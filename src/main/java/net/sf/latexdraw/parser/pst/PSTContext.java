@@ -32,17 +32,12 @@ public class PSTContext {
 	static double ppc = 1d;
 
 	static double doubleUnitToUnit(final double value, final String unit) {
-		switch(unit) {
-			case PSTricksConstants.TOKEN_MM:
-				return value / 10d;
-			case PSTricksConstants.TOKEN_PS_PT:
-				return value / PSTricksConstants.CM_VAL_PT;
-			case PSTricksConstants.TOKEN_INCH:
-				return value / PSTricksConstants.INCH_VAL_CM;
-			case PSTricksConstants.TOKEN_CM:
-			default:
-				return value;
-		}
+		return switch(unit) {
+			case PSTricksConstants.TOKEN_MM -> value / 10d;
+			case PSTricksConstants.TOKEN_PS_PT -> value / PSTricksConstants.CM_VAL_PT;
+			case PSTricksConstants.TOKEN_INCH -> value / PSTricksConstants.INCH_VAL_CM;
+			default -> value;
+		};
 	}
 	String axesStyle = PSTricksConstants.TOKEN_AXES_STYLE_AXES;
 	String arrowLeft = "";
@@ -253,27 +248,13 @@ public class PSTContext {
 			}
 		}else {
 			switch(put.getText()) {
-				case "L": //NON-NLS
-					rputAngle += -Math.PI / 2d;
-					break;
-				case "D": //NON-NLS
-					rputAngle += -Math.PI;
-					break;
-				case "R": //NON-NLS
-					rputAngle += -3d * Math.PI / 2d;
-					break;
-				case "N": //NON-NLS
-					rputAngle = 0d;
-					break;
-				case "W": //NON-NLS
-					rputAngle = -Math.PI / 2d;
-					break;
-				case "S": //NON-NLS
-					rputAngle = -Math.PI;
-					break;
-				case "E": //NON-NLS
-					rputAngle = -3d * Math.PI / 2d;
-					break;
+				case "L" -> rputAngle += -Math.PI / 2d; //NON-NLS
+				case "D" -> rputAngle += -Math.PI; //NON-NLS
+				case "R" -> rputAngle += -3d * Math.PI / 2d; //NON-NLS
+				case "N" -> rputAngle = 0d; //NON-NLS
+				case "W" -> rputAngle = -Math.PI / 2d; //NON-NLS
+				case "S" -> rputAngle = -Math.PI; //NON-NLS
+				case "E" -> rputAngle = -3d * Math.PI / 2d; //NON-NLS
 			}
 		}
 	}

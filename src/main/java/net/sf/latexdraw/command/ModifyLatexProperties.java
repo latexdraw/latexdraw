@@ -41,56 +41,28 @@ public class ModifyLatexProperties extends CommandImpl implements Undoable, Modi
 
 	@Override
 	protected void doCmdBody() {
-		switch(property) {
-			case SCALE:
-				oldValue = data.getScale();
-				break;
-			case CAPTION:
-				oldValue = data.getCaption();
-				break;
-			case COMMENT:
-				oldValue = data.getComment();
-				break;
-			case LABEL:
-				oldValue = data.getLabel();
-				break;
-			case PACKAGES:
-				oldValue = data.getPackages();
-				break;
-			case POSITION_HORIZONTAL:
-				oldValue = data.isPositionHoriCentre();
-				break;
-			case POSITION_VERTICAL:
-				oldValue = data.getPositionVertToken();
-				break;
-		}
+		oldValue = switch(property) {
+			case SCALE -> data.getScale();
+			case CAPTION -> data.getCaption();
+			case COMMENT -> data.getComment();
+			case LABEL -> data.getLabel();
+			case PACKAGES -> data.getPackages();
+			case POSITION_HORIZONTAL -> data.isPositionHoriCentre();
+			case POSITION_VERTICAL -> data.getPositionVertToken();
+		};
 
 		applyValue(value);
 	}
 
 	private void applyValue(final Object object) {
 		switch(property) {
-			case SCALE:
-				data.setScale((Double) object);
-				break;
-			case CAPTION:
-				data.setCaption((String) object);
-				break;
-			case COMMENT:
-				data.setComment((String) object);
-				break;
-			case LABEL:
-				data.setLabel((String) object);
-				break;
-			case PACKAGES:
-				data.setPackages((String) object);
-				break;
-			case POSITION_HORIZONTAL:
-				data.setPositionHoriCentre((Boolean) object);
-				break;
-			case POSITION_VERTICAL:
-				data.setPositionVertToken((VerticalPosition) object);
-				break;
+			case SCALE -> data.setScale((Double) object);
+			case CAPTION -> data.setCaption((String) object);
+			case COMMENT -> data.setComment((String) object);
+			case LABEL -> data.setLabel((String) object);
+			case PACKAGES -> data.setPackages((String) object);
+			case POSITION_HORIZONTAL -> data.setPositionHoriCentre((Boolean) object);
+			case POSITION_VERTICAL -> data.setPositionVertToken((VerticalPosition) object);
 		}
 	}
 

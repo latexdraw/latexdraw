@@ -59,24 +59,11 @@ public class ViewPlot extends ViewPositionShape<Plot> implements PlotViewComputa
 		getChildren().clear();
 
 		switch(model.getPlotStyle()) {
-			case LINE:
-				updateLine(minX, maxX, step);
-				break;
-			case CURVE:
-				updateCurve(minX, maxX, step);
-				break;
-			case ECURVE:
-				updateCurve(minX + step, maxX - step, step);
-				break;
-			case CCURVE:
-				updateCurve(minX, maxX, step);
-				break;
-			case DOTS:
-				updatePoints(minX, maxX, step);
-				break;
-			case POLYGON:
-				updatePolygon(minX, maxX, step);
-				break;
+			case LINE -> updateLine(minX, maxX, step);
+			case CURVE, CCURVE -> updateCurve(minX, maxX, step);
+			case ECURVE -> updateCurve(minX + step, maxX - step, step);
+			case DOTS -> updatePoints(minX, maxX, step);
+			case POLYGON -> updatePolygon(minX, maxX, step);
 		}
 	}
 

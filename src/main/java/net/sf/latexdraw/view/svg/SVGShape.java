@@ -907,21 +907,15 @@ abstract class SVGShape<S extends Shape> {
 		final String hatchingStyle = shape.getFillingStyle().getLatexToken();
 		final double hatchingAngle = shape.getHatchingsAngle();
 		final Rectangle bound = ShapeFactory.INST.createRectangle(shape.getFullTopLeftPoint(), shape.getFullBottomRightPoint());
+		final double hAngle = hatchingAngle > 0 ? hatchingAngle - Math.PI / 2. : hatchingAngle + Math.PI / 2.;
 
 		switch(hatchingStyle) {
-			case PSTricksConstants.TOKEN_FILL_VLINES:
-			case PSTricksConstants.TOKEN_FILL_VLINES_F:
+			case PSTricksConstants.TOKEN_FILL_VLINES, PSTricksConstants.TOKEN_FILL_VLINES_F -> getSVGHatchingsPath2(path, hatchingAngle, bound);
+			case PSTricksConstants.TOKEN_FILL_HLINES, PSTricksConstants.TOKEN_FILL_HLINES_F -> getSVGHatchingsPath2(path, hAngle, bound);
+			case PSTricksConstants.TOKEN_FILL_CROSSHATCH, PSTricksConstants.TOKEN_FILL_CROSSHATCH_F -> {
 				getSVGHatchingsPath2(path, hatchingAngle, bound);
-				break;
-			case PSTricksConstants.TOKEN_FILL_HLINES:
-			case PSTricksConstants.TOKEN_FILL_HLINES_F:
-				getSVGHatchingsPath2(path, hatchingAngle > 0 ? hatchingAngle - Math.PI / 2. : hatchingAngle + Math.PI / 2., bound);
-				break;
-			case PSTricksConstants.TOKEN_FILL_CROSSHATCH:
-			case PSTricksConstants.TOKEN_FILL_CROSSHATCH_F:
-				getSVGHatchingsPath2(path, hatchingAngle, bound);
-				getSVGHatchingsPath2(path, hatchingAngle > 0 ? hatchingAngle - Math.PI / 2. : hatchingAngle + Math.PI / 2., bound);
-				break;
+				getSVGHatchingsPath2(path, hAngle, bound);
+			}
 		}
 
 		return path;
