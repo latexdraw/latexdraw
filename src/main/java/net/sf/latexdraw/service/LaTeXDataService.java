@@ -57,7 +57,8 @@ public class LaTeXDataService implements Modifiable, Flushable {
 		positionVertToken = VerticalPosition.NONE;
 		scale = 1d;
 		packages = new SimpleObjectProperty<>("");
-		compilationPool = Executors.newFixedThreadPool(5);
+		// On windows, only one compilation can be done at the same time
+		compilationPool = Executors.newFixedThreadPool(SystemUtils.getInstance().isWindows() ? 1 : 5);
 	}
 
 	/**
