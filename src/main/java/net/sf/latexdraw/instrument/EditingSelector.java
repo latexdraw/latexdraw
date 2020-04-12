@@ -89,12 +89,11 @@ public class EditingSelector extends JfxInstrument implements Initializable {
 	private final @NotNull ShapeDeleter deleter;
 	private final @NotNull Canvas canvas;
 	private final @NotNull CodeInserter codeInserter;
-	private final @NotNull StatusBarController status;
 
 
 	@Inject
 	public EditingSelector(final Hand hand, final Pencil pencil, final MetaShapeCustomiser meta, final EditingService editing, final TextSetter textSetter,
-						final Border border, final ShapeDeleter deleter, final Canvas canvas, final CodeInserter codeInserter, final StatusBarController status) {
+						final Border border, final ShapeDeleter deleter, final Canvas canvas, final CodeInserter codeInserter) {
 		super();
 		this.hand = Objects.requireNonNull(hand);
 		this.pencil = Objects.requireNonNull(pencil);
@@ -105,7 +104,6 @@ public class EditingSelector extends JfxInstrument implements Initializable {
 		this.deleter = Objects.requireNonNull(deleter);
 		this.canvas = Objects.requireNonNull(canvas);
 		this.codeInserter = Objects.requireNonNull(codeInserter);
-		this.status = Objects.requireNonNull(status);
 	}
 
 	@Override
