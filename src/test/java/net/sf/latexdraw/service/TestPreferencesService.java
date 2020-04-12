@@ -57,6 +57,7 @@ class TestPreferencesService {
 	class TestEmptyPrefFile {
 		@BeforeEach
 		void setUp(@TempDir final Path tempDir) {
+			Locale.setDefault(locale);
 			prefs = new PreferencesService(tempDir.toString() + File.separator + "emptyFile.xml");
 		}
 
@@ -66,14 +67,16 @@ class TestPreferencesService {
 		}
 
 		@Test
-		void testGetLang() {
-			Locale.setDefault(new Locale("fr"));
+		void testGetLang(@TempDir final Path tempDir) {
+			Locale.setDefault(new Locale("nl"));
+			prefs = new PreferencesService(tempDir.toString() + File.separator + "emptyFile.xml");
 			assertEquals(Locale.getDefault(), prefs.getLang());
 		}
 
 		@Test
-		void testGetLangFR() {
-			Locale.setDefault(new Locale("fr", "FR"));
+		void testGetLangFR(@TempDir final Path tempDir) {
+			Locale.setDefault(new Locale("fr", "BE"));
+			prefs = new PreferencesService(tempDir.toString() + File.separator + "emptyFile.xml");
 			assertEquals(Locale.getDefault().getLanguage(), prefs.getLang().getLanguage());
 		}
 
@@ -294,8 +297,9 @@ class TestPreferencesService {
 		}
 
 		@Test
-		void testGetLang() {
-			Locale.setDefault(new Locale("fr"));
+		void testGetLang(@TempDir final Path tempDir) {
+			Locale.setDefault(new Locale("it"));
+			prefs = new PreferencesService(tempDir.toString() + File.separator + "emptyFile.xml");
 			assertEquals(Locale.getDefault(), prefs.getLang());
 		}
 	}
