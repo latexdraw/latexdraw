@@ -47,7 +47,7 @@ public class AboutController implements Initializable {
 			VersionChecker.VERSION + VersionChecker.VERSION_STABILITY + SystemUtils.getInstance().eol +  //NON-NLS
 			LaTeXDraw.LABEL_APP + lang.getString("licenceDistrib") + SystemUtils.getInstance().eol + //NON-NLS
 			"Copyright(c) 2005-2020 - Arnaud BLOUIN" + SystemUtils.getInstance().eol + //NON-NLS
-			"http://latexdraw.sourceforge.net/"); //NON-NLS
+			"https://latexdraw.sourceforge.io"); //NON-NLS
 		noteText.setText(SystemUtils.getInstance().readTextFile("/res/release_note.txt")); //NON-NLS
 		contribText.setText(SystemUtils.getInstance().readTextFile("/res/contributors.txt")); //NON-NLS
 		licenseText.setText(SystemUtils.getInstance().readTextFile("/res/license.txt")); //NON-NLS

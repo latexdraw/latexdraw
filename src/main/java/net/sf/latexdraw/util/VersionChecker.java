@@ -26,10 +26,10 @@ import net.sf.latexdraw.instrument.StatusBarController;
  */
 public final class VersionChecker implements Runnable {
 	/** The version of the application */
-	public static final String VERSION = "4.0.0"; //NON-NLS
+	public static final String VERSION = "4.0.1"; //NON-NLS
 
 	/** The stability of the build. */
-	public static final String VERSION_STABILITY = "-snapshot"; //NON-NLS
+	public static final String VERSION_STABILITY = ""; //NON-NLS
 
 	/** To change if update is needed or not. */
 	public static final boolean WITH_UPDATE = true;
@@ -51,7 +51,7 @@ public final class VersionChecker implements Runnable {
 	@Override
 	public void run() {
 		try(final BufferedReader br = new BufferedReader(new InputStreamReader(new DataInputStream(
-				new URL("http://latexdraw.sourceforge.net/news.txt").openStream()), StandardCharsets.UTF_8))) { //NON-NLS
+				new URL("https://latexdraw.sourceforge.io/news.txt").openStream()), StandardCharsets.UTF_8))) { //NON-NLS
 			final String line = br.readLine();
 			final String[] div = line == null ? null : line.split("_"); //NON-NLS
 
@@ -60,7 +60,7 @@ public final class VersionChecker implements Runnable {
 					statusBar.getLabel().setVisible(true);
 					statusBar.getLabel().setText(lang.getString("newVersion") + ' ' + div[3] + ". See the release note:"); //NON-NLS
 					statusBar.getLink().setVisible(true);
-					statusBar.getLink().setText("http://latexdraw.sourceforge.net/"); //NON-NLS
+					statusBar.getLink().setText("https://latexdraw.sourceforge.io"); //NON-NLS
 				});
 			}
 		}catch(final IOException ignored) {
