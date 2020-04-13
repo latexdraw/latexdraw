@@ -37,7 +37,6 @@ module latexdraw {
 	opens res.hatch;
 	opens res.align;
 	opens res.arrowStyles;
-	opens res.cursors;
 	opens res.distrib;
 	opens res.dotStyles;
 	opens res.doubleBoundary;
