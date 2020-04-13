@@ -1,5 +1,5 @@
 ************************************************************
-Version 4.0.1
+Version 4.0.1 -- 2020-04-13
 
 - fix: the app does not start with a OS language not supported
 - fix/change: instead of requiring the tool ImageMagick to convert pdd to png thumbnails,
