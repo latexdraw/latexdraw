@@ -197,7 +197,7 @@ class SVGAxes extends SVGShape<Axes> implements GenericAxes<SVGTextElement> {
 		setSVGAttributes(doc, root, false);
 
 		root.setAttribute(SVGAttributes.SVG_TRANSFORM,
-			"translate(" + MathUtils.INST.format.format(shape.getPosition().getX()) + ',' + MathUtils.INST.format.format(shape.getPosition().getY()) + ')');
+			"translate(" + MathUtils.INST.format.format(shape.getPosition().getX()) + ',' + MathUtils.INST.format.format(shape.getPosition().getY()) + ')'); //NON-NLS
 		root.setAttribute(pref + LNamespace.XML_STYLE, shape.getAxesStyle().toString());
 		root.setAttribute(pref + LNamespace.XML_GRID_START, shape.getGridStartX() + " " + shape.getGridStartY());
 		root.setAttribute(pref + LNamespace.XML_GRID_END, shape.getGridEndX() + " " + shape.getGridEndY());
@@ -244,7 +244,7 @@ class SVGAxes extends SVGShape<Axes> implements GenericAxes<SVGTextElement> {
 			yLine.getArrowAt(1).copy(shape.getArrowAt(2));
 			final SVGElement eltX = new SVGPolylines(xLine).toSVG(document);
 			final SVGElement eltY = new SVGPolylines(yLine).toSVG(document);
-			final String transform = "translate(" + MathUtils.INST.format.format(-shape.getPosition().getX()) + ',' +
+			final String transform = "translate(" + MathUtils.INST.format.format(-shape.getPosition().getX()) + ',' + //NON-NLS
 				MathUtils.INST.format.format(-shape.getPosition().getY()) + ')';
 
 			eltX.setAttribute(SVGAttributes.SVG_TRANSFORM, transform);
@@ -274,7 +274,7 @@ class SVGAxes extends SVGShape<Axes> implements GenericAxes<SVGTextElement> {
 			r.setThickness(shape.getThickness());
 
 			final SVGElement frame = new SVGRectangle(r).toSVG(document);
-			frame.setAttribute(SVGAttributes.SVG_TRANSFORM, "translate(" + MathUtils.INST.format.format(-shape.getPosition().getX()) + ',' +
+			frame.setAttribute(SVGAttributes.SVG_TRANSFORM, "translate(" + MathUtils.INST.format.format(-shape.getPosition().getX()) + ',' + //NON-NLS
 				MathUtils.INST.format.format(-shape.getPosition().getY()) + ')');
 			elt.appendChild(frame);
 		}

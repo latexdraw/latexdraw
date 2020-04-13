@@ -354,7 +354,7 @@ public abstract class PSTCtxListener extends net.sf.latexdraw.parser.pst.PSTBase
 
 	@Override
 	public void exitUnknownParamSetting(final net.sf.latexdraw.parser.pst.PSTParser.UnknownParamSettingContext ctx) {
-		log.severe("Unkown parameter");
+		log.severe("Unkown parameter");  //NON-NLS
 	}
 
 	/**
@@ -366,7 +366,7 @@ public abstract class PSTCtxListener extends net.sf.latexdraw.parser.pst.PSTBase
 		final Optional<Color> colour = DviPsColors.INSTANCE.getColour(txtColor);
 
 		if(colour.isEmpty()) {
-			log.log(Level.SEVERE, "The following colour is unknown: {0}", txtColor);
+			log.log(Level.SEVERE, "The following colour is unknown: {0}", txtColor);  //NON-NLS
 		}
 
 		return colour;

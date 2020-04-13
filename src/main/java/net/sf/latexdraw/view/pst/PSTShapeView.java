@@ -65,7 +65,7 @@ public abstract class PSTShapeView<S extends Shape> {
 	 */
 	public @NotNull String generateColourCode(final Set<String> addedColours) {
 		return coloursName.stream().
-			filter(col -> !addedColours.contains(col) && !DviPsColors.INSTANCE.getPredefinedColour(col).isPresent()).
+			filter(col -> !addedColours.contains(col) && DviPsColors.INSTANCE.getPredefinedColour(col).isEmpty()).
 			peek(col -> addedColours.add(col)).
 			map(col -> DviPsColors.INSTANCE.getUsercolourCode(col)).
 			collect(Collectors.joining(SystemUtils.getInstance().eol));

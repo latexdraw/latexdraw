@@ -258,7 +258,7 @@ class LineImpl extends Line2D.Double implements Line {
 		final Point pt1 = getPoint1();
 		final Point pt2 = getPoint2();
 
-		return ShapeFactory.INST.createPoint(pt1.getX() < pt2.getX() ? pt1.getX() : pt2.getX(), pt1.getY() < pt2.getY() ? pt1.getY() : pt2.getY());
+		return ShapeFactory.INST.createPoint(Math.min(pt1.getX(), pt2.getX()), Math.min(pt1.getY(), pt2.getY()));
 	}
 
 
@@ -267,7 +267,7 @@ class LineImpl extends Line2D.Double implements Line {
 		final Point pt1 = getPoint1();
 		final Point pt2 = getPoint2();
 
-		return ShapeFactory.INST.createPoint(pt1.getX() < pt2.getX() ? pt2.getX() : pt1.getX(), pt1.getY() < pt2.getY() ? pt2.getY() : pt1.getY());
+		return ShapeFactory.INST.createPoint(Math.max(pt1.getX(), pt2.getX()), Math.max(pt1.getY(), pt2.getY()));
 	}
 
 

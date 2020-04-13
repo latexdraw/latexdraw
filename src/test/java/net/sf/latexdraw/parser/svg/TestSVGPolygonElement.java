@@ -1,7 +1,6 @@
 package net.sf.latexdraw.parser.svg;
 
 import java.awt.geom.Point2D;
-import java.text.ParseException;
 import java.util.List;
 import net.sf.latexdraw.NoBadaboomCheck;
 import org.junit.jupiter.api.Test;
@@ -29,7 +28,7 @@ public class TestSVGPolygonElement extends TestBaseSVGElement {
 	}
 
 	@Test
-	void testSetPoints2() throws ParseException {
+	void testSetPoints2() {
 		node.setAttribute(SVGAttributes.SVG_POINTS, "10,10 20,20");
 		pl = new SVGPolygonElement(node, null);
 		pl.setPoints("11,12 21,22");

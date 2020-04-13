@@ -110,7 +110,7 @@ abstract class GridBase extends PositionShapeBase implements StandardGrid {
 		if(MathUtils.INST.isValidCoord(x)) {
 			final Point bl = points.get(0).horizontalSymmetry(x);
 			final Point br = getBottomRightPoint().horizontalSymmetry(x);
-			points.get(0).setPoint(br.getX() < bl.getX() ? br.getX() : bl.getX(), br.getY());
+			points.get(0).setPoint(Math.min(br.getX(), bl.getX()), br.getY());
 		}
 	}
 
@@ -120,7 +120,7 @@ abstract class GridBase extends PositionShapeBase implements StandardGrid {
 		if(MathUtils.INST.isValidCoord(y)) {
 			final Point bl = points.get(0).verticalSymmetry(y);
 			final Point tl = getTopLeftPoint().verticalSymmetry(y);
-			points.get(0).setPoint(bl.getX(), bl.getY() > tl.getY() ? bl.getY() : tl.getY());
+			points.get(0).setPoint(bl.getX(), Math.max(bl.getY(), tl.getY()));
 		}
 	}
 

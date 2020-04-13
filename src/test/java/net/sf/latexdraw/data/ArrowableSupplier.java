@@ -14,11 +14,11 @@ public class ArrowableSupplier extends ParameterSupplier {
 	}
 
 	public static Stream<ArrowableSingleShape> createDiversifiedArrowableShapes() {
-		return createArrowableShapes().map(sh -> Stream.of(ParameteriseShapeData.INST.setArrowableData1((ArrowableSingleShape) sh.duplicate()),
+		return createArrowableShapes().flatMap(sh -> Stream.of(ParameteriseShapeData.INST.setArrowableData1((ArrowableSingleShape) sh.duplicate()),
 			ParameteriseShapeData.INST.setArrowableData2((ArrowableSingleShape) sh.duplicate()),
 			ParameteriseShapeData.INST.setArrowableData3((ArrowableSingleShape) sh.duplicate()),
 			ParameteriseShapeData.INST.setArrowableData4((ArrowableSingleShape) sh.duplicate()),
-			ParameteriseShapeData.INST.setArrowableData5((ArrowableSingleShape) sh.duplicate()))).flatMap(s -> s);
+			ParameteriseShapeData.INST.setArrowableData5((ArrowableSingleShape) sh.duplicate())));
 	}
 
 

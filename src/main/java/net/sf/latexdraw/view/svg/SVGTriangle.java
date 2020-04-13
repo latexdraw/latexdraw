@@ -115,11 +115,13 @@ class SVGTriangle extends SVGPolygonBased<Triangle> {
 			cornerGap1 *= -1d;
 		}
 
-		final String points = p1x + "," + (p1y - cornerGap1) + " " + (p2x - cornerGap2) + "," + (p2y + (p1y < p2y ? gap : -gap)) + " " + (p3x + cornerGap2) +
-			"," + (p2y + (p1y < p2y ? gap : -gap));
+		final double value = p2y + (p1y < p2y ? gap : -gap);
+		final String points = p1x + "," + (p1y - cornerGap1) + " " + (p2x - cornerGap2) + "," + value + " " + (p3x + cornerGap2) + "," + value;
 
-		final String ltdPoints = shape.getPoints().stream().map(pt -> Stream.of(String.valueOf(pt.getX()), String.valueOf(pt.getY()))).
-			flatMap(s -> s).collect(Collectors.joining(" "));
+		final String ltdPoints = shape.getPoints()
+			.stream()
+			.flatMap(pt -> Stream.of(String.valueOf(pt.getX()), String.valueOf(pt.getY())))
+			.collect(Collectors.joining(" "));
 
 		setShadowPolygon(doc, root, points);
 

@@ -447,7 +447,7 @@ public final class SystemUtils {
 		try {
 			return Optional.of(
 				Files
-					.createTempDirectory("latexdrawTmp" + System.currentTimeMillis() + ThreadLocalRandom.current().nextInt(100000))
+					.createTempDirectory("latexdrawTmp" + System.currentTimeMillis() + ThreadLocalRandom.current().nextInt(100000)) //NON-NLS
 					.toFile());
 		}catch(final IOException | SecurityException ex) {
 			BadaboomCollector.INSTANCE.add(ex);

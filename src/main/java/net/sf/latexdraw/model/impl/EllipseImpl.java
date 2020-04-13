@@ -56,7 +56,7 @@ class EllipseImpl extends RectangularShapeBase implements Ellipse {
 	public double getA() {
 		final double rx = getWidth() / 2.0;
 		final double ry = getHeight() / 2.0;
-		return rx < ry ? ry : rx;
+		return Math.max(rx, ry);
 	}
 
 
@@ -64,6 +64,6 @@ class EllipseImpl extends RectangularShapeBase implements Ellipse {
 	public double getB() {
 		final double rx = getWidth() / 2.0;
 		final double ry = getHeight() / 2.0;
-		return rx > ry ? ry : rx;
+		return Math.min(rx, ry);
 	}
 }

@@ -43,7 +43,7 @@ public class MovePointShape extends MovePoint implements Undoable {
 
 	@Override
 	public boolean canDo() {
-		return shape.getPoints().indexOf(point) != -1 && super.canDo();
+		return shape.getPoints().contains(point) && super.canDo();
 	}
 
 	@Override

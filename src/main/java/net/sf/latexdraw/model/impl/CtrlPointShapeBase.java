@@ -41,8 +41,8 @@ abstract class CtrlPointShapeBase extends ModifiablePointsShapeBase implements C
 
 	CtrlPointShapeBase(final @NotNull List<Point> pts, final @NotNull List<Point> ctrlPts) {
 		super(pts);
-		firstCtrlPts = Collections.unmodifiableList(ctrlPts.stream().map(pt -> ShapeFactory.INST.createPoint(pt)).collect(Collectors.toList()));
-		secondCtrlPts = Collections.unmodifiableList(pts.stream().map(pt -> ShapeFactory.INST.createPoint()).collect(Collectors.toList()));
+		firstCtrlPts = ctrlPts.stream().map(ShapeFactory.INST::createPoint).collect(Collectors.toUnmodifiableList());
+		secondCtrlPts = pts.stream().map(pt -> ShapeFactory.INST.createPoint()).collect(Collectors.toUnmodifiableList());
 		updateSecondControlPoints();
 	}
 

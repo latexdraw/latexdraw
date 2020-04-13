@@ -968,7 +968,7 @@ abstract class SVGShape<S extends Shape> {
 
 		if(angle > 0d) {
 			y1 = nw.getY();
-			maxX = se.getX() + (se.getY() - (nw.getY() < 0d ? nw.getY() : 0d)) * Math.tan(angle);
+			maxX = se.getX() + (se.getY() - Math.min(nw.getY(), 0d)) * Math.tan(angle);
 		}else {
 			y1 = se.getY();
 			maxX = se.getX() - se.getY() * Math.tan(angle);

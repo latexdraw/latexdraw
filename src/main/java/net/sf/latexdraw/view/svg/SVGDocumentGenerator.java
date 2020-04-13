@@ -438,9 +438,9 @@ public class SVGDocumentGenerator implements OpenSaver<Label> {
 			final SVGGElement g = new SVGGElement(doc);
 			final int padding = 20;
 			final Optional<Point> opttl = drawing.getShapes().parallelStream().map(sh -> sh.getTopLeftPoint()).
-				reduce((p1, p2) -> ShapeFactory.INST.createPoint(p1.getX() < p2.getX() ? p1.getX() : p2.getX(), p1.getY() < p2.getY() ? p1.getY() : p2.getY()));
+				reduce((p1, p2) -> ShapeFactory.INST.createPoint(Math.min(p1.getX(), p2.getX()), Math.min(p1.getY(), p2.getY())));
 			final Optional<Point> optbr = drawing.getShapes().parallelStream().map(sh -> sh.getBottomRightPoint()).
-				reduce((p1, p2) -> ShapeFactory.INST.createPoint(p1.getX() > p2.getX() ? p1.getX() : p2.getX(), p1.getY() > p2.getY() ? p1.getY() : p2.getY()));
+				reduce((p1, p2) -> ShapeFactory.INST.createPoint(Math.max(p1.getX(), p2.getX()), Math.max(p1.getY(), p2.getY())));
 
 			opttl.ifPresent(tl -> optbr.ifPresent(br ->
 				root.setAttribute("viewBox", MathUtils.INST.format.format(tl.getX() - padding) + " " + //NON-NLS

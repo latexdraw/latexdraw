@@ -59,7 +59,7 @@ public class InjectionExtension implements BeforeEachCallback, AfterEachCallback
 				}
 				throw new IllegalArgumentException("Nested test class not supported yet");
 
-			}catch(IllegalAccessException | InvocationTargetException ex) {
+			}catch(final IllegalAccessException | InvocationTargetException ex) {
 				ex.printStackTrace();
 			}
 			return createDefaultInjector();

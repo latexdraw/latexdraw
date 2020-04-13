@@ -105,24 +105,25 @@ class SVGCircle extends SVGShape<Circle> {
 		root.setAttribute(LNamespace.LATEXDRAW_NAMESPACE + ':' + LNamespace.XML_TYPE, LNamespace.XML_TYPE_CIRCLE);
 		root.setAttribute(SVGAttributes.SVG_ID, getSVGID());
 		final double gap = getPositionGap();
+		final double abs = Math.abs((brx - tlx + gap) / 2d);
 
 		if(shape.hasShadow()) {
-			shad = new SVGCircleElement((brx + tlx) / 2d, (bry + tly) / 2d, Math.abs((brx - tlx + gap) / 2d), doc);
+			shad = new SVGCircleElement((brx + tlx) / 2d, (bry + tly) / 2d, abs, doc);
 			setSVGShadowAttributes(shad, true);
 			root.appendChild(shad);
 		}
 
 		if(shape.hasShadow() && !PSTricksConstants.LINE_NONE_STYLE.equals(shape.getLineStyle().getLatexToken())) {
 			// The background of the borders must be filled is there is a shadow.
-			elt = new SVGCircleElement((brx + tlx) / 2d, (bry + tly) / 2d, Math.abs((brx - tlx + gap) / 2d), doc);
+			elt = new SVGCircleElement((brx + tlx) / 2d, (bry + tly) / 2d, abs, doc);
 			setSVGBorderBackground(elt, root);
 		}
 
-		elt = new SVGCircleElement((brx + tlx) / 2d, (bry + tly) / 2d, Math.abs((brx - tlx + gap) / 2d), doc);
+		elt = new SVGCircleElement((brx + tlx) / 2d, (bry + tly) / 2d, abs, doc);
 		root.appendChild(elt);
 
 		if(shape.hasDbleBord()) {
-			dblBord = new SVGCircleElement((brx + tlx) / 2d, (bry + tly) / 2d, Math.abs((brx - tlx + gap) / 2d), doc);
+			dblBord = new SVGCircleElement((brx + tlx) / 2d, (bry + tly) / 2d, abs, doc);
 			setSVGDoubleBordersAttributes(dblBord);
 			root.appendChild(dblBord);
 		}

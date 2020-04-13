@@ -81,9 +81,9 @@ public class PSFunctionParser {
 
 			return new Tuple<>(Boolean.TRUE, "");
 		}catch(final NumberFormatException ex) {
-			return new Tuple<>(Boolean.FALSE, "Error while computing the curve's points: " + ex.getMessage());
+			return new Tuple<>(Boolean.FALSE, "Error while computing the curve's points: " + ex.getMessage());  //NON-NLS
 		}catch(final ArithmeticException ex) {
-			return new Tuple<>(Boolean.FALSE, "Error while computing the curve's points: arithmetical error.");
+			return new Tuple<>(Boolean.FALSE, "Error while computing the curve's points: arithmetical error.");  //NON-NLS
 		}
 	}
 	/** The postscript function. */

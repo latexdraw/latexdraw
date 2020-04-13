@@ -116,7 +116,7 @@ class SVGText extends SVGShape<Text> {
 		root.setAttribute(ltdPref + LNamespace.XML_TYPE, LNamespace.XML_TYPE_TEXT);
 		root.setAttribute(SVGAttributes.SVG_ID, getSVGID());
 		root.setAttribute(SVGAttributes.SVG_FILL, CSSColors.INSTANCE.getColorName(shape.getLineColour(), true));
-		root.setAttribute(ltdPref + LNamespace.XML_POSITION, String.valueOf(shape.getTextPosition().getLatexToken()));
+		root.setAttribute(ltdPref + LNamespace.XML_POSITION, shape.getTextPosition().getLatexToken());
 
 		txt.setAttribute(SVGAttributes.SVG_X, String.valueOf(shape.getX()));
 		txt.setAttribute(SVGAttributes.SVG_Y, String.valueOf(shape.getY()));

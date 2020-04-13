@@ -398,12 +398,10 @@ public abstract class ViewSingleShape<S extends SingleShape, T extends Shape> ex
 
 	private final void bindBorderMovable() {
 		if(model.isBordersMovable()) {
-			border.strokeTypeProperty().bind(Bindings.createObjectBinding(() -> {
-				return switch(model.getBordersPosition()) {
-					case INTO -> StrokeType.INSIDE;
-					case MID -> StrokeType.CENTERED;
-					case OUT -> StrokeType.OUTSIDE;
-				};
+			border.strokeTypeProperty().bind(Bindings.createObjectBinding(() -> switch(model.getBordersPosition()) {
+				case INTO -> StrokeType.INSIDE;
+				case MID -> StrokeType.CENTERED;
+				case OUT -> StrokeType.OUTSIDE;
 			}, model.borderPosProperty()));
 
 			if(dblBorder != null) {

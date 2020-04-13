@@ -150,7 +150,7 @@ public class PSTLatexdrawListener extends PSTCtxListener {
 			picture.translate(-picture.getImage().getWidth() / 2d, -picture.getImage().getHeight() / 2d);
 			shapes.getLast().addShape(picture);
 		}catch(final IllegalArgumentException ex) {
-			log.log(Level.SEVERE, String.format("Cannot load the picture with the path: %s", ctx.path.getText()));
+			log.log(Level.SEVERE, String.format("Cannot load the picture with the path: %s", ctx.path.getText()));  //NON-NLS
 		}
 	}
 
@@ -587,7 +587,7 @@ public class PSTLatexdrawListener extends PSTCtxListener {
 		final double v1 = ctx.pstctx.numberToDouble(ctx.x0);
 		final double v2 = ctx.pstctx.numberToDouble(ctx.x1);
 		final String fct = ctx.fct.stream().map(elt -> elt.getText()).collect(Collectors.joining(" "));
-		final Plot plot = ShapeFactory.INST.createPlot(ShapeFactory.INST.createPoint(), v1 < v2 ? v1 : v2, v1 < v2 ? v2 : v1, fct, ctx.pstctx.polarPlot);
+		final Plot plot = ShapeFactory.INST.createPlot(ShapeFactory.INST.createPoint(), Math.min(v1, v2), Math.max(v1, v2), fct, ctx.pstctx.polarPlot);
 		final double dotSizeDim = ctx.pstctx.arrowDotSize.a + ctx.pstctx.arrowDotSize.b < 0d ? Math.abs(ctx.pstctx.arrowDotSize.a) : ctx.pstctx.arrowDotSize.a;
 		final double dotSizeNum = ctx.pstctx.arrowDotSize.b + ctx.pstctx.arrowDotSize.b < 0d ? Math.abs(ctx.pstctx.arrowDotSize.b) : ctx.pstctx.arrowDotSize.b;
 

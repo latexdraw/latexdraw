@@ -73,7 +73,7 @@ public final class Bindings {
 					list.subList(change.getFrom(), change.getFrom() + change.getRemovedSize()).clear();
 				}
 				if(change.wasAdded()) {
-					list.addAll(change.getFrom(), change.getAddedSubList().stream().map(elt -> map.apply(elt)).collect(Collectors.toList()));
+					list.addAll(change.getFrom(), change.getAddedSubList().stream().map(map).collect(Collectors.toList()));
 				}
 			}
 		}

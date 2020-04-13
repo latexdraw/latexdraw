@@ -95,18 +95,18 @@ public class TestMathUtils {
 
 	@TestFactory
 	Stream<DynamicTest> testGetCutNumberNotCutFloat() {
-		return Stream.of(-0.00001f, -1.34f, -83.12f, 0f, 0.00001f, 1.34f, 83.12f).map(value ->
+		return Stream.of(-0.00001f, -1.34f, -83.12f, 0f, 0.00001f, 1.34f, 83.12f).flatMap(value ->
 			DoubleSupplier.okDoubles().filter(threshold -> Math.abs(threshold) > Math.abs((double) value)).
 			mapToObj(t -> dynamicTest("testcutNumberNotCutFloat", () -> assertThat(MathUtils.INST.getCutNumber(value, t)).isEqualTo(0f))
-		)).flatMap(s -> s);
+		));
 	}
 
 	@TestFactory
 	Stream<DynamicTest> testGetCutNumberCutFloat() {
-		return Stream.of(-0.00001f, -1.34f, -83.12f, 0f, 0.00001f, 1.34f, 83.12f).map(value ->
+		return Stream.of(-0.00001f, -1.34f, -83.12f, 0f, 0.00001f, 1.34f, 83.12f).flatMap(value ->
 			DoubleSupplier.okDoubles().filter(threshold -> Math.abs((double) value) > Math.abs(threshold)).
 			mapToObj(t -> dynamicTest("testCutNumberCutFloat", () -> assertThat(MathUtils.INST.getCutNumber(value, t)).isEqualTo(value))
-		)).flatMap(s -> s);
+		));
 	}
 
 	@TestFactory

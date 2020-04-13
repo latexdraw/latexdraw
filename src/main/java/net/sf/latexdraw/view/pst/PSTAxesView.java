@@ -104,11 +104,11 @@ public class PSTAxesView extends PSTShapeView<Axes> {
 		}
 
 		if(!MathUtils.INST.equalsDouble(incrementx, PSTricksConstants.DEFAULT_DX)) {
-			params.append(", Dx=").append(String.valueOf(MathUtils.INST.getCutNumberFloat(incrementx))); //NON-NLS
+			params.append(", Dx=").append(MathUtils.INST.getCutNumberFloat(incrementx)); //NON-NLS
 		}
 
 		if(!MathUtils.INST.equalsDouble(incrementy, PSTricksConstants.DEFAULT_DY)) {
-			params.append(", Dy=").append(String.valueOf(MathUtils.INST.getCutNumberFloat(incrementy))); //NON-NLS
+			params.append(", Dy=").append(MathUtils.INST.getCutNumberFloat(incrementy)); //NON-NLS
 		}
 
 		if(!MathUtils.INST.equalsDouble(originx, PSTricksConstants.DEFAULT_OX)) {

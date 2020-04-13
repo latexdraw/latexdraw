@@ -17,7 +17,7 @@ import static org.junit.jupiter.params.provider.Arguments.arguments;
 
 public interface PolymorphArrowableTest extends PolymorphicConversion<ArrowableSingleShape> {
 	static Stream<Arguments> arrowsParamsDiv() {
-		return ArrowableSupplier.createArrowableShapes().map(s -> Arrays.stream(ArrowStyle.values()).map(i1 -> arguments(s, i1))).flatMap(s -> s);
+		return ArrowableSupplier.createArrowableShapes().flatMap(s -> Arrays.stream(ArrowStyle.values()).map(i1 -> arguments(s, i1)));
 	}
 
 	@ParameterizedTest

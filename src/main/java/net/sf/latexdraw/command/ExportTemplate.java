@@ -46,7 +46,7 @@ public class ExportTemplate extends IOCommand<Label> {
 	@Override
 	protected void doCmdBody() {
 		nameInput.showAndWait().ifPresent(name -> {
-			final Path path = Path.of(SystemUtils.getInstance().getPathTemplatesDirUser(), name + ".svg");
+			final Path path = Path.of(SystemUtils.getInstance().getPathTemplatesDirUser(), name + ".svg"); //NON-NLS
 
 			if(!path.toFile().exists() || alertName.showAndWait().orElse(ButtonType.CANCEL) == ButtonType.OK) {
 				svgGen.saveTemplate(path.toString(), progressBar, statusWidget, templatesPane);

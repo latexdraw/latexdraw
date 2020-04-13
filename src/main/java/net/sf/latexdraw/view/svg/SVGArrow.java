@@ -93,7 +93,6 @@ class SVGArrow implements GenericViewArrow {
 	 */
 	void setArrow(final SVGCircleElement circle, final Shape owner) {
 		final double radius = circle.getR();
-		final double dotSizeDim;
 		final double dotSizeNum = MathUtils.INST.parserDouble(
 			circle.getAttribute(LNamespace.LATEXDRAW_NAMESPACE + ':' + LNamespace.XML_ARROW_DOT_SIZE_NUM)).orElse(1d);
 		final double lineWidth = owner.hasDbleBord() ? owner.getDbleBordSep() + 2d * owner.getThickness() : owner.getThickness();
@@ -107,12 +106,11 @@ class SVGArrow implements GenericViewArrow {
 
 		if(stroke.equals(circle.getFill())) {
 			arrow.setArrowStyle(MathUtils.INST.equalsDouble(0d, circle.getCx()) ? ArrowStyle.DISK_END : ArrowStyle.DISK_IN);
-			dotSizeDim = 2d * radius + lineWidth - dotSizeNum * lineWidth;
 		}else {
 			arrow.setArrowStyle(MathUtils.INST.equalsDouble(0d, circle.getCx()) ? ArrowStyle.CIRCLE_END : ArrowStyle.CIRCLE_IN);
-			dotSizeDim = 2d * radius + lineWidth - dotSizeNum * lineWidth;
 		}
 
+		final double dotSizeDim = 2d * radius + lineWidth - dotSizeNum * lineWidth;
 		if(MathUtils.INST.equalsDouble(dotSizeDim, 0d)) {
 			arrow.setArrowStyle(ArrowStyle.ROUND_IN);
 		}else {

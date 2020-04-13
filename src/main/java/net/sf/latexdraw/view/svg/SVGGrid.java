@@ -297,9 +297,10 @@ class SVGGrid extends SVGShape<Grid> {
 
 		for(k = minX, i = posX; k < maxX; i += xStep, k++) {
 			for(j = 0; j <= subGridDiv; j++) {
+				final String value = String.valueOf(i + xSubStep * j);
 				line = new SVGLineElement(document);
-				line.setAttribute(SVGAttributes.SVG_X1, String.valueOf(i + xSubStep * j));
-				line.setAttribute(SVGAttributes.SVG_X2, String.valueOf(i + xSubStep * j));
+				line.setAttribute(SVGAttributes.SVG_X1, value);
+				line.setAttribute(SVGAttributes.SVG_X2, value);
 				line.setAttribute(SVGAttributes.SVG_Y1, String.valueOf(bry));
 				line.setAttribute(SVGAttributes.SVG_Y2, String.valueOf(tly));
 				subgrids.appendChild(line);
@@ -308,11 +309,12 @@ class SVGGrid extends SVGShape<Grid> {
 
 		for(k = minY, i = posY; k < maxY; i -= yStep, k++) {
 			for(j = 0; j <= subGridDiv; j++) {
+				final String value = String.valueOf(i - ySubStep * j);
 				line = new SVGLineElement(document);
 				line.setAttribute(SVGAttributes.SVG_X1, String.valueOf(tlx));
 				line.setAttribute(SVGAttributes.SVG_X2, String.valueOf(brx));
-				line.setAttribute(SVGAttributes.SVG_Y1, String.valueOf(i - ySubStep * j));
-				line.setAttribute(SVGAttributes.SVG_Y2, String.valueOf(i - ySubStep * j));
+				line.setAttribute(SVGAttributes.SVG_Y1, value);
+				line.setAttribute(SVGAttributes.SVG_Y2, value);
 				subgrids.appendChild(line);
 			}
 		}

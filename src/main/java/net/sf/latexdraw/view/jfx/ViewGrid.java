@@ -221,7 +221,7 @@ public class ViewGrid extends ViewStdGrid<Grid> {
 			return;
 		}
 
-		final Font font = new Font("cmr10", model.getLabelsSize());
+		final Font font = new Font("cmr10", model.getLabelsSize()); //NON-NLS
 		final Text fooText = new Text(String.valueOf((int) maxX));
 		fooText.setFont(font);
 		// The max height of the font.

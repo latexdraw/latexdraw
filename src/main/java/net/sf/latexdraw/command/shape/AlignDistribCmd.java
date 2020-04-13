@@ -57,8 +57,16 @@ abstract class AlignDistribCmd extends ShapeCmdImpl<Group> implements Undoable, 
 
 	@Override
 	protected void doCmdBody() {
-		views = shape.getShapes().stream().map(sh -> canvas.getViewFromShape(sh)).filter(opt -> opt.isPresent()).map(opt -> opt.get()).collect(Collectors.<ViewShape<?>>toList());
-		oldPositions = shape.getShapes().stream().map(sh -> sh.getTopLeftPoint()).collect(Collectors.toList());
+		views = shape.getShapes()
+			.stream()
+			.map(sh -> canvas.getViewFromShape(sh))
+			.filter(opt -> opt.isPresent())
+			.map(opt -> opt.get())
+			.collect(Collectors.toList());
+		oldPositions = shape.getShapes()
+			.stream()
+			.map(sh -> sh.getTopLeftPoint())
+			.collect(Collectors.toList());
 		redo();
 	}
 }

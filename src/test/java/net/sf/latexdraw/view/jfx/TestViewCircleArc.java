@@ -28,7 +28,7 @@ public class TestViewCircleArc extends TestViewShape<ViewCircleArc, CircleArc> {
 		return Stream.of(v -> v.border, v -> v.shadow, v -> v.dblBorder);
 	}
 	static Stream<Arguments> styleFunction() {
-		return Arrays.stream(ArcStyle.values()).map(s -> getArcsToTest().map(i1 -> arguments(s, i1))).flatMap(s -> s);
+		return Arrays.stream(ArcStyle.values()).flatMap(s -> getArcsToTest().map(i1 -> arguments(s, i1)));
 	}
 
 	@Override
