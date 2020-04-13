@@ -7,17 +7,16 @@ import net.sf.latexdraw.model.ShapeFactory;
 import net.sf.latexdraw.model.api.shape.Line;
 import net.sf.latexdraw.model.api.shape.Point;
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
 import org.junit.experimental.theories.Theories;
 import org.junit.experimental.theories.Theory;
-import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assume.assumeFalse;
 import static org.junit.Assume.assumeTrue;
@@ -25,8 +24,6 @@ import static org.junit.Assume.assumeTrue;
 @RunWith(Theories.class)
 public class TestLine implements HelperTest {
 	Line line;
-
-	@Rule public ExpectedException thrown = ExpectedException.none();
 
 	@Before
 	public void setUp() {
@@ -47,14 +44,12 @@ public class TestLine implements HelperTest {
 
 	@Theory
 	public void testConstructors2KO1(@DoubleData(bads = true, vals = {}) final double value) {
-		thrown.expect(IllegalArgumentException.class);
-		ShapeFactory.INST.createLine(value, ShapeFactory.INST.createPoint(1, 2));
+		assertThrows(IllegalArgumentException.class, () -> ShapeFactory.INST.createLine(value, ShapeFactory.INST.createPoint(1, 2)));
 	}
 
 	@Theory
 	public void testConstructors2KO2(@DoubleData(bads = true, vals = {}) final double x, @DoubleData(bads = true, vals = {}) final double y) {
-		thrown.expect(IllegalArgumentException.class);
-		ShapeFactory.INST.createLine(10d, ShapeFactory.INST.createPoint(x, y));
+		assertThrows(IllegalArgumentException.class, () -> ShapeFactory.INST.createLine(10d, ShapeFactory.INST.createPoint(x, y)));
 	}
 
 	@Test
@@ -73,14 +68,14 @@ public class TestLine implements HelperTest {
 
 	@Theory
 	public void testConstructors3KO1(@DoubleData(bads = true, vals = {}) final double x, @DoubleData(bads = true, vals = {}) final double y) {
-		thrown.expect(IllegalArgumentException.class);
-		ShapeFactory.INST.createLine(ShapeFactory.INST.createPoint(x, 2d), ShapeFactory.INST.createPoint(1d, y));
+		assertThrows(IllegalArgumentException.class,
+			() -> ShapeFactory.INST.createLine(ShapeFactory.INST.createPoint(x, 2d), ShapeFactory.INST.createPoint(1d, y)));
 	}
 
 	@Theory
 	public void testConstructors3KO2(@DoubleData(bads = true, vals = {}) final double x, @DoubleData(bads = true, vals = {}) final double y) {
-		thrown.expect(IllegalArgumentException.class);
-		ShapeFactory.INST.createLine(ShapeFactory.INST.createPoint(1d, y), ShapeFactory.INST.createPoint(x, -10d));
+		assertThrows(IllegalArgumentException.class,
+			() -> ShapeFactory.INST.createLine(ShapeFactory.INST.createPoint(1d, y), ShapeFactory.INST.createPoint(x, -10d)));
 	}
 
 	@Theory
