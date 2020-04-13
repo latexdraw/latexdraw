@@ -50,7 +50,7 @@ Before reporting a bug, please check the following elements:
 - **Do you have LaTeX and some required packages installed?** The required packages are: `pstricks`, `pstricks-add`, `pst-grad`, `pst-plot`, `geometry`, `pst-tools`.
 To render text thumbnails the app use either GhostScript (`gs`) or `pdftoppm` (provided by `poppler-utils` and Texlive on Linux ).
 
-- **With MikTeX, check that the auto-install of missing packages is enable.** MikTeX can install on-demand (during the compilation of a document) the missing packages. Go in the MikTeX preferences to check that this feature is enable (either 'yes' or 'ask me first'), as depicted by the following screenshot:
+- **With MikTeX, check the auto-install of missing packages is enable.** MikTeX can install on-demand (during the compilation of a document) the missing packages. Go in the MikTeX preferences to check that this feature is enable (either 'yes' or 'ask me first'), as depicted by the following screenshot:
 
 ![miktext config](http://latexdraw.sourceforge.net/images2/miktex.png)
 
@@ -104,7 +104,7 @@ If you want to skip the tests and the linters:
 `mvn clean package -DskipTests -Dcheckstyle.skip -Dspotbugs.skip`
 
 The packaging step is specific for each OS (Fedora, Debian, Windows, MacOSX, etc.):
-it uses tools these OS provide to build installation files.
+it uses tools these OS' provide to build installation files.
 These tools are:
 - On Fedora, you need `rpmbuild`:
  `dnf install rpm-build`
