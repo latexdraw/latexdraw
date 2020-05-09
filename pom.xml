@@ -301,7 +301,7 @@
                                 <argument>--add-modules=latexdraw</argument>
                                 <argument>--launcher=latexdraw-run=latexdraw/net.sf.latexdraw.LaTeXDraw</argument>
                                 <argument>--output=${project.build.directory}/LaTeXDraw-${project.version}</argument>
-                                <argument>--strip-debug</argument>
+<!--                                <argument>&#45;&#45;strip-debug</argument>-->
                                 <argument>--compress=2</argument>
                                 <argument>--no-man-pages</argument>
                                 <argument>--no-header-files</argument>

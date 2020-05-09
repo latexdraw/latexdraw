@@ -273,7 +273,7 @@ public class ViewText extends ViewPositionShape<Text> {
 
 			// Trying ghostscript
 			// gs -dNOPAUSE -dBATCH -sDEVICE=pngalpha -r255 -o pic-1.png doc.pdf
-			log += SystemUtils.getInstance().execute(new String[] {"gs", "-dNOPAUSE", "-dBATCH", "-sDEVICE=pngalpha", //NON-NLS
+			log += SystemUtils.getInstance().execute(new String[] {os.getGSbinPath(), "-dNOPAUSE", "-dBATCH", "-sDEVICE=pngalpha", //NON-NLS
 				"-r255", "-o", basePathPic + ".png", pdfpath}, null).b + SystemUtils.getInstance().eol; //NON-NLS
 
 			final File gsFile = new File(basePathPic + ".png");
@@ -285,7 +285,7 @@ public class ViewText extends ViewPositionShape<Text> {
 				// trying pdftoppm
 				// We defined -r empirically: 127 for a ratio 1:1 with the exported PDF
 				// 255 as we zoom x2 for a better resolution
-				log += SystemUtils.getInstance().execute(new String[] {"pdftoppm", "-png", "-r", "255", pdfpath, basePathPic}, null).b; //NON-NLS
+				log += SystemUtils.getInstance().execute(new String[] {os.getPDFtoPPMbinPath(), "-png", "-r", "255", pdfpath, basePathPic}, null).b; //NON-NLS
 				final File ppmFile = new File(basePathPic + "-1.png"); //NON-NLS
 				if(ppmFile.exists()) {
 					img = toTransparentPNG(new Image(ppmFile.toURI().toString()));

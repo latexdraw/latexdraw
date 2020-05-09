@@ -32,4 +32,16 @@ public class TestOperatingSystem {
 	void testGetPs2pdfBinPath(final OperatingSystem os) {
 		assertThat(os.getPs2pdfBinPath()).isNotEmpty();
 	}
+
+	@ParameterizedTest
+	@EnumSource(OperatingSystem.class)
+	void testGetGSBinPath(final OperatingSystem os) {
+		assertThat(os.getGSbinPath()).isNotEmpty();
+	}
+
+	@ParameterizedTest
+	@EnumSource(OperatingSystem.class)
+	void testGetPDFtoPPMBinPath(final OperatingSystem os) {
+		assertThat(os.getPDFtoPPMbinPath()).isNotEmpty();
+	}
 }

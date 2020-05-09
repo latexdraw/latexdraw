@@ -269,7 +269,21 @@ public final class SystemUtils {
 	 * @return The version of the current ps2eps.
 	 */
 	public @NotNull String getPS2EPSVersion() {
-		return execute(new String[] { getSystem().orElse(OperatingSystem.LINUX).getPS2EPSBinPath(), "--version" }, null).b; //NON-NLS
+		return execute(new String[] { getSystem().orElse(OperatingSystem.LINUX).getPS2EPSBinPath() }, null).b; //NON-NLS
+	}
+
+	/**
+	 * @return The version of the current gs.
+	 */
+	public @NotNull String getGSVersion() {
+		return execute(new String[] { getSystem().orElse(OperatingSystem.LINUX).getGSbinPath(), "-v" }, null).b; //NON-NLS
+	}
+
+	/**
+	 * @return The version of the current gs.
+	 */
+	public @NotNull String getPDFtoPPMVersion() {
+		return execute(new String[] { getSystem().orElse(OperatingSystem.LINUX).getPDFtoPPMbinPath(), "-v" }, null).b; //NON-NLS
 	}
 
 	/**

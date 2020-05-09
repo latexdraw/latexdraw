@@ -46,6 +46,16 @@ public enum OperatingSystem {
 		public String getPs2pdfBinPath() {
 			return "/usr/local/bin/ps2pdf"; //NON-NLS
 		}
+
+		@Override
+		public String getGSbinPath() {
+			return "/usr/local/bin/" + super.getGSbinPath(); //NON-NLS
+		}
+
+		@Override
+		public String getPDFtoPPMbinPath() {
+			return "/usr/local/bin/" + super.getPDFtoPPMbinPath(); //NON-NLS
+		}
 	},
 	MAC_OS_X {
 		@Override
@@ -66,6 +76,16 @@ public enum OperatingSystem {
 		@Override
 		public String getPs2pdfBinPath() {
 			return "/usr/local/bin/ps2pdf"; //NON-NLS
+		}
+
+		@Override
+		public String getGSbinPath() {
+			return "/usr/local/bin/" + super.getGSbinPath(); //NON-NLS
+		}
+
+		@Override
+		public String getPDFtoPPMbinPath() {
+			return "/usr/local/bin/" + super.getPDFtoPPMbinPath(); //NON-NLS
 		}
 	},
 	/** Linux */
@@ -97,5 +117,19 @@ public enum OperatingSystem {
 	 */
 	public String getPs2pdfBinPath() {
 		return "ps2pdf"; //NON-NLS
+	}
+
+	/**
+	 * @return The path where the GhostScript binary is located.
+	 */
+	public String getGSbinPath() {
+		return "gs"; //NON-NLS
+	}
+
+	/**
+	 * @return The path where the pdftoppm binary is located.
+	 */
+	public String getPDFtoPPMbinPath() {
+		return "pdftoppm"; //NON-NLS
 	}
 }

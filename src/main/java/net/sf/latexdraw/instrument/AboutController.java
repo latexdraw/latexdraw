@@ -53,12 +53,36 @@ public class AboutController implements Initializable {
 		licenseText.setText(SystemUtils.getInstance().readTextFile("/res/license.txt")); //NON-NLS
 
 		final StringBuilder builder = new StringBuilder();
-		builder.append("LaTeX version:").append(SystemUtils.getInstance().getLaTeXVersion()).append(SystemUtils.getInstance().eol); //NON-NLS
-		builder.append("DviPS version:").append(SystemUtils.getInstance().getDVIPSVersion()).append(SystemUtils.getInstance().eol); //NON-NLS
-		builder.append("PS2PDF version:").append(SystemUtils.getInstance().eol).append(SystemUtils.getInstance().getPS2PDFVersion()).append(SystemUtils.getInstance().eol); //NON-NLS
-		builder.append("PS2EPSI version:").append(SystemUtils.getInstance().getPS2EPSVersion()).append(SystemUtils.getInstance().eol); //NON-NLS
-		builder.append("Java properties:").append(SystemUtils.getInstance().eol); //NON-NLS
-		System.getProperties().forEach((key, value) -> builder.append(key).append(':').append(' ').append(value).append(SystemUtils.getInstance().eol));
+		builder.append("LaTeX version:") //NON-NLS
+			.append(SystemUtils.getInstance().getLaTeXVersion())
+			.append(SystemUtils.getInstance().eol)
+			.append("DviPS version:") //NON-NLS
+			.append(SystemUtils.getInstance().getDVIPSVersion())
+			.append(SystemUtils.getInstance().eol)
+			.append("PS2PDF version:") //NON-NLS
+			.append(SystemUtils.getInstance().eol)
+			.append(SystemUtils.getInstance().getPS2PDFVersion())
+			.append(SystemUtils.getInstance().eol)
+			.append("GhostScript version:") //NON-NLS
+			.append(SystemUtils.getInstance().eol)
+			.append(SystemUtils.getInstance().getGSVersion())
+			.append(SystemUtils.getInstance().eol)
+			.append("pdftoppm version:") //NON-NLS
+			.append(SystemUtils.getInstance().eol)
+			.append(SystemUtils.getInstance().getPDFtoPPMVersion())
+			.append(SystemUtils.getInstance().eol)
+			.append("PS2EPSI version:") //NON-NLS
+			.append(SystemUtils.getInstance().eol)
+			.append(SystemUtils.getInstance().getPS2EPSVersion())
+			.append(SystemUtils.getInstance().eol)
+			.append("Java properties:") //NON-NLS
+			.append(SystemUtils.getInstance().eol);
+		System.getProperties()
+			.entrySet()
+			.stream()
+			// ignoring user information
+			.filter(entry -> !entry.getKey().toString().contains("user"))
+			.forEach(entry -> builder.append(entry.getKey()).append(':').append(' ').append(entry.getValue()).append(SystemUtils.getInstance().eol));
 		sysText.setText(builder.toString());
 	}
 }
