@@ -26,68 +26,7 @@ public enum OperatingSystem {
 	/** Windows 10 */
 	TEN,
 	/** Mac OS X */
-	MAC_OS_X_CAPITAN {
-		@Override
-		public String getPS2EPSBinPath() {
-			return "/usr/local/bin/ps2epsi"; //NON-NLS
-		}
-
-		@Override
-		public String getLatexBinPath() {
-			return "/Library/TeX/texbin/latex"; //NON-NLS
-		}
-
-		@Override
-		public String getDvipsBinPath() {
-			return "/Library/TeX/texbin/dvips"; //NON-NLS
-		}
-
-		@Override
-		public String getPs2pdfBinPath() {
-			return "/usr/local/bin/ps2pdf"; //NON-NLS
-		}
-
-		@Override
-		public String getGSbinPath() {
-			return "/usr/local/bin/" + super.getGSbinPath(); //NON-NLS
-		}
-
-		@Override
-		public String getPDFtoPPMbinPath() {
-			return "/usr/local/bin/" + super.getPDFtoPPMbinPath(); //NON-NLS
-		}
-	},
-	MAC_OS_X {
-		@Override
-		public String getPS2EPSBinPath() {
-			return "/usr/local/bin/ps2epsi"; //NON-NLS
-		}
-
-		@Override
-		public String getLatexBinPath() {
-			return "/usr/texbin/latex"; //NON-NLS
-		}
-
-		@Override
-		public String getDvipsBinPath() {
-			return "/usr/texbin/dvips"; //NON-NLS
-		}
-
-		@Override
-		public String getPs2pdfBinPath() {
-			return "/usr/local/bin/ps2pdf"; //NON-NLS
-		}
-
-		@Override
-		public String getGSbinPath() {
-			return "/usr/local/bin/" + super.getGSbinPath(); //NON-NLS
-		}
-
-		@Override
-		public String getPDFtoPPMbinPath() {
-			return "/usr/local/bin/" + super.getPDFtoPPMbinPath(); //NON-NLS
-		}
-	},
+	MAC_OS_X,
 	/** Linux */
 	LINUX;
 

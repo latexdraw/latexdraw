@@ -167,24 +167,10 @@ public final class SystemUtils {
 	}
 
 	/**
-	 * @return True: the operating system currently used is Mac OS X El Capitan.
-	 */
-	public boolean isMacOSXElCapitan() {
-		return getSystem().orElse(null) == OperatingSystem.MAC_OS_X_CAPITAN;
-	}
-
-	/**
-	 * @return True: the operating system currently used is Mac OS.
-	 */
-	public boolean isMac() {
-		return isMacOSX() || isMacOSXElCapitan();
-	}
-
-	/**
 	 * @return The control modifier used by the currently used operating system.
 	 */
 	public @NotNull KeyCode getControlKey() {
-		if(isMac()) {
+		if(isMacOSX()) {
 			return KeyCode.META;
 		}
 		return KeyCode.CONTROL;
@@ -213,7 +199,7 @@ public final class SystemUtils {
 		}
 
 		if("mac os x".equalsIgnoreCase(os)) { //NON-NLS
-			return getMacSystem();
+			return Optional.of(OperatingSystem.MAC_OS_X);
 		}
 
 		if(os.toLowerCase().contains("windows 8")) { //NON-NLS
@@ -227,21 +213,6 @@ public final class SystemUtils {
 		BadaboomCollector.INSTANCE.add(new IllegalArgumentException("This OS is not supported: " + os)); //NON-NLS
 
 		return Optional.empty();
-	}
-
-	private Optional<OperatingSystem> getMacSystem() {
-		final String[] v = System.getProperty("os.version").split("\\."); //NON-NLS
-		final double[] d = new double[v.length];
-
-		for(int i = 0; i < v.length; i++) {
-			d[i] = Double.parseDouble(v[i]);
-		}
-
-		// A change since El Capitan
-		if((d.length >= 1 && d[0] > 10) || (d.length >= 2 && d[0] == 10 && d[1] >= 11)) {
-			return Optional.of(OperatingSystem.MAC_OS_X_CAPITAN);
-		}
-		return Optional.of(OperatingSystem.MAC_OS_X);
 	}
 
 	/**
@@ -303,6 +274,13 @@ public final class SystemUtils {
 			final ProcessBuilder builder = new ProcessBuilder(cmd).
 				redirectErrorStream(true).
 				directory(tmpdir);
+
+			if(isMacOSX()) {
+				builder.environment().put("PATH", builder.environment().get("PATH") +
+					File.pathSeparator + "/usr/local/bin/" + File.pathSeparator + "/Library/TeX/texbin/" +
+					File.pathSeparator + "/usr/texbin/");
+			}
+
 			final Process process = builder.start();
 
 			try(final InputStream is = process.getInputStream();
