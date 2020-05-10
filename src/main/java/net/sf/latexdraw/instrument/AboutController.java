@@ -75,13 +75,19 @@ public class AboutController implements Initializable {
 			.append(SystemUtils.getInstance().eol)
 			.append(SystemUtils.getInstance().getPS2EPSVersion())
 			.append(SystemUtils.getInstance().eol)
+			.append("PATH:") //NON-NLS
+			.append(SystemUtils.getInstance().eol)
+			.append(System.getenv("PATH")) //NON-NLS
+			.append(SystemUtils.getInstance().eol)
+			.append(SystemUtils.getInstance().eol)
 			.append("Java properties:") //NON-NLS
 			.append(SystemUtils.getInstance().eol);
+
 		System.getProperties()
 			.entrySet()
 			.stream()
 			// ignoring user information
-			.filter(entry -> !entry.getKey().toString().contains("user"))
+			.filter(entry -> !entry.getKey().toString().contains("user")) //NON-NLS
 			.forEach(entry -> builder.append(entry.getKey()).append(':').append(' ').append(entry.getValue()).append(SystemUtils.getInstance().eol));
 		sysText.setText(builder.toString());
 	}
