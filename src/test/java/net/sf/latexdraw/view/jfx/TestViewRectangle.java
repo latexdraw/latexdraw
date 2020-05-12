@@ -133,39 +133,39 @@ public class TestViewRectangle extends TestViewBorderedShape<ViewRectangle, Rect
 	@Test
 	void testBorderLineArcWidth() {
 		getModel().setLineArc(0.33);
-		assertEquals(0.33 * getModel().getWidth(), getBorder().getArcWidth(), 0.000001);
+		assertEquals(0.33 * Math.min(getModel().getWidth(), getModel().getHeight()), getBorder().getArcWidth(), 0.000001);
 	}
 
 	@Test
 	void testBorderLineArcHeight() {
 		getModel().setLineArc(0.33);
-		assertEquals(0.33 * getModel().getHeight(), getBorder().getArcHeight(), 0.000001);
+		assertEquals(0.33 * Math.min(getModel().getWidth(), getModel().getHeight()), getBorder().getArcHeight(), 0.000001);
 	}
 
 	@Test
 	void testShadowLineArcWidth() {
 		getModel().setLineArc(0.33);
-		assertEquals(0.33 * getModel().getWidth(), getView().getShadow().orElseThrow().getArcWidth(), 0.000001);
+		assertEquals(0.33 * Math.min(getModel().getWidth(), getModel().getHeight()), getView().getShadow().orElseThrow().getArcWidth(), 0.000001);
 	}
 
 	@Test
 	void testShadowLineArcHeight() {
 		getModel().setLineArc(0.33);
-		assertEquals(0.33 * getModel().getHeight(), getView().getShadow().orElseThrow().getArcHeight(), 0.000001);
+		assertEquals(0.33 * Math.min(getModel().getWidth(), getModel().getHeight()), getView().getShadow().orElseThrow().getArcHeight(), 0.000001);
 	}
 
 	@Test
 	void testDbleLineArcWidth() {
 		if(getModel().isDbleBorderable()) {
 			getModel().setLineArc(0.33);
-			assertEquals(0.33 * getModel().getWidth(), getView().getDbleBorder().orElseThrow().getArcWidth(), 0.000001);
+			assertEquals(0.33 * Math.min(getModel().getWidth(), getModel().getHeight()), getView().getDbleBorder().orElseThrow().getArcWidth(), 0.000001);
 		}
 	}
 
 	@Test
 	void testDbleLineArcHeight() {
 		getModel().setLineArc(0.33);
-		assertEquals(0.33 * getModel().getHeight(), getView().getDbleBorder().orElseThrow().getArcHeight(), 0.000001);
+		assertEquals(0.33 * Math.min(getModel().getWidth(), getModel().getHeight()), getView().getDbleBorder().orElseThrow().getArcHeight(), 0.000001);
 	}
 
 	@Override

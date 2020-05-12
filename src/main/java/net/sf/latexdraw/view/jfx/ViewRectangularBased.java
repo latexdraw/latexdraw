@@ -22,19 +22,18 @@ import net.sf.latexdraw.model.api.shape.SingleShape;
 public abstract class ViewRectangularBased<T extends SingleShape> extends ViewSingleShape<T, Rectangle> {
 	final ChangeListener<? super Number> lineArcCall = (observable, oldValue, newValue) -> {
 		final double lineArc = newValue.doubleValue();
-		final double width = model.getWidth();
-		final double height = model.getHeight();
+		final double size = Math.min(model.getWidth(), model.getHeight());
 
-		border.setArcHeight(lineArc * height);
-		border.setArcWidth(lineArc * width);
+		border.setArcHeight(lineArc * size);
+		border.setArcWidth(lineArc * size);
 
 		if(shadow != null) {
-			shadow.setArcHeight(lineArc * height);
-			shadow.setArcWidth(lineArc * width);
+			shadow.setArcHeight(lineArc * size);
+			shadow.setArcWidth(lineArc * size);
 		}
 		if(dblBorder != null) {
-			dblBorder.setArcHeight(lineArc * height);
-			dblBorder.setArcWidth(lineArc * width);
+			dblBorder.setArcHeight(lineArc * size);
+			dblBorder.setArcWidth(lineArc * size);
 		}
 	};
 
