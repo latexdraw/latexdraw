@@ -80,7 +80,7 @@ public class LaTeXDraw extends JfxUI {
 		loadProgress.progressProperty().bind(task.progressProperty());
 
 		final Pane splashLayout = new VBox();
-		final Image img = new Image("res/LaTeXDrawSmall.png"); //NON-NLS
+		final Image img = new Image("res/LaTeXDrawSmall.png", 450, 250, true, true); //NON-NLS
 		final ImageView splash = new ImageView(img);
 		splashLayout.getChildren().addAll(splash, loadProgress);
 		splashLayout.setEffect(new DropShadow());

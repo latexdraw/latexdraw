@@ -15,7 +15,7 @@
                 <BorderPane>
                     <center>
                         <ImageView>
-                            <Image url="@/res/LaTeXDrawSmall.png"/>
+                            <Image url="@/res/LaTeXDrawSmall.png" requestedWidth="450" requestedHeight="250" preserveRatio="true" smooth="true"/>
                         </ImageView>
                     </center>
                     <bottom>

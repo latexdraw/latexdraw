@@ -5,4 +5,4 @@ Version 4.0.2 --
 - fix: Text position ignored when loading a file
 - fix: Zoom spinner not updated on file loading
 - fix: Rounded rectangle not correctly rendered
-- fix: better resolution of the app icon
+- fix: better resolution of the app icons
