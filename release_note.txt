@@ -3,4 +3,5 @@ Version 4.0.2 --
 
 - fix: thumbnails creation did not work on MacOSX
 - fix: Text position ignored when loading a file
+- fix: Zoom spinner not updated on file loading
 - fix: better resolution of the app icon

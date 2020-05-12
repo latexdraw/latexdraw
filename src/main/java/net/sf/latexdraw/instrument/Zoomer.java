@@ -15,6 +15,7 @@ import io.github.interacto.jfx.instrument.BasicZoomer;
 import java.net.URL;
 import java.util.Objects;
 import java.util.ResourceBundle;
+import javafx.beans.value.ChangeListener;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Spinner;
@@ -29,6 +30,7 @@ import org.jetbrains.annotations.NotNull;
 public class Zoomer extends BasicZoomer<Canvas> implements Initializable {
 	@FXML private Spinner<Double> zoom;
 	private final @NotNull Canvas canvas;
+	private final ChangeListener<Number> zoomChange = (observable, oldValue, newValue) -> zoom.getValueFactory().setValue(newValue.doubleValue() * 100d);
 
 	@Inject
 	public Zoomer(final Canvas canvas) {
@@ -41,6 +43,10 @@ public class Zoomer extends BasicZoomer<Canvas> implements Initializable {
 		setZoomable(canvas);
 		setWithKeys(true);
 		setActivated(true);
+
+		// Cannot use a data binding here since interacting with the widget will produce
+		// an 'already bound' exception
+		zoomable.zoomProperty().addListener(zoomChange);
 
 		// Conflict between the standard scroll interaction of the scrollpane
 		// and the scroll-zoom interaction. Must consume the event
@@ -70,7 +76,8 @@ public class Zoomer extends BasicZoomer<Canvas> implements Initializable {
 	}
 
 	@Override
-	public void reinit() {
-		zoom.getValueFactory().setValue(zoomable.getZoom() * 100d);
+	public void uninstallBindings() {
+		super.uninstallBindings();
+		zoomable.zoomProperty().removeListener(zoomChange);
 	}
 }
