@@ -48,6 +48,7 @@ public class ViewText extends ViewPositionShape<Text> {
 	private final ChangeListener<String> textUpdate;
 	private Future<?> currentCompilation;
 	private final LaTeXDataService latexData;
+	private final ChangeListener<Object> updateTrText = (observable, oldValue, newValue) -> updateTranslationCompiledText();
 
 	static {
 		LOGGER.setLevel(Level.OFF);
@@ -81,36 +82,15 @@ public class ViewText extends ViewPositionShape<Text> {
 		textUpdate = (observable, oldValue, newValue) -> update();
 		model.textProperty().addListener(textUpdate);
 
-		bindTextPosition();
-
 		getChildren().add(text);
 		getChildren().add(compiledText);
 		setImageTextEnable(false);
 		update();
+		bindTextPosition();
 	}
 
 	private final void bindTextPosition() {
-		compiledText.translateXProperty().bind(Bindings.createDoubleBinding(() -> {
-			if(compiledText.getImage() == null) {
-				return 0d;
-			}
-			return switch(model.getTextPosition()) {
-				case BOT_LEFT, TOP_LEFT, LEFT -> 0d;
-				case BOT, TOP, CENTER -> -compiledText.getImage().getWidth() / 4d;
-				case BOT_RIGHT, TOP_RIGHT, RIGHT -> -compiledText.getImage().getWidth() / 2d;
-			};
-		}, model.textPositionProperty()));
-
-		compiledText.translateYProperty().bind(Bindings.createDoubleBinding(() -> {
-			if(compiledText.getImage() == null) {
-				return 0d;
-			}
-			return switch(model.getTextPosition()) {
-				case BOT_LEFT, BOT, BOT_RIGHT -> 0d;
-				case TOP_LEFT, TOP, TOP_RIGHT -> -compiledText.getImage().getHeight() / 2d;
-				case LEFT, RIGHT, CENTER -> -compiledText.getImage().getHeight() / 4d;
-			};
-		}, model.textPositionProperty()));
+		model.textPositionProperty().addListener(updateTrText);
 
 		text.translateXProperty().bind(Bindings.createDoubleBinding(() -> switch(model.getTextPosition()) {
 			case BOT_LEFT, TOP_LEFT, LEFT -> 0d;
@@ -166,8 +146,27 @@ public class ViewText extends ViewPositionShape<Text> {
 			Tooltip.uninstall(text, compileTooltip);
 			compiledText.setImage(values.a);
 			setImageTextEnable(true);
+			updateTranslationCompiledText();
 
 			getCanvasParent().ifPresent(canvas -> canvas.update());
+		}
+	}
+
+	private void updateTranslationCompiledText() {
+		if(compiledText.getImage() == null) {
+			compiledText.setTranslateX(0d);
+			compiledText.setTranslateY(0d);
+		}else {
+			compiledText.setTranslateX(switch(model.getTextPosition()) {
+				case BOT_LEFT, TOP_LEFT, LEFT -> 0d;
+				case BOT, TOP, CENTER -> -compiledText.getImage().getWidth() / 4d;
+				case BOT_RIGHT, TOP_RIGHT, RIGHT -> -compiledText.getImage().getWidth() / 2d;
+			});
+			compiledText.setTranslateY(switch(model.getTextPosition()) {
+				case BOT_LEFT, BOT, BOT_RIGHT -> 0d;
+				case TOP_LEFT, TOP, TOP_RIGHT -> -compiledText.getImage().getHeight() / 2d;
+				case LEFT, RIGHT, CENTER -> -compiledText.getImage().getHeight() / 4d;
+			});
 		}
 	}
 
@@ -332,6 +331,7 @@ public class ViewText extends ViewPositionShape<Text> {
 		compiledText.translateYProperty().unbind();
 		text.translateXProperty().unbind();
 		text.translateYProperty().unbind();
+		model.textPositionProperty().removeListener(updateTrText);
 		super.flush();
 	}
 }
