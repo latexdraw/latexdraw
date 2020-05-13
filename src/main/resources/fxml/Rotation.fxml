@@ -25,7 +25,7 @@
                 </ImageView>
             </graphic>
             <tooltip>
-                <Tooltip text="%stop"/>
+                <Tooltip text="A 90 degree rotation"/>
             </tooltip>
         </Button>
         <Button fx:id="rotate180Button">
@@ -35,7 +35,7 @@
                 </ImageView>
             </graphic>
             <tooltip>
-                <Tooltip text="%shadowShape"/>
+                <Tooltip text="A 180 degree rotation"/>
             </tooltip>
         </Button>
         <Button fx:id="rotate270Button">
@@ -45,7 +45,7 @@
                 </ImageView>
             </graphic>
             <tooltip>
-                <Tooltip text="%shadowColor"/>
+                <Tooltip text="A 270 degree rotation"/>
             </tooltip>
         </Button>
     </HBox>

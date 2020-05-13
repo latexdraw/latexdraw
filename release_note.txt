@@ -7,3 +7,4 @@ Version 4.0.2 --
 - fix: Rounded rectangle not correctly rendered
 - fix: better ctrl-scroll zooming (consider the pointer)
 - fix: better resolution of the app icons
+- fix: invalid tooltips

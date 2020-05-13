@@ -14,14 +14,14 @@
         <LSpinner fx:id="tlxS" prefHeight="25.0" prefWidth="85.0" layoutX="40.0" layoutY="6.0" initialValue="0.0" amountToStepBy="1.0"
                   min="-100000" max="100000" editable="true">
             <tooltip>
-                <Tooltip text="ShapeCoord.1"/>
+                <Tooltip text="Sets the X position of the shape"/>
             </tooltip>
         </LSpinner>
         <Label layoutX="0.0" layoutY="39.0" text="y"/>
         <LSpinner fx:id="tlyS" prefHeight="25.0" prefWidth="85.0" layoutX="40.0" layoutY="36.0" initialValue="0.0" amountToStepBy="1.0"
                  min="-100000" max="100000" editable="true">
             <tooltip>
-                <Tooltip text="ShapeCoord.2"/>
+                <Tooltip text="Sets the Y position of the shape"/>
             </tooltip>
         </LSpinner>
     </AnchorPane>
