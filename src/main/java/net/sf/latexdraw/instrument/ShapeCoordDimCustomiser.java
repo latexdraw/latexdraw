@@ -61,7 +61,6 @@ public class ShapeCoordDimCustomiser extends ShapePropertyCustomiser {
 	protected void configureBindings() {
 		final var bindingFragment = spinnerBinder()
 			.toProduce(i -> new TranslateShapes(drawing, drawing.getSelection().duplicateDeep(false)))
-			.continuousExecution()
 			.end(i -> update());
 
 		bindingFragment

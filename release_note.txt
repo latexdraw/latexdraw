@@ -1,10 +1,11 @@
 ************************************************************
 Version 4.0.2 --
 
+- improvement: better ctrl-scroll zooming (consider the pointer)
 - fix: thumbnails creation did not work on MacOSX
 - fix: Text position ignored when loading a file
 - fix: Zoom spinner not updated on file loading
 - fix: Rounded rectangle not correctly rendered
-- fix: better ctrl-scroll zooming (consider the pointer)
+- fix: setting the position of a shape manually did not work as expected
 - fix: better resolution of the app icons
 - fix: invalid tooltips
