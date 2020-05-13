@@ -31,10 +31,6 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
-import javafx.animation.KeyFrame;
-import javafx.animation.KeyValue;
-import javafx.animation.ParallelTransition;
-import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.DoubleProperty;
@@ -51,7 +47,6 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.StrokeLineCap;
 import javafx.scene.transform.NonInvertibleTransformException;
 import javafx.scene.transform.Transform;
-import javafx.util.Duration;
 import net.sf.latexdraw.command.Modifying;
 import net.sf.latexdraw.model.MathUtils;
 import net.sf.latexdraw.model.ShapeFactory;
@@ -456,16 +451,25 @@ public class Canvas extends Pane implements Preferenciable, Modifiable, Reinitia
 	@Override
 	public void setZoom(final double x, final double y, final double z) {
 		if(z <= getMaxZoom() && z >= getMinZoom() && !MathUtils.INST.equalsDouble(z, zoom.getValue())) {
+			final double oldZoom = zoom.get();
 			zoom.setValue(z);
-			final Duration duration = Duration.millis(250);
-			final ParallelTransition parallelTransition = new ParallelTransition();
+			setScaleX(z);
+			setScaleY(z);
 
-			parallelTransition.getChildren().addAll(
-				new Timeline(new KeyFrame(duration, new KeyValue(scaleYProperty(), z))),
-				new Timeline(new KeyFrame(duration, new KeyValue(scaleXProperty(), z)))
-			);
+			if(MathUtils.INST.isValidPt(x, y)) {
+				final ScrollPane sp = getScrollPane();
+				sp.layout();
 
-			parallelTransition.play();
+				final double newX = x / oldZoom * z;
+				final double newY = y / oldZoom * z;
+				final double gapX = newX - x;
+				final double gapY = newY - y;
+				final double gapInH = gapX / (getWidth() - sp.getViewportBounds().getWidth());
+				final double gapInV = gapY / (getHeight() - sp.getViewportBounds().getHeight());
+
+				sp.setHvalue(sp.getHvalue() + gapInH);
+				sp.setVvalue(sp.getVvalue() + gapInV);
+			}
 			setModified(true);
 		}
 	}
