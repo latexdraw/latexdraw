@@ -9,3 +9,4 @@ Version 4.0.2 --
 - fix: setting the position of a shape manually did not work as expected
 - fix: better resolution of the app icons
 - fix: invalid tooltips
+- change: we removed the use of the shared templates folder

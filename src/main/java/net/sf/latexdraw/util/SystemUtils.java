@@ -58,8 +58,6 @@ public final class SystemUtils {
 	public final String fileSep = System.getProperty("file.separator");
 	/** The name of the cache directory */
 	public final String cacheDir = ".cache"; //NON-NLS
-	/** The name of the cache directory for shared templates */
-	public final String cacheSharedDir = ".cacheShared"; //NON-NLS
 	/** The name of the templates directory */
 	public final String templateDir = "templates"; //NON-NLS
 
@@ -95,10 +93,6 @@ public final class SystemUtils {
 			BadaboomCollector.INSTANCE.add(ex);
 		}
 		return Optional.empty();
-	}
-
-	public @NotNull String getPathCacheShareDir() {
-		return getPathLocalUser() + File.separator + cacheSharedDir;
 	}
 
 	public @NotNull String getPathCacheDir() {
@@ -382,53 +376,6 @@ public final class SystemUtils {
 		return home + "/.latexdraw"; //NON-NLS
 	}
 
-
-	/**
-	 * @return The path of the directory where the templates shared by the different users are located.
-	 */
-	public @NotNull String getPathTemplatesShared() {
-		return getPathShared() + File.separator + templateDir;
-	}
-
-
-	/**
-	 * @return The path where files are shared by users.
-	 */
-	private @NotNull String getPathShared() {
-		final String home = System.getProperty("user.home"); //NON-NLS
-
-		if(OperatingSystem.isMacOSX()) {
-			return "/Users/Shared/latexdraw"; //NON-NLS
-		}
-
-		if(OperatingSystem.isVista()) {
-			File dir = new File("C:\\ProgramData"); //NON-NLS
-			int cpt = 0;
-			final int max = 10;
-
-			while(cpt < max && !dir.exists()) {
-				dir = new File((char) ('C' + cpt++) + ":\\ProgramData"); //NON-NLS
-			}
-
-			if(dir.exists()) {
-				return dir.getPath() + "\\latexdraw"; //NON-NLS
-			}
-
-			return home.substring(0, 1 + home.lastIndexOf('\\')) + "All Users\\Application Data\\latexdraw"; //NON-NLS
-		}
-
-		if(OperatingSystem.isSeven() || OperatingSystem.is8() || OperatingSystem.is10()) {
-			return home.substring(0, 1 + home.lastIndexOf('\\')) + "Default\\AppData\\Local\\latexdraw"; //NON-NLS
-		}
-
-		if(OperatingSystem.isXP()) {
-			return home.substring(0, 1 + home.lastIndexOf('\\')) + "All Users\\Application Data\\latexdraw"; //NON-NLS
-		}
-
-		return "/usr/share/latexdraw"; //NON-NLS
-	}
-
-
 	/**
 	 * Creates the necessary directories for the execution of LaTeXDraw.
 	 */
@@ -437,7 +384,6 @@ public final class SystemUtils {
 			new File(getPathLocalUser()).mkdirs();
 			new File(getPathTemplatesDirUser()).mkdirs();
 			new File(getPathCacheDir()).mkdirs();
-			new File(getPathCacheShareDir()).mkdirs();
 		}catch(final SecurityException ex) {
 			BadaboomCollector.INSTANCE.add(ex);
 		}
