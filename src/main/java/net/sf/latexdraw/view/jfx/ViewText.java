@@ -232,7 +232,7 @@ public class ViewText extends ViewPositionShape<Text> {
 		final String doc = getLaTeXDocument();
 		final String basePathPic = tmpDir.getAbsolutePath() + SystemUtils.getInstance().fileSep + "latexdrawTmpPic" + System.currentTimeMillis(); //NON-NLS
 		final String pathTex = basePathPic + ExportFormat.TEX.getFileExtension();
-		final OperatingSystem os = SystemUtils.getInstance().getSystem().orElse(OperatingSystem.LINUX);
+		final OperatingSystem os = OperatingSystem.getSystem().orElse(OperatingSystem.LINUX);
 
 		LOGGER.log(Level.INFO, doc);
 

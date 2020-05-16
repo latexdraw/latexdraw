@@ -10,6 +10,10 @@
  */
 package net.sf.latexdraw.util;
 
+import java.util.Optional;
+import javafx.scene.input.KeyCode;
+import org.jetbrains.annotations.NotNull;
+
 /**
  * The different operating systems managed.
  * @author Arnaud Blouin
@@ -70,5 +74,111 @@ public enum OperatingSystem {
 	 */
 	public String getPDFtoPPMbinPath() {
 		return "pdftoppm"; //NON-NLS
+	}
+
+	/**
+	 * @return The name of the operating system currently used.
+	 */
+	public static @NotNull Optional<OperatingSystem> getSystem() {
+		final String os = System.getProperty("os.name"); //NON-NLS
+
+		if("linux".equalsIgnoreCase(os)) { //NON-NLS
+			return Optional.of(OperatingSystem.LINUX);
+		}
+
+		if("windows 7".equalsIgnoreCase(os)) { //NON-NLS
+			return Optional.of(OperatingSystem.SEVEN);
+		}
+
+		if("windows vista".equalsIgnoreCase(os)) { //NON-NLS
+			return Optional.of(OperatingSystem.VISTA);
+		}
+
+		if("windows xp".equalsIgnoreCase(os)) { //NON-NLS
+			return Optional.of(OperatingSystem.XP);
+		}
+
+		if("mac os x".equalsIgnoreCase(os)) { //NON-NLS
+			return Optional.of(OperatingSystem.MAC_OS_X);
+		}
+
+		if(os.toLowerCase().contains("windows 8")) { //NON-NLS
+			return Optional.of(OperatingSystem.EIGHT);
+		}
+
+		if(os.toLowerCase().contains("windows 10")) { //NON-NLS
+			return Optional.of(OperatingSystem.TEN);
+		}
+
+		BadaboomCollector.INSTANCE.add(new IllegalArgumentException("This OS is not supported: " + os)); //NON-NLS
+
+		return Optional.empty();
+	}
+
+	/**
+	 * @return True: the operating system currently used is Windows.
+	 */
+	public static boolean isWindows() {
+		return isSeven() || isVista() || isXP() || is8() || is10();
+	}
+
+	/**
+	 * @return True: the operating system currently used is Windows 10.
+	 */
+	public static boolean is10() {
+		return getSystem().orElse(null) == OperatingSystem.TEN;
+	}
+
+	/**
+	 * @return True: the operating system currently used is Windows 8.
+	 */
+	public static boolean is8() {
+		return getSystem().orElse(null) == OperatingSystem.EIGHT;
+	}
+
+	/**
+	 * @return True: the operating system currently used is Vista.
+	 */
+	public static boolean isVista() {
+		return getSystem().orElse(null) == OperatingSystem.VISTA;
+	}
+
+	/**
+	 * @return True: the operating system currently used is XP.
+	 */
+	public static boolean isXP() {
+		return getSystem().orElse(null) == OperatingSystem.XP;
+	}
+
+	/**
+	 * @return True: the operating system currently used is Seven.
+	 */
+	public static boolean isSeven() {
+		return getSystem().orElse(null) == OperatingSystem.SEVEN;
+	}
+
+	/**
+	 * @return True: the operating system currently used is Linux.
+	 */
+	public static boolean isLinux() {
+		return getSystem().orElse(null) == OperatingSystem.LINUX;
+	}
+
+	/**
+	 * @return True: the operating system currently used is Mac OS X.
+	 */
+	public static boolean isMacOSX() {
+		return getSystem().orElse(null) == OperatingSystem.MAC_OS_X;
+	}
+
+
+	/**
+	 * @return The control modifier used by the currently used operating system.
+	 */
+	public static @NotNull KeyCode getControlKey() {
+		if(isMacOSX()) {
+			return KeyCode.META;
+		}
+		return KeyCode.CONTROL;
 	}
 }

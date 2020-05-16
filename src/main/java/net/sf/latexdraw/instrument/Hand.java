@@ -47,7 +47,7 @@ import net.sf.latexdraw.service.PreferencesService;
 import net.sf.latexdraw.util.BadaboomCollector;
 import net.sf.latexdraw.util.Flushable;
 import net.sf.latexdraw.util.Inject;
-import net.sf.latexdraw.util.SystemUtils;
+import net.sf.latexdraw.util.OperatingSystem;
 import net.sf.latexdraw.util.Tuple;
 import net.sf.latexdraw.view.jfx.Canvas;
 import net.sf.latexdraw.view.jfx.MagneticGrid;
@@ -108,14 +108,14 @@ public class Hand extends CanvasInstrument implements Flushable {
 		shortcutBinder()
 			.toProduce(() -> new SelectShapes(canvas.getDrawing()))
 			.on(canvas)
-			.with(KeyCode.A, SystemUtils.getInstance().getControlKey())
+			.with(KeyCode.A, OperatingSystem.getControlKey())
 			.first(c -> c.getShapes().addAll(canvas.getDrawing().getShapes()))
 			.bind();
 
 		shortcutBinder()
 			.toProduce(() -> new UpdateToGrid(canvas.getMagneticGrid(), canvas.getDrawing().getSelection().duplicateDeep(false)))
 			.on(canvas)
-			.with(KeyCode.U, SystemUtils.getInstance().getControlKey())
+			.with(KeyCode.U, OperatingSystem.getControlKey())
 			.when(i -> prefs.isMagneticGrid())
 			.bind();
 	}

@@ -29,7 +29,6 @@ import java.util.concurrent.ThreadLocalRandom;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Stream;
-import javafx.scene.input.KeyCode;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.FactoryConfigurationError;
@@ -111,150 +110,45 @@ public final class SystemUtils {
 	}
 
 	/**
-	 * @return True: the operating system currently used is Windows.
-	 */
-	public boolean isWindows() {
-		return isSeven() || isVista() || isXP() || is8() || is10();
-	}
-
-	/**
-	 * @return True: the operating system currently used is Windows 10.
-	 */
-	public boolean is10() {
-		return getSystem().orElse(null) == OperatingSystem.TEN;
-	}
-
-	/**
-	 * @return True: the operating system currently used is Windows 8.
-	 */
-	public boolean is8() {
-		return getSystem().orElse(null) == OperatingSystem.EIGHT;
-	}
-
-	/**
-	 * @return True: the operating system currently used is Vista.
-	 */
-	public boolean isVista() {
-		return getSystem().orElse(null) == OperatingSystem.VISTA;
-	}
-
-	/**
-	 * @return True: the operating system currently used is XP.
-	 */
-	public boolean isXP() {
-		return getSystem().orElse(null) == OperatingSystem.XP;
-	}
-
-	/**
-	 * @return True: the operating system currently used is Seven.
-	 */
-	public boolean isSeven() {
-		return getSystem().orElse(null) == OperatingSystem.SEVEN;
-	}
-
-	/**
-	 * @return True: the operating system currently used is Linux.
-	 */
-	public boolean isLinux() {
-		return getSystem().orElse(null) == OperatingSystem.LINUX;
-	}
-
-	/**
-	 * @return True: the operating system currently used is Mac OS X.
-	 */
-	public boolean isMacOSX() {
-		return getSystem().orElse(null) == OperatingSystem.MAC_OS_X;
-	}
-
-	/**
-	 * @return The control modifier used by the currently used operating system.
-	 */
-	public @NotNull KeyCode getControlKey() {
-		if(isMacOSX()) {
-			return KeyCode.META;
-		}
-		return KeyCode.CONTROL;
-	}
-
-	/**
-	 * @return The name of the operating system currently used.
-	 */
-	public @NotNull Optional<OperatingSystem> getSystem() {
-		final String os = System.getProperty("os.name"); //NON-NLS
-
-		if("linux".equalsIgnoreCase(os)) { //NON-NLS
-			return Optional.of(OperatingSystem.LINUX);
-		}
-
-		if("windows 7".equalsIgnoreCase(os)) { //NON-NLS
-			return Optional.of(OperatingSystem.SEVEN);
-		}
-
-		if("windows vista".equalsIgnoreCase(os)) { //NON-NLS
-			return Optional.of(OperatingSystem.VISTA);
-		}
-
-		if("windows xp".equalsIgnoreCase(os)) { //NON-NLS
-			return Optional.of(OperatingSystem.XP);
-		}
-
-		if("mac os x".equalsIgnoreCase(os)) { //NON-NLS
-			return Optional.of(OperatingSystem.MAC_OS_X);
-		}
-
-		if(os.toLowerCase().contains("windows 8")) { //NON-NLS
-			return Optional.of(OperatingSystem.EIGHT);
-		}
-
-		if(os.toLowerCase().contains("windows 10")) { //NON-NLS
-			return Optional.of(OperatingSystem.TEN);
-		}
-
-		BadaboomCollector.INSTANCE.add(new IllegalArgumentException("This OS is not supported: " + os)); //NON-NLS
-
-		return Optional.empty();
-	}
-
-	/**
 	 * @return The version of the current LaTeX.
 	 */
 	public @NotNull String getLaTeXVersion() {
-		return execute(new String[] { getSystem().orElse(OperatingSystem.LINUX).getLatexBinPath(), "--version" }, null).b; //NON-NLS
+		return execute(new String[] { OperatingSystem.getSystem().orElse(OperatingSystem.LINUX).getLatexBinPath(), "--version" }, null).b; //NON-NLS
 	}
 
 	/**
 	 * @return The version of the current dvips.
 	 */
 	public @NotNull String getDVIPSVersion() {
-		return execute(new String[] { getSystem().orElse(OperatingSystem.LINUX).getDvipsBinPath(), "--version" }, null).b; //NON-NLS
+		return execute(new String[] { OperatingSystem.getSystem().orElse(OperatingSystem.LINUX).getDvipsBinPath(), "--version" }, null).b; //NON-NLS
 	}
 
 	/**
 	 * @return The version of the current ps2pdf.
 	 */
 	public @NotNull String getPS2PDFVersion() {
-		return execute(new String[] { getSystem().orElse(OperatingSystem.LINUX).getPs2pdfBinPath() }, null).b;
+		return execute(new String[] { OperatingSystem.getSystem().orElse(OperatingSystem.LINUX).getPs2pdfBinPath() }, null).b;
 	}
 
 	/**
 	 * @return The version of the current ps2eps.
 	 */
 	public @NotNull String getPS2EPSVersion() {
-		return execute(new String[] { getSystem().orElse(OperatingSystem.LINUX).getPS2EPSBinPath() }, null).b; //NON-NLS
+		return execute(new String[] { OperatingSystem.getSystem().orElse(OperatingSystem.LINUX).getPS2EPSBinPath() }, null).b; //NON-NLS
 	}
 
 	/**
 	 * @return The version of the current gs.
 	 */
 	public @NotNull String getGSVersion() {
-		return execute(new String[] { getSystem().orElse(OperatingSystem.LINUX).getGSbinPath(), "-v" }, null).b; //NON-NLS
+		return execute(new String[] { OperatingSystem.getSystem().orElse(OperatingSystem.LINUX).getGSbinPath(), "-v" }, null).b; //NON-NLS
 	}
 
 	/**
 	 * @return The version of the current gs.
 	 */
 	public @NotNull String getPDFtoPPMVersion() {
-		return execute(new String[] { getSystem().orElse(OperatingSystem.LINUX).getPDFtoPPMbinPath(), "-v" }, null).b; //NON-NLS
+		return execute(new String[] { OperatingSystem.getSystem().orElse(OperatingSystem.LINUX).getPDFtoPPMbinPath(), "-v" }, null).b; //NON-NLS
 	}
 
 	/**
@@ -271,14 +165,26 @@ public final class SystemUtils {
 		final StringBuilder log = new StringBuilder();
 
 		try {
-			final ProcessBuilder builder = new ProcessBuilder(cmd).
-				redirectErrorStream(true).
-				directory(tmpdir);
+			final ProcessBuilder builder = new ProcessBuilder()
+				.redirectErrorStream(true)
+				.directory(tmpdir);
 
-			if(isMacOSX()) {
-				builder.environment().put("PATH", builder.environment().get("PATH") +
-					File.pathSeparator + "/usr/local/bin/" + File.pathSeparator + "/Library/TeX/texbin/" +
-					File.pathSeparator + "/usr/texbin/");
+			// Fuck MacOS and their LaTeX installations that do not update
+			// the global PATH correctly
+			if(OperatingSystem.isMacOSX()) {
+				// Fuck ProcessBuilder which environment routine
+				// does not permit to set the path to use in the process
+				// So has to do this bloody workaround where the PATH is first
+				// updated to be used in the command to launch
+				builder.command(
+					"bash",
+					"-c",
+					"PATH=" + builder.environment().get("PATH") + File.pathSeparator + "/usr/local/bin/" +
+					File.pathSeparator + "/Library/TeX/texbin/" + File.pathSeparator + "/usr/texbin/" + ' ' +
+					String.join(" ", cmd)
+				);
+			}else {
+				builder.command(cmd);
 			}
 
 			final Process process = builder.start();
@@ -343,7 +249,7 @@ public final class SystemUtils {
 		if(str == null) {
 			return null;
 		}
-		if(isWindows()) {
+		if(OperatingSystem.isWindows()) {
 			return str.replaceAll("\\\\", "/").replaceAll("~", "\\\\string~"); //NON-NLS
 		}
 		return str.replaceAll("~", "\\\\string~"); //NON-NLS
@@ -464,13 +370,13 @@ public final class SystemUtils {
 	public @NotNull String getPathLocalUser() {
 		final String home = System.getProperty("user.home"); //NON-NLS
 
-		if(isVista() || isSeven() || is8() || is10()) {
+		if(OperatingSystem.isWindows() && !OperatingSystem.isXP()) {
 			return home + "\\AppData\\Local\\latexdraw"; //NON-NLS
 		}
-		if(isXP()) {
+		if(OperatingSystem.isXP()) {
 			return home + "\\Application Data\\latexdraw"; //NON-NLS
 		}
-		if(isMacOSX()) {
+		if(OperatingSystem.isMacOSX()) {
 			return home + "/Library/Preferences/latexdraw"; //NON-NLS
 		}
 		return home + "/.latexdraw"; //NON-NLS
@@ -491,11 +397,11 @@ public final class SystemUtils {
 	private @NotNull String getPathShared() {
 		final String home = System.getProperty("user.home"); //NON-NLS
 
-		if(isMacOSX()) {
+		if(OperatingSystem.isMacOSX()) {
 			return "/Users/Shared/latexdraw"; //NON-NLS
 		}
 
-		if(isVista()) {
+		if(OperatingSystem.isVista()) {
 			File dir = new File("C:\\ProgramData"); //NON-NLS
 			int cpt = 0;
 			final int max = 10;
@@ -511,11 +417,11 @@ public final class SystemUtils {
 			return home.substring(0, 1 + home.lastIndexOf('\\')) + "All Users\\Application Data\\latexdraw"; //NON-NLS
 		}
 
-		if(isSeven() || is8() || is10()) {
+		if(OperatingSystem.isSeven() || OperatingSystem.is8() || OperatingSystem.is10()) {
 			return home.substring(0, 1 + home.lastIndexOf('\\')) + "Default\\AppData\\Local\\latexdraw"; //NON-NLS
 		}
 
-		if(isXP()) {
+		if(OperatingSystem.isXP()) {
 			return home.substring(0, 1 + home.lastIndexOf('\\')) + "All Users\\Application Data\\latexdraw"; //NON-NLS
 		}
 

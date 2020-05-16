@@ -18,6 +18,7 @@ import java.util.stream.Stream;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import net.sf.latexdraw.util.Flushable;
+import net.sf.latexdraw.util.OperatingSystem;
 import net.sf.latexdraw.util.SystemUtils;
 import net.sf.latexdraw.view.latex.VerticalPosition;
 import org.jetbrains.annotations.NotNull;
@@ -58,7 +59,7 @@ public class LaTeXDataService implements Modifiable, Flushable {
 		scale = 1d;
 		packages = new SimpleObjectProperty<>("");
 		// On windows, only one compilation can be done at the same time
-		compilationPool = Executors.newFixedThreadPool(SystemUtils.getInstance().isWindows() ? 1 : 5);
+		compilationPool = Executors.newFixedThreadPool(OperatingSystem.isWindows() ? 1 : 5);
 	}
 
 	/**

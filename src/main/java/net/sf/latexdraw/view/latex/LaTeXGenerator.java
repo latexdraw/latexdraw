@@ -98,7 +98,7 @@ public abstract class LaTeXGenerator {
 		}
 
 		final File psFile = optFile.get();
-		final OperatingSystem os = SystemUtils.getInstance().getSystem().orElse(OperatingSystem.LINUX);
+		final OperatingSystem os = OperatingSystem.getSystem().orElse(OperatingSystem.LINUX);
 		final File finalFile = new File(pathExportEPS);
 		final File fileEPS = new File(psFile.getAbsolutePath().replace(".ps", ExportFormat.EPS_LATEX.getFileExtension())); //NON-NLS
 		final String[] paramsLatex = {os.getPS2EPSBinPath(), psFile.getAbsolutePath(), fileEPS.getAbsolutePath()};
@@ -153,7 +153,7 @@ public abstract class LaTeXGenerator {
 		final File texFile = optFile.get();
 		String log;
 		File finalPS;
-		final OperatingSystem os = SystemUtils.getInstance().getSystem().orElse(OperatingSystem.LINUX);
+		final OperatingSystem os = OperatingSystem.getSystem().orElse(OperatingSystem.LINUX);
 
 		if(!texFile.exists()) {
 			return Optional.empty();
@@ -212,11 +212,11 @@ public abstract class LaTeXGenerator {
 		}
 
 		File pdfFile;
-		final OperatingSystem os = SystemUtils.getInstance().getSystem().orElse(OperatingSystem.LINUX);
+		final OperatingSystem os = OperatingSystem.getSystem().orElse(OperatingSystem.LINUX);
 
 		// On windows, an option must be defined using this format:
 		// -optionName#valueOption Thus, the classical = character must be replaced by a # when latexdraw runs on Windows.
-		final String optionEmbed = "-dEmbedAllFonts" + (SystemUtils.getInstance().isWindows() ? "#" : "=") + "true"; //NON-NLS
+		final String optionEmbed = "-dEmbedAllFonts" + (OperatingSystem.isWindows() ? "#" : "=") + "true"; //NON-NLS
 
 		final String log = SystemUtils.getInstance().execute(new String[] {os.getPs2pdfBinPath(), optionEmbed, psFile.getAbsolutePath(),
 			pathExportPdf}, tmpDir).b;

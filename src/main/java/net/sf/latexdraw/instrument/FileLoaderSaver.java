@@ -34,7 +34,7 @@ import net.sf.latexdraw.service.PreferencesService;
 import net.sf.latexdraw.util.Bindings;
 import net.sf.latexdraw.util.Inject;
 import net.sf.latexdraw.util.Injector;
-import net.sf.latexdraw.util.SystemUtils;
+import net.sf.latexdraw.util.OperatingSystem;
 import net.sf.latexdraw.view.svg.SVGDocumentGenerator;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -146,7 +146,7 @@ public class FileLoaderSaver extends JfxInstrument implements Initializable {
 			.toProduce(() -> new SaveDrawing(true, true, prefService.getCurrentFolder(), getDialog(true),
 				injector, prefService.getCurrentFile().orElse(null), svgGen, statusBar.getProgressBar(), app,
 				statusBar.getLabel(), mainstage, getAskModificationsDialog()))
-			.with(KeyCode.W, SystemUtils.getInstance().getControlKey())
+			.with(KeyCode.W, OperatingSystem.getControlKey())
 			.ifHadEffects((i, c) -> updateOnIOCommand(c.getFile()))
 			.bind();
 
@@ -164,7 +164,7 @@ public class FileLoaderSaver extends JfxInstrument implements Initializable {
 			.toProduce(() -> new SaveDrawing(false, false, prefService.getCurrentFolder(), getDialog(true),
 				injector, prefService.getCurrentFile().orElse(null), svgGen, statusBar.getProgressBar(), app,
 				statusBar.getLabel(), mainstage, getAskModificationsDialog()))
-			.with(KeyCode.S, SystemUtils.getInstance().getControlKey())
+			.with(KeyCode.S, OperatingSystem.getControlKey())
 			.ifHadEffects((i, c) -> updateOnIOCommand(c.getFile()))
 			.bind();
 
@@ -191,7 +191,7 @@ public class FileLoaderSaver extends JfxInstrument implements Initializable {
 		shortcutBaseBinder
 			.toProduce(() -> new LoadDrawing(null, svgGen, statusBar.getProgressBar(), statusBar.getLabel(), app,
 				getDialog(false), prefService.getCurrentFolder(), mainstage, getAskModificationsDialog()))
-			.with(KeyCode.O, SystemUtils.getInstance().getControlKey())
+			.with(KeyCode.O, OperatingSystem.getControlKey())
 			.ifHadEffects((i, c) -> {
 				updateOnIOCommand(c.getFile());
 				updateOnLoad(c.getFile());
@@ -209,7 +209,7 @@ public class FileLoaderSaver extends JfxInstrument implements Initializable {
 		shortcutBaseBinder
 			.toProduce(() -> new NewDrawing(prefService.getCurrentFile().orElse(null), svgGen, statusBar.getProgressBar(),
 				statusBar.getLabel(), app, getDialog(false), prefService.getCurrentFolder(), mainstage, getAskModificationsDialog()))
-			.with(KeyCode.N, SystemUtils.getInstance().getControlKey())
+			.with(KeyCode.N, OperatingSystem.getControlKey())
 			.bind();
 
 		// Recent files menus
