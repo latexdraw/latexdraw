@@ -452,12 +452,12 @@ public class Canvas extends Pane implements Preferenciable, Modifiable, Reinitia
 	public void setZoom(final double x, final double y, final double z) {
 		if(z <= getMaxZoom() && z >= getMinZoom() && !MathUtils.INST.equalsDouble(z, zoom.getValue())) {
 			final double oldZoom = zoom.get();
+			final ScrollPane sp = getScrollPane();
 			zoom.setValue(z);
 			setScaleX(z);
 			setScaleY(z);
 
-			if(MathUtils.INST.isValidPt(x, y)) {
-				final ScrollPane sp = getScrollPane();
+			if(MathUtils.INST.isValidPt(x, y) && sp != null) {
 				sp.layout();
 
 				final double newX = x / oldZoom * z;
