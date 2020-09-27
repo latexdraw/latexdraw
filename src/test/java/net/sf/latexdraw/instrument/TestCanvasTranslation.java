@@ -1,6 +1,7 @@
 package net.sf.latexdraw.instrument;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.List;
 import javafx.geometry.Point2D;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
@@ -80,13 +81,14 @@ public class TestCanvasTranslation extends BaseTestCanvas {
 			sh.setFilled(true);
 			sh.translate(-canvas.getOrigin().getX(), -canvas.getOrigin().getY());
 			canvas.getDrawing().addShape(sh);
+			canvas.getDrawing().setSelection(List.of(sh));
 		}), requestFocusCanvas).execute();
 
 		final Point tl = sh.getTopLeftPoint();
 
-		Cmds.of(() -> clickOn(canvas).press(KeyCode.CONTROL, KeyCode.A),
-		() -> release(KeyCode.CONTROL, KeyCode.A),
-		() -> drag(canvas.getSelectionBorder()).dropBy(101, 163)).execute();
+		Cmds
+			.of(() -> drag(canvas.getSelectionBorder()).dropBy(101, 163))
+			.execute();
 
 		assertEquals(tl.getX() + 101d, sh.getTopLeftPoint().getX(), 5d);
 		assertEquals(tl.getY() + 163d, sh.getTopLeftPoint().getY(), 5d);
