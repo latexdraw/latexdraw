@@ -25,7 +25,6 @@ import net.sf.latexdraw.command.shape.PasteShapes;
 import net.sf.latexdraw.command.shape.SelectShapes;
 import net.sf.latexdraw.service.PreferencesService;
 import net.sf.latexdraw.util.Inject;
-import net.sf.latexdraw.util.OperatingSystem;
 import net.sf.latexdraw.view.jfx.Canvas;
 import net.sf.latexdraw.view.jfx.MagneticGrid;
 import org.jetbrains.annotations.NotNull;
@@ -95,7 +94,7 @@ public class CopierCutterPaster extends CanvasInstrument implements Initializabl
 		baseShortcutBinder
 			.toProduce(() -> new PasteShapes(getCopyCutCmd().orElseThrow(), prefs, canvas.getDrawing()))
 			.on(canvas)
-			.with(KeyCode.V, OperatingSystem.getControlKey())
+			.with(KeyCode.V, KeyCode.SHORTCUT)
 			.when(() -> getCopyCutCmd().isPresent())
 			.bind();
 
@@ -110,7 +109,7 @@ public class CopierCutterPaster extends CanvasInstrument implements Initializabl
 		baseShortcutBinder
 			.toProduce(i -> new CopyShapes(getSelectCmd().orElseThrow()))
 			.on(canvas)
-			.with(KeyCode.C, OperatingSystem.getControlKey())
+			.with(KeyCode.C, KeyCode.SHORTCUT)
 			.when(isShapeSelected)
 			.bind();
 
@@ -125,7 +124,7 @@ public class CopierCutterPaster extends CanvasInstrument implements Initializabl
 		baseShortcutBinder
 			.toProduce(() -> new CutShapes(getSelectCmd().orElseThrow()))
 			.on(canvas)
-			.with(KeyCode.X, OperatingSystem.getControlKey())
+			.with(KeyCode.X, KeyCode.SHORTCUT)
 			.when(isShapeSelected)
 			.bind();
 	}

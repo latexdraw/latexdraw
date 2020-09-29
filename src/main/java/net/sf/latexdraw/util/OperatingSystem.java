@@ -11,7 +11,6 @@
 package net.sf.latexdraw.util;
 
 import java.util.Optional;
-import javafx.scene.input.KeyCode;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -169,16 +168,5 @@ public enum OperatingSystem {
 	 */
 	public static boolean isMacOSX() {
 		return getSystem().orElse(null) == OperatingSystem.MAC_OS_X;
-	}
-
-
-	/**
-	 * @return The control modifier used by the currently used operating system.
-	 */
-	public static @NotNull KeyCode getControlKey() {
-		if(isMacOSX()) {
-			return KeyCode.META;
-		}
-		return KeyCode.CONTROL;
 	}
 }

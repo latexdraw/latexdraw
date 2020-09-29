@@ -22,7 +22,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Tooltip;
 import javafx.scene.input.KeyCode;
 import net.sf.latexdraw.util.Inject;
-import net.sf.latexdraw.util.OperatingSystem;
 import net.sf.latexdraw.view.jfx.Canvas;
 import net.sf.latexdraw.view.jfx.MagneticGrid;
 import org.jetbrains.annotations.NotNull;
@@ -77,13 +76,13 @@ public class UndoRedoManager extends CanvasInstrument implements Initializable {
 		shortcutBinder()
 			.toProduce(Undo::new)
 			.on(canvas)
-			.with(KeyCode.Z, OperatingSystem.getControlKey())
+			.with(KeyCode.Z, KeyCode.SHORTCUT)
 			.bind();
 
 		shortcutBinder()
 			.toProduce(Redo::new)
 			.on(canvas)
-			.with(KeyCode.Y, OperatingSystem.getControlKey())
+			.with(KeyCode.Y, KeyCode.SHORTCUT)
 			.bind();
 	}
 
