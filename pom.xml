@@ -13,10 +13,10 @@
         <interacto.version>4.3.0</interacto.version>
         <antlr.version>4.7.1</antlr.version>
         <java.version>14</java.version>
-        <junit.version>5.6.0</junit.version>
+        <junit.version>5.7.0</junit.version>
         <jfx.version>11.0.2</jfx.version>
         <testfx.version>4.0.15-alpha</testfx.version>
-        <mockito.version>3.2.4</mockito.version>
+        <mockito.version>3.5.13</mockito.version>
         <javafx.platform>linux</javafx.platform>
         <annotations.version>16.0.1</annotations.version>
         <rxjavafx.version>2.11.0-RC33</rxjavafx.version>
@@ -104,29 +104,30 @@
                     <source>${java.version}</source>
                     <target>${java.version}</target>
                     <release>${java.version}</release>
-<!--                    <compilerArgs combine.children="append">-->
-<!--                        <arg>-XDcompilePolicy=simple</arg>-->
-<!--                        <arg>-Xplugin:ErrorProne-->
-<!--                            -Xep:HidingField:ERROR-->
-<!--                            -Xep:InvalidParam:ERROR-->
-<!--                            -Xep:InvalidThrows:ERROR-->
-<!--                            -Xep:TypeParameterNaming:ERROR-->
-<!--                            -Xep:ClassNamedLikeTypeParameter:ERROR-->
-<!--                            -Xep:EqualsBrokenForNull:ERROR-->
-<!--                            -Xep:RedundantThrows:ERROR-->
-<!--                            -Xep:WildcardImport:ERROR-->
-<!--                            -Xep:LambdaFunctionalInterface:ERROR-->
-<!--                            -Xep:StringSplitter:OFF-->
-<!--                            -Xep:DefaultCharset:OFF-->
-<!--                            -XepExcludedPaths:.*/(generated-sources|test)/.*</arg>-->
-<!--                    </compilerArgs>-->
-<!--                    <annotationProcessorPaths>-->
-<!--                        <path>-->
-<!--                            <groupId>com.google.errorprone</groupId>-->
-<!--                            <artifactId>error_prone_core</artifactId>-->
-<!--                            <version>2.3.4</version>-->
-<!--                        </path>-->
-<!--                    </annotationProcessorPaths>-->
+                    <compilerArgs combine.children="append">
+                        <arg>-XDcompilePolicy=simple</arg>
+                        <arg>-Xplugin:ErrorProne
+                            -Xep:HidingField:ERROR
+                            -Xep:InvalidParam:ERROR
+                            -Xep:InvalidThrows:ERROR
+                            -Xep:TypeParameterNaming:ERROR
+                            -Xep:ClassNamedLikeTypeParameter:ERROR
+                            -Xep:EqualsBrokenForNull:ERROR
+                            -Xep:RedundantThrows:ERROR
+                            -Xep:WildcardImport:ERROR
+                            -Xep:LambdaFunctionalInterface:ERROR
+                            -Xep:StringSplitter:OFF
+                            -Xep:NullTernary:OFF
+                            -Xep:DefaultCharset:OFF
+                            -XepExcludedPaths:.*/(generated-sources|test)/.*</arg>
+                    </compilerArgs>
+                    <annotationProcessorPaths>
+                        <path>
+                            <groupId>com.google.errorprone</groupId>
+                            <artifactId>error_prone_core</artifactId>
+                            <version>2.4.0</version>
+                        </path>
+                    </annotationProcessorPaths>
                 </configuration>
             </plugin>
 
@@ -390,7 +391,7 @@
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
-                <version>0.8.5</version>
+                <version>0.8.6</version>
                 <executions>
                     <execution>
                         <id>pre-unit-test</id>
@@ -408,83 +409,76 @@
                 </executions>
             </plugin>
 
-<!--            <plugin>-->
-<!--                <groupId>org.apache.maven.plugins</groupId>-->
-<!--                <artifactId>maven-checkstyle-plugin</artifactId>-->
-<!--                <version>3.1.0</version>-->
-<!--                <configuration>-->
-<!--                    <sourceDirectories>-->
-<!--                        <sourceDirectory>src/main/java</sourceDirectory>-->
-<!--                        <sourceDirectory>src/test/java</sourceDirectory>-->
-<!--                    </sourceDirectories>-->
-<!--                    <failsOnError>true</failsOnError>-->
-<!--                    <configLocation>checkstyle.xml</configLocation>-->
-<!--                    <consoleOutput>true</consoleOutput>-->
-<!--                    <linkXRef>false</linkXRef>-->
-<!--                </configuration>-->
-<!--                <executions>-->
-<!--                    <execution>-->
-<!--                        <phase>compile</phase>-->
-<!--                        <goals>-->
-<!--                            <goal>checkstyle</goal>-->
-<!--                        </goals>-->
-<!--                    </execution>-->
-<!--                </executions>-->
-<!--                <dependencies>-->
-<!--                    <dependency>-->
-<!--                        <groupId>com.puppycrawl.tools</groupId>-->
-<!--                        <artifactId>checkstyle</artifactId>-->
-<!--                        <version>8.29</version>-->
-<!--                    </dependency>-->
-<!--                </dependencies>-->
-<!--            </plugin>-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <version>3.1.1</version>
+                <configuration>
+                    <sourceDirectories>
+                        <sourceDirectory>src/main/java</sourceDirectory>
+                        <sourceDirectory>src/test/java</sourceDirectory>
+                    </sourceDirectories>
+                    <failsOnError>true</failsOnError>
+                    <configLocation>checkstyle.xml</configLocation>
+                    <consoleOutput>true</consoleOutput>
+                    <linkXRef>false</linkXRef>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>checkstyle</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <dependencies>
+                    <dependency>
+                        <groupId>com.puppycrawl.tools</groupId>
+                        <artifactId>checkstyle</artifactId>
+                        <version>8.36.2</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
 
-<!--            <plugin>-->
-<!--                <groupId>com.github.spotbugs</groupId>-->
-<!--                <artifactId>spotbugs-maven-plugin</artifactId>-->
-<!--                <version>3.1.12.2</version>-->
-<!--                <configuration>-->
-<!--                    <includeTests>false</includeTests>-->
-<!--                    <effort>Max</effort>-->
-<!--                    <threshold>Low</threshold>-->
-<!--                    <excludeFilterFile>spotbugs-exclude.xml</excludeFilterFile>-->
-<!--                    <plugins>-->
-<!--                        <plugin>-->
-<!--                            <groupId>com.mebigfatguy.fb-contrib</groupId>-->
-<!--                            <artifactId>fb-contrib</artifactId>-->
-<!--                            <version>7.4.3.sb</version>-->
-<!--                        </plugin>-->
-<!--                    </plugins>-->
-<!--                </configuration>-->
-<!--                <executions>-->
-<!--                    <execution>-->
-<!--                        <phase>compile</phase>-->
-<!--                        <goals>-->
-<!--                            <goal>check</goal>-->
-<!--                        </goals>-->
-<!--                    </execution>-->
-<!--                    <execution>-->
-<!--                        <id>findbugs-test-compile</id>-->
-<!--                        <phase>test-compile</phase>-->
-<!--                        <goals>-->
-<!--                            <goal>check</goal>-->
-<!--                        </goals>-->
-<!--                    </execution>-->
-<!--                </executions>-->
-<!--                <dependencies>-->
-<!--                    <dependency>-->
-<!--                        <groupId>com.github.spotbugs</groupId>-->
-<!--                        <artifactId>spotbugs</artifactId>-->
-<!--                        <version>4.0.0</version>-->
-<!--                        <scope>compile</scope>-->
-<!--                    </dependency>-->
-<!--                </dependencies>-->
-<!--            </plugin>-->
+            <plugin>
+                <groupId>com.github.spotbugs</groupId>
+                <artifactId>spotbugs-maven-plugin</artifactId>
+                <version>4.1.3</version>
+                <configuration>
+                    <includeTests>false</includeTests>
+                    <effort>Max</effort>
+                    <threshold>Low</threshold>
+                    <excludeFilterFile>spotbugs-exclude.xml</excludeFilterFile>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>findbugs-test-compile</id>
+                        <phase>test-compile</phase>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <dependencies>
+                    <dependency>
+                        <groupId>com.github.spotbugs</groupId>
+                        <artifactId>spotbugs</artifactId>
+                        <version>4.1.3</version>
+                        <scope>compile</scope>
+                    </dependency>
+                </dependencies>
+            </plugin>
 
             <plugin>
                 <groupId>org.pitest</groupId>
                 <artifactId>pitest-maven</artifactId>
-                <version>1.5.0</version>
+                <version>1.5.2</version>
                 <configuration>
                     <mutationEngine>descartes</mutationEngine>
                     <excludedClasses>

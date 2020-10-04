@@ -653,7 +653,7 @@ public class PSTLatexdrawListener extends PSTCtxListener {
 					ctx.pstctx.numberToDouble(ctx.NUMBER(1).getSymbol()), ctx.pstctx.numberToDouble(ctx.NUMBER(2).getSymbol())) : null;
 			case "gray" -> //NON-NLS
 				DviPsColors.INSTANCE.convertgray2rgb(ctx.pstctx.numberToDouble(ctx.NUMBER(0).getSymbol()));
-			case "HTML"-> //NON-NLS
+			case "HTML" -> //NON-NLS
 				DviPsColors.INSTANCE.convertHTML2rgb(ctx.HEXA().getText());
 			case "cmyk" -> //NON-NLS
 				ctx.NUMBER().size() == 4 ? DviPsColors.INSTANCE.convertcmyk2rgb(

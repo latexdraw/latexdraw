@@ -247,15 +247,16 @@ public class PSTContext {
 				rputAngle += angle;
 			}
 		}else {
-			switch(put.getText()) {
-				case "L" -> rputAngle += -Math.PI / 2d; //NON-NLS
-				case "D" -> rputAngle += -Math.PI; //NON-NLS
-				case "R" -> rputAngle += -3d * Math.PI / 2d; //NON-NLS
-				case "N" -> rputAngle = 0d; //NON-NLS
-				case "W" -> rputAngle = -Math.PI / 2d; //NON-NLS
-				case "S" -> rputAngle = -Math.PI; //NON-NLS
-				case "E" -> rputAngle = -3d * Math.PI / 2d; //NON-NLS
-			}
+			rputAngle = switch(put.getText()) {
+				case "L" -> rputAngle + -Math.PI / 2d; //NON-NLS
+				case "D" -> rputAngle + -Math.PI; //NON-NLS
+				case "R" -> rputAngle + -3d * Math.PI / 2d; //NON-NLS
+				case "N" -> 0d; //NON-NLS
+				case "W" -> -Math.PI / 2d; //NON-NLS
+				case "S" -> -Math.PI; //NON-NLS
+				case "E" -> -3d * Math.PI / 2d; //NON-NLS
+				default -> rputAngle;
+			};
 		}
 	}
 

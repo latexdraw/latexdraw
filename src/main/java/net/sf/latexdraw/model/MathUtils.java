@@ -88,7 +88,7 @@ public final class MathUtils {
 	}
 
 	/**
-	 * Computes the altitude ha of the <b>right-triangle<b> ABC, right in A.
+	 * Computes the altitude ha of the right-triangle ABC, right in A.
 	 * @param a The point A.
 	 * @param b The point B.
 	 * @param c The point C.

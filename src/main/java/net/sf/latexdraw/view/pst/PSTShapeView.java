@@ -241,12 +241,11 @@ public abstract class PSTShapeView<S extends Shape> {
 	 * @return The PSTricks code of the border position.
 	 */
 	protected StringBuilder getBorderPositionCode() {
-		return shape.isBordersMovable() ?
-			switch(shape.getBordersPosition()) {
-				case INTO -> new StringBuilder().append("dimen=").append(PSTricksConstants.BORDERS_INSIDE); //NON-NLS
-				case MID -> new StringBuilder().append("dimen=").append(PSTricksConstants.BORDERS_MIDDLE); //NON-NLS
-				case OUT -> new StringBuilder().append("dimen=").append(PSTricksConstants.BORDERS_OUTSIDE); //NON-NLS
-			} : null;
+		return shape.isBordersMovable() ? switch(shape.getBordersPosition()) {
+			case INTO -> new StringBuilder().append("dimen=").append(PSTricksConstants.BORDERS_INSIDE); //NON-NLS
+			case MID -> new StringBuilder().append("dimen=").append(PSTricksConstants.BORDERS_MIDDLE); //NON-NLS
+			case OUT -> new StringBuilder().append("dimen=").append(PSTricksConstants.BORDERS_OUTSIDE); //NON-NLS
+		} : null;
 	}
 
 

@@ -27,6 +27,10 @@
     <module name="TreeWalker">
         <module name="JavadocContentLocationCheck"/>
         <module name="NoArrayTrailingComma"/>
+        <module name="NoEnumTrailingComma" />
+        <module name="AvoidDoubleBraceInitialization"/>
+        <module name="JavadocMissingWhitespaceAfterAsterisk"/>
+        <module name="UnnecessarySemicolonAfterOuterTypeDeclaration"/>
         <module name="UnnecessarySemicolonAfterTypeMemberDeclaration"/>
         <module name="UnnecessarySemicolonInEnumeration"/>
         <module name="UnnecessaryParentheses"/>
