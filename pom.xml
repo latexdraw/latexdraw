@@ -6,11 +6,11 @@
     <artifactId>latexdraw</artifactId>
     <name>LaTeXDraw</name>
     <description>A vector drawing editor for LaTeX</description>
-    <version>4.0.2-SNAPSHOT</version>
+    <version>4.0.2</version>
     <packaging>jar</packaging>
 
     <properties>
-        <interacto.version>4.3-SNAPSHOT</interacto.version>
+        <interacto.version>4.3.0</interacto.version>
         <antlr.version>4.7.1</antlr.version>
         <java.version>14</java.version>
         <junit.version>5.6.0</junit.version>
