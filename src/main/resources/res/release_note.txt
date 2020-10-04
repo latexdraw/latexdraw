@@ -1,14 +1,13 @@
 ************************************************************
-Version 4.0.1 -- 2020-04-13
+Version 4.0.2 -- 2020-10-04
 
-- fix: the app does not start with a OS language not supported
-- fix/change: instead of requiring the tool ImageMagick to convert pdd to png thumbnails,
-  the app now uses pdftoppm, which is provided by LaTeX distributions
-- fix: export using LaTeX does not work on Windows
-- fix: the LaTeX 'text position' had no graphical effect
-- fix: issues in translation files
-- fix: the app may not stop correctly
-- fix: some actions do not work on start because of an configuration issue
-- fix: Windows prevents parallel LaTeX compilations (this had an impact on the text rendering that may fail)
-- translations updated
-- no more export using pdfcrop as the exported pdf files should now be cropped natively
+- improvement: better ctrl-scroll zooming (consider the pointer)
+- fix: thumbnails creation did not work on MacOSX
+- fix: Text position ignored when loading a file
+- fix: Zoom spinner not updated on file loading
+- fix: Rounded rectangle not correctly rendered
+- fix: setting the position of a shape manually did not work as expected
+- fix: better resolution of the app icons
+- fix: invalid tooltips
+- fix issue with shortcuts on mac
+- change: we removed the use of the shared templates folder
