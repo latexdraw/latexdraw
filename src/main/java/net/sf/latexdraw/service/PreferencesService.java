@@ -215,7 +215,7 @@ public class PreferencesService {
 
 	public @NotNull List<Locale> getSupportedLocales() {
 		return Stream.of("ar", "ca", "cs", "de", "en-GB", "en-US", "es", "fr", "gl", "hu", "it", "iw", "ja", //NON-NLS
-			"nl", "oc", "pl", "pt", "pt-BR", "ru", "si", "sr", "sv", "ta", "tr", "uk", "vi", "zh-CN") //NON-NLS
+			"nl", "oc", "pl", "pt", "pt-BR", "ru", "si", "sr", "sv", "ta", "tr", "uk", "vi", "zh-CN", "zh-TW") //NON-NLS
 			.map(id -> Locale.forLanguageTag(id)).collect(Collectors.toList());
 	}
 

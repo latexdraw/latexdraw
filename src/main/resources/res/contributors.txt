@@ -5,6 +5,7 @@ Translations:
 Brazilian Portuguese: Emerson Vinicius, José Humberto Alvarenga Melo, Matheus de Araújo, Eugênio F, Joao Luiz, kaio duarte dos santos, Felipe Cabral, Matheus Cavalcante
 Catalan: Marc Coll Carrillo, Manel Velasco, gaviooota
 Chinese (Simplified): duguxy, Wylmer Wang, Dake Feng, Justin Lei GAO, Aron Xu
+Chinese (Traditional): Michael Tsao
 Czech: Michal Janoušek
 Dutch: Corona, Tom S
 English-UK: Arnaud Blouin, Malcolm Parsons
