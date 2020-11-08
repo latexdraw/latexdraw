@@ -7,6 +7,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import net.sf.latexdraw.data.ShapeData;
+import net.sf.latexdraw.data.ShapeSupplier;
 import net.sf.latexdraw.model.api.shape.Picture;
 import net.sf.latexdraw.model.api.shape.Point;
 import net.sf.latexdraw.model.api.shape.Shape;
@@ -92,6 +93,52 @@ public class TestCanvasTranslation extends BaseTestCanvas {
 
 		assertEquals(tl.getX() + 101d, sh.getTopLeftPoint().getX(), 5d);
 		assertEquals(tl.getY() + 163d, sh.getTopLeftPoint().getY(), 5d);
+	}
+
+	@Test
+	public void testShapeTranslationWithZoom50() {
+		final var sh = ShapeSupplier.createRectangle();
+
+		Cmds.of(CmdFXVoid.of(() -> {
+			canvas.getSelectionBorder().setFill(new Color(1d, 1d, 1d, 0.1d));
+			sh.setFilled(true);
+			sh.translate(-canvas.getOrigin().getX(), -canvas.getOrigin().getY());
+			canvas.getDrawing().addShape(sh);
+			canvas.getDrawing().setSelection(List.of(sh));
+			canvas.setZoom(Double.NaN, Double.NaN, 0.5);
+		}), requestFocusCanvas).execute();
+
+		final Point tl = sh.getTopLeftPoint();
+
+		Cmds
+			.of(() -> drag(canvas.getSelectionBorder()).dropBy(100, 160))
+			.execute();
+
+		assertEquals(tl.getX() + 200d, sh.getTopLeftPoint().getX(), 5d);
+		assertEquals(tl.getY() + 320d, sh.getTopLeftPoint().getY(), 5d);
+	}
+
+	@Test
+	public void testShapeTranslationWithZoom120() {
+		final var sh = ShapeSupplier.createRectangle();
+
+		Cmds.of(CmdFXVoid.of(() -> {
+			canvas.getSelectionBorder().setFill(new Color(1d, 1d, 1d, 0.1d));
+			sh.setFilled(true);
+			sh.translate(-canvas.getOrigin().getX(), -canvas.getOrigin().getY());
+			canvas.getDrawing().addShape(sh);
+			canvas.getDrawing().setSelection(List.of(sh));
+			canvas.setZoom(Double.NaN, Double.NaN, 1.2);
+		}), requestFocusCanvas).execute();
+
+		final Point tl = sh.getTopLeftPoint();
+
+		Cmds
+			.of(() -> drag(canvas.getSelectionBorder()).dropBy(100, 160))
+			.execute();
+
+		assertEquals(tl.getX() + (100d / 1.2), sh.getTopLeftPoint().getX(), 5d);
+		assertEquals(tl.getY() + (160d / 1.2), sh.getTopLeftPoint().getY(), 5d);
 	}
 
 	@Test
