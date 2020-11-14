@@ -24,7 +24,7 @@ public enum ExportFormat {
 	TEX {
 		@Override
 		public @NotNull FileChooser.ExtensionFilter getFilter() {
-			return new FileChooser.ExtensionFilter("TeX", "*." + getFileExtension()); //NON-NLS
+			return new FileChooser.ExtensionFilter("TeX", "*" + getFileExtension()); //NON-NLS
 		}
 
 		@Override
