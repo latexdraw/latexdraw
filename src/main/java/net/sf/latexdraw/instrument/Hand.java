@@ -160,11 +160,11 @@ public class Hand extends CanvasInstrument implements Flushable {
 			.on(canvas.getViews().getChildren())
 			.first((i, c) ->
 				getViewShape(i.getSrcObject()).map(src -> src.getModel()).ifPresent(targetSh -> {
-					if(i.isShiftPressed()) {
+					if(i.isShiftDown()) {
 						canvas.getDrawing().getSelection().getShapes().stream().filter(sh -> sh != targetSh).forEach(sh -> c.addShape(sh));
 						return;
 					}
-					if(i.isCtrlPressed()) {
+					if(i.isCtrlDown()) {
 						canvas.getDrawing().getSelection().getShapes().forEach(sh -> c.addShape(sh));
 						c.addShape(targetSh);
 						return;
@@ -174,7 +174,7 @@ public class Hand extends CanvasInstrument implements Flushable {
 			// May be in conflict with dnd for translating:
 			// a pressure is required to then translate a shape, but without this condition
 			// this binding first selects the pressed shape only (so cannot translate all the selected shapes).
-			.when(i -> i.isShiftPressed() || !canvas.getSelectedViews().contains(getViewShape(i.getSrcObject()).orElse(null)))
+			.when(i -> i.isShiftDown() || !canvas.getSelectedViews().contains(getViewShape(i.getSrcObject()).orElse(null)))
 			.bind();
 
 		// A simple pressure on the canvas deselects the shapes
@@ -182,7 +182,7 @@ public class Hand extends CanvasInstrument implements Flushable {
 			.usingInteraction(Press::new)
 			.toProduce(() -> new SelectShapes(canvas.getDrawing()))
 			.on(canvas)
-			.when(i -> i.getSrcObject().orElse(null) instanceof Canvas && !i.isCtrlPressed() && !i.isShiftPressed())
+			.when(i -> i.getSrcObject().orElse(null) instanceof Canvas && !i.isCtrlDown() && !i.isShiftDown())
 			.bind();
 	}
 
@@ -237,13 +237,13 @@ public class Hand extends CanvasInstrument implements Flushable {
 				canvas.setOngoingSelectionBorder(selectionBorder);
 
 				final List<Shape> selected = canvas.getIntersectedShapes(selectionBorder);
-				if(i.isCtrlPressed()) {
+				if(i.isCtrlDown()) {
 					Stream.concat(canvas.getDrawing().getSelection().getShapes().stream(), selected.stream())
 						.distinct()
 						.forEach(s -> c.addShape(s));
 					return;
 				}
-				if(i.isShiftPressed()) {
+				if(i.isShiftDown()) {
 					final ArrayList<Shape> currSelection = new ArrayList<>(canvas.getDrawing().getSelection().getShapes());
 					currSelection.removeAll(selected);
 					currSelection.forEach(s -> c.addShape(s));

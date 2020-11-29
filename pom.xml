@@ -10,7 +10,7 @@
     <packaging>jar</packaging>
 
     <properties>
-        <interacto.version>4.3.0</interacto.version>
+        <interacto.version>4.3.1-SNAPSHOT</interacto.version>
         <antlr.version>4.7.1</antlr.version>
         <java.version>14</java.version>
         <junit.version>5.7.0</junit.version>
