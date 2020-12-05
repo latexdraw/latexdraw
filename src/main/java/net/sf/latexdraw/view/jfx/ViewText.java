@@ -100,8 +100,8 @@ public class ViewText extends ViewPositionShape<Text> {
 
 		text.translateYProperty().bind(Bindings.createDoubleBinding(() -> switch(model.getTextPosition()) {
 			case BOT_LEFT, BOT, BOT_RIGHT -> 0d;
-			case TOP_LEFT, TOP, TOP_RIGHT -> -text.getBoundsInLocal().getHeight();
-			case LEFT, RIGHT, CENTER -> -text.getBoundsInLocal().getHeight() / 2d;
+			case TOP_LEFT, TOP, TOP_RIGHT -> text.getBoundsInLocal().getHeight();
+			case LEFT, RIGHT, CENTER -> text.getBoundsInLocal().getHeight() / 2d;
 		}, model.textPositionProperty()));
 	}
 
@@ -164,8 +164,8 @@ public class ViewText extends ViewPositionShape<Text> {
 			});
 			compiledText.setTranslateY(switch(model.getTextPosition()) {
 				case BOT_LEFT, BOT, BOT_RIGHT -> 0d;
-				case TOP_LEFT, TOP, TOP_RIGHT -> -compiledText.getImage().getHeight() / 2d;
-				case LEFT, RIGHT, CENTER -> -compiledText.getImage().getHeight() / 4d;
+				case TOP_LEFT, TOP, TOP_RIGHT -> compiledText.getImage().getHeight() / 2d;
+				case LEFT, RIGHT, CENTER -> compiledText.getImage().getHeight() / 4d;
 			});
 		}
 	}
