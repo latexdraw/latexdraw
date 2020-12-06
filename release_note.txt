@@ -1,2 +1,8 @@
 ************************************************************
-Version 4.0.3 --
+Version 4.0.3 -- 06-12-20
+
+* new(i18n): Chinese (Traditional), by Michael Tsao @microwave54
+* fix(ui): Freeze when using key shortcuts
+* fix(ui): Objects being dragged move faster than the mouse cursor #37
+* fix(ui): TeX file export extension, by @ahresse
+* fix(ui): Text positions not correctly exported as PDF #41

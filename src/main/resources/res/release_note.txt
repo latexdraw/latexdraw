@@ -1,13 +1,8 @@
 ************************************************************
-Version 4.0.2 -- 2020-10-04
+Version 4.0.3 -- 06-12-20
 
-- improvement: better ctrl-scroll zooming (consider the pointer)
-- fix: thumbnails creation did not work on MacOSX
-- fix: Text position ignored when loading a file
-- fix: Zoom spinner not updated on file loading
-- fix: Rounded rectangle not correctly rendered
-- fix: setting the position of a shape manually did not work as expected
-- fix: better resolution of the app icons
-- fix: invalid tooltips
-- fix issue with shortcuts on mac
-- change: we removed the use of the shared templates folder
+* new(i18n): Chinese (Traditional), by Michael Tsao @microwave54
+* fix(ui): Freeze when using key shortcuts
+* fix(ui): Objects being dragged move faster than the mouse cursor #37
+* fix(ui): TeX file export extension, by @ahresse
+* fix(ui): Text positions not correctly exported as PDF #41

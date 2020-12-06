@@ -26,7 +26,7 @@ import net.sf.latexdraw.instrument.StatusBarController;
  */
 public final class VersionChecker implements Runnable {
 	/** The version of the application */
-	public static final String VERSION = "4.0.2"; //NON-NLS
+	public static final String VERSION = "4.0.3"; //NON-NLS
 
 	/** The stability of the build. */
 	public static final String VERSION_STABILITY = ""; //NON-NLS
