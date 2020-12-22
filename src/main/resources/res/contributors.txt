@@ -5,7 +5,7 @@ Translations:
 Brazilian Portuguese: Emerson Vinicius, José Humberto Alvarenga Melo, Matheus de Araújo, Eugênio F, Joao Luiz, kaio duarte dos santos, Felipe Cabral, Matheus Cavalcante
 Catalan: Marc Coll Carrillo, Manel Velasco, gaviooota
 Chinese (Simplified): duguxy, Wylmer Wang, Dake Feng, Justin Lei GAO, Aron Xu
-Chinese (Traditional): Michael Tsao
+Chinese (Traditional): Distance Learning Center at the Chinese Culture University through the Open Source Software for School project
 Czech: Michal Janoušek
 Dutch: Corona, Tom S
 English-UK: Arnaud Blouin, Malcolm Parsons
